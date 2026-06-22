@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio — Unicorn Events</title>
+
+    <meta name="description"
+        content="Explore Unicorn Events portfolio featuring events, branding, activations and weddings." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/portfolio.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div data-component="navbar"></div>
+
+    <section class="portfolio-section">
+        <div class="container">
+
+            <div class="section-header">
+                <span class="sub-title">OUR WORK</span>
+                <h2>Featured Portfolio</h2>
+            </div>
+
+            <div class="portfolio-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="Events">Events</button>
+                <button class="filter-btn" data-filter="Branding">Branding</button>
+                <button class="filter-btn" data-filter="Activation">Activation</button>
+                <button class="filter-btn" data-filter="Wedding">Wedding</button>
+            </div>
+
+            <div class="portfolio-grid" id="portfolioGrid">
+                <p class="portfolio-loading" style="opacity:.6;padding:2rem 0;">Loading portfolio…</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- IMAGE POPUP -->
+    <div class="image-popup" id="imagePopup">
+        <span class="close-popup">&times;</span>
+        <img id="popupImage" src="" alt="">
+    </div>
+
+    <!-- FOOTER -->
+    <div data-component="footer"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/portfolio.js"></script>
+
+</body>
+
+</html>

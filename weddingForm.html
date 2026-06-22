@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Planning — Unicorn Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="./css/weddingForm.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+    <div data-component="navbar"></div>
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <span class="hero-eyebrow">Unicorn Events</span>
+            <h1 class="hero-title">Wedding <em>Planning</em></h1>
+            <p class="hero-sub">Tell us about your dream day. Our wedding specialists will craft an experience that is
+                uniquely, beautifully yours.</p>
+        </div>
+    </section>
+
+    <!-- ── FORM ── -->
+    <main class="page-main">
+        <div class="page-container">
+
+            <form id="weddingForm" novalidate>
+
+                <!-- ════ 1. PERSONAL DETAILS ════ -->
+                <div class="form-section">
+                    <div class="section-eyebrow">Step 01</div>
+                    <h2 class="section-title">Personal <em>Details</em></h2>
+                    <div class="section-divider"></div>
+
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <div class="field" id="f-name">
+                                <label for="name">Full Name <span>*</span></label>
+                                <input type="text" id="name" name="name" placeholder="Your full name" required />
+                            </div>
+                            <div class="field" id="f-mobile">
+                                <label for="mobile">Mobile Number <span>*</span></label>
+                                <input type="tel" id="mobile" name="mobile" placeholder="+91 XXXXX XXXXX" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="field" id="f-email">
+                                <label for="email">Email ID <span>*</span></label>
+                                <input type="email" id="email" name="email" placeholder="your@email.com" required />
+                            </div>
+                            <div class="field" id="f-city">
+                                <label for="city">City <span>*</span></label>
+                                <input type="text" id="city" name="city" placeholder="Your city" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ════ 2. WEDDING DETAILS ════ -->
+                <div class="form-section">
+                    <div class="section-eyebrow section-center">Step 02</div>
+                    <h2 class="section-title">The <em>Big Day</em></h2>
+                    <div class="section-divider"></div>
+
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <div class="field" id="f-bride">
+                                <label for="bride">Bride's Name <span>*</span></label>
+                                <input type="text" id="bride" name="bride_name" placeholder="Bride's full name"
+                                    required />
+                            </div>
+                            <div class="field" id="f-groom">
+                                <label for="groom">Groom's Name <span>*</span></label>
+                                <input type="text" id="groom" name="groom_name" placeholder="Groom's full name"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="field" id="f-date">
+                                <label for="wdate">Wedding Date <span>*</span></label>
+                                <input type="date" id="wdate" name="wedding_date" required />
+                            </div>
+                            <div class="field" id="f-venue">
+                                <label for="venue">Venue Location <span>*</span></label>
+                                <input type="text" id="venue" name="venue_location" placeholder="City, venue or area"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="field" id="f-guests">
+                                <label for="guests">Number of Guests <span>*</span></label>
+                                <input type="number" id="guests" name="guests" placeholder="Approximate guest count"
+                                    min="1" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ════ 4. BUDGET ════ -->
+                <div class="form-section">
+                    <div class="section-eyebrow">Step 03</div>
+                    <h2 class="section-title">Budget <em>Planning</em></h2>
+                    <div class="section-divider"></div>
+
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <div class="field" id="f-budget">
+                                <label for="budget">Expected Budget <span>*</span></label>
+                                <div class="budget-wrapper">
+                                    <span class="budget-prefix">₹</span>
+                                    <input type="number" id="budget" name="budget"
+                                        placeholder="Enter your estimated budget" min="0" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ════ 5. PREFERENCES ════ -->
+                <div class="form-section">
+                    <div class="section-eyebrow">Step 04</div>
+                    <h2 class="section-title">Your <em>Preferences</em></h2>
+                    <div class="section-divider"></div>
+
+                    <div class="form-grid">
+                        <div class="field">
+                            <label>Venue Preference <span>*</span></label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="venue_type" value="Indoor" required />
+                                    <span class="radio-mark"></span>
+                                    Indoor
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="venue_type" value="Outdoor" />
+                                    <span class="radio-mark"></span>
+                                    Outdoor
+                                </label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Types of Events</label>
+                            <div class="services-wrapper" id="eventsWrapper">
+                                <div class="services-trigger" id="eventsTrigger" tabindex="0">
+                                    <span class="services-trigger-text" id="eventsTriggerText">Choose event
+                                        types…</span>
+                                    <svg class="services-chevron" id="eventsChevron" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </div>
+                                <div class="services-dropdown" id="eventsDropdown">
+                                    <label class="service-option">
+                                        <input type="checkbox" name="event_types" value="Wedding" />
+                                        <span class="service-checkmark"></span>
+                                        <span class="service-option-label">Wedding</span>
+                                    </label>
+                                    <label class="service-option">
+                                        <input type="checkbox" name="event_types" value="Haldi" />
+                                        <span class="service-checkmark"></span>
+                                        <span class="service-option-label">Haldi</span>
+                                    </label>
+                                    <label class="service-option">
+                                        <input type="checkbox" name="event_types" value="Sangeet" />
+                                        <span class="service-checkmark"></span>
+                                        <span class="service-option-label">Sangeet</span>
+                                    </label>
+                                    <label class="service-option">
+                                        <input type="checkbox" name="event_types" value="Reception" />
+                                        <span class="service-checkmark"></span>
+                                        <span class="service-option-label">Reception</span>
+                                    </label>
+                                    <label class="service-option">
+                                        <input type="checkbox" name="event_types" value="Mehendi" />
+                                        <span class="service-checkmark"></span>
+                                        <span class="service-option-label">Mehendi</span>
+                                    </label>
+                                    <label class="service-option">
+                                        <input type="checkbox" name="event_types" value="Other"
+                                            id="eventOtherCheckbox" />
+                                        <span class="service-checkmark"></span>
+                                        <span class="service-option-label">Other</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div id="eventOtherField" style="display:none;margin-top:10px;">
+                                <input type="text" id="eventOtherText" name="event_other"
+                                    placeholder="Please specify the event type…" />
+                            </div>
+                        </div>
+
+
+
+                        <div class="field">
+                            <label for="special">Special Requirements</label>
+                            <textarea id="special" name="special_requirements"
+                                placeholder="Any special requests, dietary needs, cultural traditions, accessibility requirements…"></textarea>
+                        </div>
+
+                        <div class="submit-row">
+                            <p class="submit-note">
+                                <strong>Your data is safe.</strong><br>
+                                Details will be sent directly to our wedding team at<br>unicornevents2007@gmail.com
+                            </p>
+                            <button type="submit" class="submit-btn">
+                                <span class="submit-btn-text">Submit Enquiry</span>
+                                <span class="submit-arrow">→</span>
+                            </button>
+                        </div>
+                        <p id="sendError"
+                            style="display:none;color:rgba(220,80,80,0.85);font-size:0.8rem;margin-top:12px;">
+                            ⚠ Failed to send. Please check your EmailJS configuration or contact us directly at
+                            unicornevents2007@gmail.com
+                        </p>
+                    </div>
+                </div>
+        </div>
+
+
+
+
+
+        </form>
+
+        <div data-component="footer"></div>
+
+        <!-- Success message -->
+        <div class="form-success" id="formSuccess">
+            <div class="success-icon">✓</div>
+            <h4>Enquiry Received!</h4>
+            <p>Thank you for reaching out. Your wedding planning details have been sent to our team. We'll get back to
+                you within 24 hours to begin crafting your perfect day.</p>
+        </div>
+
+        </div><!-- /page-container -->
+    </main>
+    <script src="./js/weddingForm.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/api.js"></script>
+    <script src="./js//components.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+.brands-marquee-section {
+    padding: 100px 0;
+    background: #0f1115;
+    overflow: hidden;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-heading span {
+    color: #c8a54b;
+    letter-spacing: 2px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.section-heading h2 {
+    color: #fff;
+    font-size: 48px;
+    margin-top: 15px;
+}
+
+.marquee-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.marquee-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: marqueeMove 30s linear infinite;
+    padding: 20px;
+}
+
+.marquee-wrapper:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+.brand-item {
+    min-width: 260px;
+    margin: 0 15px;
+    padding: 30px;
+    background: #171b22;
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: .4s ease;
+}
+
+.brand-item:hover {
+    transform: translateY(-8px);
+    border-color: #c8a54b;
+
+    box-shadow:
+        0 0 25px rgba(200, 165, 75, .2);
+}
+
+.brand-item img {
+    width: 300px;
+    height: 90px;
+    object-fit: contain;
+
+    filter: grayscale(100%);
+    opacity: .8;
+    transition: .4s;
+}
+
+.brand-item:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.brand-item h4 {
+    color: #fff;
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+@keyframes marqueeMove {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* Tablet */
+
+@media(max-width:991px) {
+
+    .section-heading h2 {
+        font-size: 36px;
+    }
+
+    .brand-item {
+        min-width: 180px;
+    }
+
+    .brand-item img {
+        width: 100px;
+    }
+}
+
+/* Mobile */
+
+@media(max-width:576px) {
+
+    .brands-marquee-section {
+        padding: 70px 0;
+    }
+
+    .section-heading h2 {
+        font-size: 30px;
+    }
+
+    .brand-item {
+        min-width: 150px;
+        padding: 20px;
+    }
+
+    .brand-item img {
+        width: 80px;
+        height: 50px;
+    }
+
+    .brand-item h4 {
+        font-size: 13px;
+    }
+}
