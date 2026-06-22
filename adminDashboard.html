@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Unicorn Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/adminDashboard.css">
+</head>
+
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-section">
+                    <h1 class="logo">Unicorn Events</h1>
+
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link active" data-section="dashboard">
+                            <span class="nav-icon">📊</span>
+                            <span class="nav-text">Dashboard</span>
+                        </a></li>
+                    <li><a href="#" class="nav-link" data-section="contact-enquiries">
+                            <span class="nav-icon">📧</span>
+                            <span class="nav-text">Contact Enquiries</span>
+                        </a></li>
+                    <li><a href="#" class="nav-link" data-section="wedding-enquiries">
+                            <span class="nav-icon">💍</span>
+                            <span class="nav-text">Wedding Enquiries</span>
+                        </a></li>
+                    <li><a href="#" class="nav-link" data-section="settings">
+                            <span class="nav-icon">⚙️</span>
+                            <span class="nav-text">Settings</span>
+                        </a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn">
+                    <span class="logout-icon">🚪</span>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <h2 class="page-title" id="pageTitle">Dashboard</h2>
+                    <p class="page-subtitle" id="pageSubtitle">Welcome back to your admin panel</p>
+                </div>
+            </header>
+
+            <!-- Dashboard Content Area -->
+            <div class="content-area">
+
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="section active">
+                    <div class="dashboard-grid">
+                        <!-- Stats Cards -->
+                        <div class="stats-container">
+                            <div class="stat-card">
+                                <div class="stat-icon contact-icon">📧</div>
+                                <div class="stat-content">
+                                    <p class="stat-label">Contact Enquiries</p>
+                                    <h3 class="stat-number" id="contactCount">0</h3>
+                                    <p class="stat-subtext">Total inquiries</p>
+                                </div>
+                            </div>
+
+                            <div class="stat-card">
+                                <div class="stat-icon wedding-icon">💍</div>
+                                <div class="stat-content">
+                                    <p class="stat-label">Wedding Enquiries</p>
+                                    <h3 class="stat-number" id="weddingCount">0</h3>
+                                    <p class="stat-subtext">Total bookings</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <!-- Recent Enquiries Preview -->
+                        <div class="recent-section">
+                            <div class="section-header-inline">
+                                <h3>Recent Enquiries</h3>
+                                <a href="#" class="view-all-link" data-goto="contact-enquiries">View All →</a>
+                            </div>
+                            <div class="recent-list" id="recentEnquiries">
+                                <p class="empty-state">No enquiries yet</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact Enquiries Section -->
+                <section id="contact-enquiries" class="section">
+                    <div class="section-header-main">
+                        <h2>Contact Enquiries</h2>
+                        <div class="filter-sort">
+                            <select id="contactSort" class="filter-select">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="name">By Name</option>
+                            </select>
+                            <input type="text" id="contactSearch" class="search-input"
+                                placeholder="Search by name or email...">
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-name">Name</th>
+                                    <th class="col-email">Email</th>
+                                    <th class="col-phone">Phone</th>
+                                    <th class="col-service">Service</th>
+                                    <th class="col-date">Date</th>
+                                    <th class="col-status">Status</th>
+                                    <th class="col-actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contactTable">
+                                <tr class="empty-row">
+                                    <td colspan="7" class="empty-message">No contact enquiries found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Wedding Enquiries Section -->
+                <section id="wedding-enquiries" class="section">
+                    <div class="section-header-main">
+                        <h2>Wedding Enquiries</h2>
+                        <div class="filter-sort">
+                            <select id="weddingSort" class="filter-select">
+                                <option value="newest">Newest First</option>
+                                <option value="date">By Event Date</option>
+                                <option value="budget">By Budget</option>
+                            </select>
+                            <input type="text" id="weddingSearch" class="search-input" placeholder="Search by name...">
+                        </div>
+                    </div>
+
+                    <div class="cards-container">
+                        <div id="weddingCards" class="cards-grid">
+                            <p class="empty-state">No wedding enquiries found</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Analytics Section -->
+                <section id="analytics" class="section">
+                    <div class="section-header-main">
+                        <h2>Analytics & Insights</h2>
+                    </div>
+
+                    <div class="analytics-grid">
+                        <div class="chart-card">
+                            <h3>Enquiries by Type</h3>
+                            <div class="chart-placeholder">
+                                <div class="pie-chart">
+                                    <div class="pie-segment wedding" style="--percentage: 60">Wedding</div>
+                                    <div class="pie-segment contact" style="--percentage: 40">Contact</div>
+                                </div>
+                                <div class="chart-legend">
+                                    <div class="legend-item">
+                                        <span class="legend-color wedding"></span>
+                                        <span>Wedding: <strong id="pieWedding">0</strong></span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-color contact"></span>
+                                        <span>Contact: <strong id="pieContact">0</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <h3>Enquiries Timeline</h3>
+                            <div class="timeline-chart" id="timelineChart">
+                                <p style="text-align: center; color: var(--fg2);">Loading data...</p>
+                            </div>
+                        </div>
+
+                        <div class="chart-card full-width">
+                            <h3>Budget Distribution</h3>
+                            <div class="budget-bars">
+                                <div class="budget-bar-item">
+                                    <div class="budget-label">0 - 5 Lakhs</div>
+                                    <div class="budget-bar">
+                                        <div class="budget-fill" id="budgetBar1" style="width: 0%"></div>
+                                    </div>
+                                    <div class="budget-count" id="budgetCount1">0</div>
+                                </div>
+                                <div class="budget-bar-item">
+                                    <div class="budget-label">5 - 15 Lakhs</div>
+                                    <div class="budget-bar">
+                                        <div class="budget-fill" id="budgetBar2" style="width: 0%"></div>
+                                    </div>
+                                    <div class="budget-count" id="budgetCount2">0</div>
+                                </div>
+                                <div class="budget-bar-item">
+                                    <div class="budget-label">15 - 30 Lakhs</div>
+                                    <div class="budget-bar">
+                                        <div class="budget-fill" id="budgetBar3" style="width: 0%"></div>
+                                    </div>
+                                    <div class="budget-count" id="budgetCount3">0</div>
+                                </div>
+                                <div class="budget-bar-item">
+                                    <div class="budget-label">30+ Lakhs</div>
+                                    <div class="budget-bar">
+                                        <div class="budget-fill" id="budgetBar4" style="width: 0%"></div>
+                                    </div>
+                                    <div class="budget-count" id="budgetCount4">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="section">
+                    <div class="section-header-main">
+                        <h2>Settings</h2>
+                    </div>
+
+                    <div class="settings-container">
+                        <div class="settings-card">
+                            <h3>Data Management</h3>
+                            <div class="settings-options">
+                                <button class="settings-btn export-btn" id="exportBtn">
+                                    📥 Export Data as JSON
+                                </button>
+                                <button class="settings-btn clear-btn" id="clearBtn">
+                                    🗑️ Clear All Data
+                                </button>
+                                <button class="settings-btn import-btn" id="importBtn">
+                                    📤 Import Data
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <h3>Display Preferences</h3>
+                            <div class="settings-toggle">
+                                <label class="toggle-item">
+                                    <input type="checkbox" id="darkModeToggle" checked>
+                                    <span class="toggle-label">Dark Mode</span>
+                                </label>
+                                <label class="toggle-item">
+                                    <input type="checkbox" id="notificationsToggle" checked>
+                                    <span class="toggle-label">Show Notifications</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for View Details -->
+    <div class="modal" id="detailsModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">✕</button>
+            <div id="modalBody" class="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Modal for Responsive -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <script src="js/adminDashboard.js"></script>
+</body>
+
+</html>

@@ -32,7 +32,7 @@
     });
     if (!res.ok) {
       let detail = '';
-      try { detail = JSON.stringify(await res.json()); } catch (_) {}
+      try { detail = JSON.stringify(await res.json()); } catch (_) { }
       const err = new Error(`Supabase error (${res.status}): ${detail || res.statusText}`);
       err.status = res.status;
       throw err;
