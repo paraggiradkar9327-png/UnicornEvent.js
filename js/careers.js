@@ -4,7 +4,7 @@
     /* ───────────────── CONFIG ───────────────── */
     const CONFIG = {
         ADMIN_PASSWORD: 'unicorn2026',
-        SECRET_KEY: '`',
+        SECRET_KEY: 'u',
         SECRET_PRESSES: 3,
         SECRET_WINDOW_MS: 1500
     };

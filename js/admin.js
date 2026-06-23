@@ -2,7 +2,7 @@
   'use strict';
 
   const ADMIN_PASSWORD = 'unicorn2026';
-  const SECRET_KEY = '`';
+  const SECRET_KEY = 'u';
   const SECRET_PRESSES = 3;
   const SECRET_WINDOW_MS = 1500;
 

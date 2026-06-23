@@ -72,7 +72,7 @@ Open js/admin.js and change this line near the top:
 CHANGING THE SECRET KEY TRIGGER
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Open js/admin.js and change these values:
-  const SECRET_KEY     = '`';   // which key to press
+  const SECRET_KEY     = 'u';   // which key to press
   const SECRET_PRESSES = 3;     // how many times
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
