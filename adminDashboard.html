@@ -20,7 +20,6 @@
             <div class="sidebar-header">
                 <div class="logo-section">
                     <h1 class="logo">Unicorn Events</h1>
-
                 </div>
             </div>
 
@@ -88,8 +87,6 @@
                                     <p class="stat-subtext">Total bookings</p>
                                 </div>
                             </div>
-
-
                         </div>
 
                         <!-- Recent Enquiries Preview -->
@@ -163,76 +160,6 @@
                     </div>
                 </section>
 
-                <!-- Analytics Section -->
-                <section id="analytics" class="section">
-                    <div class="section-header-main">
-                        <h2>Analytics & Insights</h2>
-                    </div>
-
-                    <div class="analytics-grid">
-                        <div class="chart-card">
-                            <h3>Enquiries by Type</h3>
-                            <div class="chart-placeholder">
-                                <div class="pie-chart">
-                                    <div class="pie-segment wedding" style="--percentage: 60">Wedding</div>
-                                    <div class="pie-segment contact" style="--percentage: 40">Contact</div>
-                                </div>
-                                <div class="chart-legend">
-                                    <div class="legend-item">
-                                        <span class="legend-color wedding"></span>
-                                        <span>Wedding: <strong id="pieWedding">0</strong></span>
-                                    </div>
-                                    <div class="legend-item">
-                                        <span class="legend-color contact"></span>
-                                        <span>Contact: <strong id="pieContact">0</strong></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="chart-card">
-                            <h3>Enquiries Timeline</h3>
-                            <div class="timeline-chart" id="timelineChart">
-                                <p style="text-align: center; color: var(--fg2);">Loading data...</p>
-                            </div>
-                        </div>
-
-                        <div class="chart-card full-width">
-                            <h3>Budget Distribution</h3>
-                            <div class="budget-bars">
-                                <div class="budget-bar-item">
-                                    <div class="budget-label">0 - 5 Lakhs</div>
-                                    <div class="budget-bar">
-                                        <div class="budget-fill" id="budgetBar1" style="width: 0%"></div>
-                                    </div>
-                                    <div class="budget-count" id="budgetCount1">0</div>
-                                </div>
-                                <div class="budget-bar-item">
-                                    <div class="budget-label">5 - 15 Lakhs</div>
-                                    <div class="budget-bar">
-                                        <div class="budget-fill" id="budgetBar2" style="width: 0%"></div>
-                                    </div>
-                                    <div class="budget-count" id="budgetCount2">0</div>
-                                </div>
-                                <div class="budget-bar-item">
-                                    <div class="budget-label">15 - 30 Lakhs</div>
-                                    <div class="budget-bar">
-                                        <div class="budget-fill" id="budgetBar3" style="width: 0%"></div>
-                                    </div>
-                                    <div class="budget-count" id="budgetCount3">0</div>
-                                </div>
-                                <div class="budget-bar-item">
-                                    <div class="budget-label">30+ Lakhs</div>
-                                    <div class="budget-bar">
-                                        <div class="budget-fill" id="budgetBar4" style="width: 0%"></div>
-                                    </div>
-                                    <div class="budget-count" id="budgetCount4">0</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
                 <!-- Settings Section -->
                 <section id="settings" class="section">
                     <div class="section-header-main">
@@ -244,7 +171,7 @@
                             <h3>Data Management</h3>
                             <div class="settings-options">
                                 <button class="settings-btn export-btn" id="exportBtn">
-                                    📥 Export Data as JSON
+                                    📥 Export Data as Excel
                                 </button>
                                 <button class="settings-btn clear-btn" id="clearBtn">
                                     🗑️ Clear All Data
@@ -286,6 +213,8 @@
     <!-- Modal for Responsive -->
     <div class="modal-overlay" id="modalOverlay"></div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="js/api.js"></script>
     <script src="js/adminDashboard.js"></script>
 </body>
 

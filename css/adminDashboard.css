@@ -128,7 +128,6 @@ body {
     color: var(--fg2);
     transition: all 0.3s ease;
     position: relative;
-    text-decoration: none;
 }
 
 .nav-link:hover {
