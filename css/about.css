@@ -163,7 +163,8 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 60px 40px;
+  /* padding: 60px 40px; */
+  margin-top: 20px;
 }
 
 .au-hero-right::before {
@@ -179,16 +180,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 48px;
+  /* padding: 48px; */
 }
 
 .au-hero-logo {
-  width: 360px;
+  width: 90%;
   max-width: 85%;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 8px 40px rgba(230, 168, 23, 0.18));
   animation: auLogoFloat 6s ease-in-out infinite;
+  height: 160%;
 }
 
 @keyframes auLogoFloat {
@@ -1767,7 +1769,7 @@
   }
 
   .au-hero-logo {
-    width: 280px;
+    width: 60%;
   }
 
   .au-identity-grid {
@@ -1943,7 +1945,7 @@
   }
 
   .au-hero-logo {
-    width: 220px;
+    width: 370px;
   }
 
   .au-mv-inner {

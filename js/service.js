@@ -28,9 +28,12 @@
     });
   });
 
-  // Handle hash on page load
-  const hash = window.location.hash.replace('#', '');
+  // Handle hash on page load — default to "events" when there's no
+  // valid #hash, instead of activating an empty/invalid panel id
+  // (which previously hid every panel on a normal page visit).
+  // Accepts both "#branding" and "#panel-branding" formats, since
+  // footer links use the latter.
+  const hash = window.location.hash.replace('#', '').replace(/^panel-/, '');
   const valid = ['events', 'activation', 'wedding', 'branding'];
-  if (hash && valid.includes(hash)) activateTab(hash);
-  else activateTab(hash);
+  activateTab(valid.includes(hash) ? hash : 'events');
 })();

@@ -170,8 +170,8 @@
                                 <button class="settings-btn clear-btn" id="clearBtn">
                                     🗑️ Clear All Data
                                 </button>
-                                <button class="settings-btn import-btn" id="importBtn">
-                                    📤 Import Data
+                                <button class="settings-btn refresh-btn" id="refreshBtn">
+                                    🔄 Refresh from Server
                                 </button>
                             </div>
                         </div>
@@ -194,8 +194,12 @@
     <div class="modal-overlay" id="modalOverlay"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/adminDashboard.js"></script>
+    <!-- Cache-busting query strings (?v=2) force the browser to fetch fresh
+         copies instead of using a stale cached version that's missing
+         newer functions like deleteContactLead/updateContactStatus.
+         Bump the version number any time you edit api.js or adminDashboard.js. -->
+    <script src="js/api.js?v=2"></script>
+    <script src="js/adminDashboard.js?v=2"></script>
 </body>
 
 </html>

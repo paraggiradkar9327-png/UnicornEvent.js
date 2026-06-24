@@ -1,17 +1,7 @@
 /**
- * Admin Dashboard — Supabase Edition
- * ───────────────────────────────────────────────────────────────
- * Pulls Contact Enquiries and Wedding Enquiries directly from your
- * Supabase project (via js/api.js → UnicornAPI.getLeads()) instead
- * of localStorage. Layout/markup/IDs are untouched — this file only
- * wires the existing HTML to live Supabase data.
- *
- * NOTE on "status": contact_leads / wedding_leads tables don't have
- * a status column, so statuses (new / pending / responded / archived)
- * are tracked locally per-browser in localStorage under
- * "ue_admin_lead_status" — purely a UI convenience layer on top of
- * the real Supabase records. Deleting a record removes it from
- * Supabase for everyone.
+ * Admin Dashboard - Complete JavaScript
+ * Manages Contact & Wedding Enquiries with Analytics
+ * Now backed by Supabase via UnicornAPI (js/api.js) — NOT localStorage.
  */
 
 class AdminDashboard {
@@ -19,121 +9,73 @@ class AdminDashboard {
         this.contactEnquiries = [];
         this.weddingEnquiries = [];
         this.currentSection = 'dashboard';
-        this.statusMap = this.loadStatusMap();
 
         this.init();
     }
 
-    /* ════════════════════ INIT ════════════════════ */
-
+    /** Initialize Dashboard */
     async init() {
         this.setupEventListeners();
         await this.loadData();
         this.renderDashboard();
     }
 
-    /**
-     * Load Contact + Wedding leads from Supabase.
-     */
+    /** Load data from Supabase (via UnicornAPI) */
     async loadData() {
         try {
-            this.setLoading(true);
             const { contact, wedding } = await UnicornAPI.getLeads();
-
-            this.contactEnquiries = (contact || []).map(row => this.rowToContact(row));
-            this.weddingEnquiries = (wedding || []).map(row => this.rowToWedding(row));
+            this.contactEnquiries = (contact || []).map(this.mapContactRow);
+            this.weddingEnquiries = (wedding || []).map(this.mapWeddingRow);
         } catch (error) {
-            console.error('[AdminDashboard] Failed to load leads from Supabase:', error);
-            this.showNotification('Could not load data from Supabase. Check your connection.', true);
+            console.error('Error loading data from Supabase:', error);
+            this.showNotification('Failed to load data from server!', true);
             this.contactEnquiries = [];
             this.weddingEnquiries = [];
-        } finally {
-            this.setLoading(false);
         }
     }
 
-    setLoading(isLoading) {
-        const subtitle = document.getElementById('pageSubtitle');
-        if (!subtitle) return;
-        if (isLoading) {
-            this._prevSubtitle = subtitle.textContent;
-            subtitle.textContent = 'Loading data from Supabase…';
-        } else if (this._prevSubtitle !== undefined) {
-            subtitle.textContent = this._prevSubtitle;
-        }
-    }
-
-    /* ════════════════ ROW MAPPERS (Supabase → UI shape) ════════════════ */
-
-    rowToContact(row) {
+    /** Map a contact_leads DB row → the shape the UI expects */
+    mapContactRow(row) {
         return {
             id: row.id,
-            firstName: row.first_name || '',
+            firstName: row.first_name,
             lastName: row.last_name || '',
-            email: row.email || '',
+            email: row.email,
             phone: row.phone || '',
-            service: row.service || '—',
+            service: row.service || '',
             eventDate: row.event_date || '',
             location: row.event_location || '',
             message: row.message || '',
-            status: this.statusMap['contact_' + row.id] || 'new',
-            createdAt: row.submitted_at || new Date().toISOString()
+            status: row.status || 'new',
+            createdAt: row.submitted_at || row.created_at || new Date().toISOString()
         };
     }
 
-    rowToWedding(row) {
-        const budgetValue = this.parseBudgetValue(row.budget);
+    /** Map a wedding_leads DB row → the shape the UI expects */
+    mapWeddingRow(row) {
+        const budgetValue = Number(String(row.budget || '0').replace(/[^\d]/g, '')) || 0;
         return {
             id: row.id,
-            name: row.name || '',
-            email: row.email || '',
+            name: row.name,
+            email: row.email,
             phone: row.mobile || '',
-            city: row.city || '',
             brideName: row.bride_name || '',
             groomName: row.groom_name || '',
-            weddingDate: row.wedding_date || '',
+            weddingDate: row.wedding_date,
             guestCount: row.guests || '',
             budget: row.budget || '0',
             budgetValue,
             venueLocation: row.venue_location || '',
             venueType: row.venue_type || '',
-            eventTypes: row.theme || 'Wedding',
+            eventTypes: row.theme || '',
             specialRequirements: row.special || '',
-            status: this.statusMap['wedding_' + row.id] || 'new',
-            createdAt: row.submitted_at || new Date().toISOString()
+            status: row.status || 'new',
+            createdAt: row.submitted_at || row.created_at || new Date().toISOString()
         };
     }
 
-    /** Pulls a numeric value (in rupees) out of a free-text budget string. */
-    parseBudgetValue(budget) {
-        if (!budget) return 0;
-        const digits = String(budget).replace(/[^0-9.]/g, '');
-        const num = parseFloat(digits);
-        return isNaN(num) ? 0 : num;
-    }
-
-    /* ════════════════ STATUS MAP (localStorage UI layer) ════════════════ */
-
-    loadStatusMap() {
-        try {
-            return JSON.parse(localStorage.getItem('ue_admin_lead_status') || '{}');
-        } catch (_) {
-            return {};
-        }
-    }
-
-    saveStatusMap() {
-        try {
-            localStorage.setItem('ue_admin_lead_status', JSON.stringify(this.statusMap));
-        } catch (error) {
-            console.error('Error saving status map:', error);
-        }
-    }
-
-    /* ════════════════ EVENT LISTENERS ════════════════ */
-
+    /** Setup Event Listeners */
     setupEventListeners() {
-        // Navigation
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -141,15 +83,12 @@ class AdminDashboard {
             });
         });
 
-        // Contact Enquiries
         document.getElementById('contactSort')?.addEventListener('change', () => this.renderContactTable());
         document.getElementById('contactSearch')?.addEventListener('input', () => this.renderContactTable());
 
-        // Wedding Enquiries
         document.getElementById('weddingSort')?.addEventListener('change', () => this.renderWeddingCards());
         document.getElementById('weddingSearch')?.addEventListener('input', () => this.renderWeddingCards());
 
-        // View All Links
         document.querySelectorAll('.view-all-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -157,21 +96,23 @@ class AdminDashboard {
             });
         });
 
-        // Settings
         document.getElementById('exportBtn')?.addEventListener('click', () => this.exportData());
         document.getElementById('clearBtn')?.addEventListener('click', () => this.clearData());
-        document.getElementById('importBtn')?.addEventListener('click', () => this.importData());
 
-        // Modal
         document.getElementById('modalClose')?.addEventListener('click', () => this.closeModal());
         document.getElementById('modalOverlay')?.addEventListener('click', () => this.closeModal());
+
+        // Manual refresh button (optional — add a button with id="refreshBtn" in your HTML if desired)
+        document.getElementById('refreshBtn')?.addEventListener('click', async () => {
+            await this.loadData();
+            this.renderDashboard();
+            this.showNotification('Data refreshed from server!');
+        });
     }
 
-    /* ════════════════ NAVIGATION ════════════════ */
-
+    /** Navigate to Section */
     navigateToSection(section) {
         document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-
         const selectedSection = document.getElementById(section);
         if (selectedSection) selectedSection.classList.add('active');
 
@@ -194,80 +135,76 @@ class AdminDashboard {
 
         this.currentSection = section;
 
-        if (section === 'contact-enquiries') {
-            this.renderContactTable();
-        } else if (section === 'wedding-enquiries') {
-            this.renderWeddingCards();
-        } else if (section === 'analytics') {
-            this.renderAnalytics();
-        } else if (section === 'dashboard') {
-            this.renderDashboard();
-        }
+        if (section === 'contact-enquiries') this.renderContactTable();
+        else if (section === 'wedding-enquiries') this.renderWeddingCards();
+        else if (section === 'analytics') this.renderAnalytics();
     }
 
-    /* ════════════════ DASHBOARD ════════════════ */
-
+    /** Render Dashboard */
     renderDashboard() {
         this.updateStats();
         this.renderRecentEnquiries();
+        if (this.currentSection === 'contact-enquiries') this.renderContactTable();
+        if (this.currentSection === 'wedding-enquiries') this.renderWeddingCards();
+        if (this.currentSection === 'analytics') this.renderAnalytics();
     }
 
+    /** Update Statistics */
     updateStats() {
         const contactCount = this.contactEnquiries.length;
         const weddingCount = this.weddingEnquiries.length;
-        const pendingCount = this.contactEnquiries.filter(c => c.status === 'new' || c.status === 'pending').length +
-            this.weddingEnquiries.filter(w => w.status === 'new' || w.status === 'pending').length;
+        const pendingCount = this.contactEnquiries.filter(c => c.status === 'pending').length +
+            this.weddingEnquiries.filter(w => w.status === 'pending').length;
 
         const totalBudget = this.weddingEnquiries.reduce((sum, w) => sum + (w.budgetValue || 0), 0);
 
-        const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+        // Optional chaining via getElementById null-check: if an element is
+        // missing from the HTML, this skips it instead of throwing and
+        // halting the entire render chain (this was the original bug).
+        const contactEl = document.getElementById('contactCount');
+        const weddingEl = document.getElementById('weddingCount');
+        const pendingEl = document.getElementById('pendingCount');
+        const budgetEl = document.getElementById('totalBudget');
 
-        set('contactCount', contactCount);
-        set('weddingCount', weddingCount);
-        set('pendingCount', pendingCount);
-        set('totalBudget', '₹' + this.formatNumber(totalBudget));
+        if (contactEl) contactEl.textContent = contactCount;
+        if (weddingEl) weddingEl.textContent = weddingCount;
+        if (pendingEl) pendingEl.textContent = pendingCount;
+        if (budgetEl) budgetEl.textContent = '₹' + this.formatNumber(totalBudget);
 
         const badge = document.getElementById('notificationBadge');
         if (badge) badge.textContent = pendingCount;
     }
 
+    /** Render Recent Enquiries */
     renderRecentEnquiries() {
         const container = document.getElementById('recentEnquiries');
         if (!container) return;
 
-        try {
-            const allEnquiries = [
-                ...this.contactEnquiries.map(c => ({ ...c, type: 'contact' })),
-                ...this.weddingEnquiries.map(w => ({ ...w, type: 'wedding' }))
-            ].sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)).slice(0, 5);
+        const allEnquiries = [
+            ...this.contactEnquiries.map(c => ({ ...c, type: 'contact' })),
+            ...this.weddingEnquiries.map(w => ({ ...w, type: 'wedding' }))
+        ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 5);
 
-            console.log('[AdminDashboard] recent enquiries computed:', allEnquiries.length, allEnquiries);
-
-            if (allEnquiries.length === 0) {
-                container.innerHTML = '<p class="empty-state">No enquiries yet</p>';
-                return;
-            }
-
-            container.innerHTML = allEnquiries.map(item => `
-                <div class="recent-item" onclick="dashboard.showDetails('${item.type}', ${item.id})">
-                    <div class="recent-item-title">
-                        ${item.type === 'contact' ? this.escape((item.firstName || '') + ' ' + (item.lastName || '')) : this.escape(item.name || 'Unnamed')}
-                        <span class="status-badge status-${item.status || 'new'}">${item.status || 'new'}</span>
-                    </div>
-                    <div class="recent-item-meta">
-                        <span>${this.escape(item.type === 'contact' ? (item.service || '—') : (item.eventTypes || 'Wedding'))}</span>
-                        <span>${this.formatDate(item.createdAt)}</span>
-                    </div>
-                </div>
-            `).join('');
-        } catch (error) {
-            console.error('[AdminDashboard] renderRecentEnquiries failed:', error);
-            container.innerHTML = '<p class="empty-state">Could not load recent enquiries — check console for details</p>';
+        if (allEnquiries.length === 0) {
+            container.innerHTML = '<p class="empty-state">No enquiries yet</p>';
+            return;
         }
+
+        container.innerHTML = allEnquiries.map(item => `
+            <div class="recent-item" onclick="dashboard.showDetails('${item.type}', ${item.id})">
+                <div class="recent-item-title">
+                    ${item.type === 'contact' ? item.firstName + ' ' + item.lastName : item.name}
+                    <span class="status-badge status-${item.status}">${item.status}</span>
+                </div>
+                <div class="recent-item-meta">
+                    <span>${item.type === 'contact' ? item.service : (item.eventTypes || 'Wedding')}</span>
+                    <span>${this.formatDate(item.createdAt)}</span>
+                </div>
+            </div>
+        `).join('');
     }
 
-    /* ════════════════ CONTACT TABLE ════════════════ */
-
+    /** Render Contact Table */
     renderContactTable() {
         const tbody = document.getElementById('contactTable');
         if (!tbody) return;
@@ -306,10 +243,10 @@ class AdminDashboard {
 
         tbody.innerHTML = data.map(item => `
             <tr>
-                <td class="col-name">${this.escape(item.firstName)} ${this.escape(item.lastName)}</td>
-                <td class="col-email">${this.escape(item.email)}</td>
-                <td class="col-phone">${this.escape(item.phone)}</td>
-                <td class="col-service">${this.escape(item.service)}</td>
+                <td class="col-name">${item.firstName} ${item.lastName}</td>
+                <td class="col-email">${item.email}</td>
+                <td class="col-phone">${item.phone}</td>
+                <td class="col-service">${item.service}</td>
                 <td class="col-date">${this.formatDate(item.createdAt)}</td>
                 <td class="col-status">
                     <span class="status-badge status-${item.status}">${item.status}</span>
@@ -324,8 +261,7 @@ class AdminDashboard {
         `).join('');
     }
 
-    /* ════════════════ WEDDING CARDS ════════════════ */
-
+    /** Render Wedding Cards */
     renderWeddingCards() {
         const container = document.getElementById('weddingCards');
         if (!container) return;
@@ -338,7 +274,7 @@ class AdminDashboard {
             data = data.filter(item =>
                 item.name.toLowerCase().includes(query) ||
                 item.email.toLowerCase().includes(query) ||
-                (item.brideName || '').toLowerCase().includes(query)
+                item.brideName.toLowerCase().includes(query)
             );
         }
 
@@ -365,71 +301,71 @@ class AdminDashboard {
         container.innerHTML = data.map(item => `
             <div class="enquiry-card">
                 <div class="card-header">
-                    <h3 class="card-title">${this.escape(item.brideName) || this.escape(item.name)}${item.groomName ? ' & ' + this.escape(item.groomName) : ''}</h3>
+                    <h3 class="card-title">${item.brideName} & ${item.groomName}</h3>
                     <span class="card-badge">💍 ${item.status}</span>
                 </div>
-
                 <div class="card-field">
                     <span class="card-label">Contact Name</span>
-                    <div class="card-value">${this.escape(item.name)}</div>
+                    <div class="card-value">${item.name}</div>
                 </div>
-
                 <div class="card-field">
                     <span class="card-label">Contact Email & Phone</span>
-                    <div class="card-value">${this.escape(item.email)} | ${this.escape(item.phone)}</div>
+                    <div class="card-value">${item.email} | ${item.phone}</div>
                 </div>
-
                 <div class="card-field">
                     <span class="card-label">Wedding Date & Location</span>
-                    <div class="card-value">${this.formatDate(item.weddingDate)} | ${this.escape(item.venueLocation || item.city)}</div>
+                    <div class="card-value">${this.formatDate(item.weddingDate)} | ${item.venueLocation}</div>
                 </div>
-
                 <div class="card-field">
                     <span class="card-label">Guest Count & Venue Type</span>
-                    <div class="card-value">${this.escape(String(item.guestCount || '—'))} Guests | ${this.escape(item.venueType || '—')}</div>
+                    <div class="card-value">${item.guestCount} Guests | ${item.venueType}</div>
                 </div>
-
-                <div class="card-budget">
-                    <span class="card-label">Budget</span>
-                    <div class="card-value budget-value">₹${this.escape(String(item.budget))}</div>
+                <div class="card-budget">Budget: ₹${item.budget}</div>
+                <div class="card-field">
+                    <span class="card-label">Events & Special Requirements</span>
+                    <div class="card-value">${item.eventTypes}</div>
+                    <div class="card-value" style="font-size: 0.9rem; color: var(--fg2); margin-top: 5px;">
+                        ${item.specialRequirements}
+                    </div>
                 </div>
-
                 <div class="card-actions">
-                    <button class="action-btn" onclick="dashboard.showWeddingDetails(${item.id})">View Details</button>
-                    <button class="action-btn" onclick="dashboard.deleteWedding(${item.id})">Delete</button>
+                    <button class="card-action-btn" onclick="dashboard.showWeddingDetails(${item.id})">View Full</button>
+                    <button class="card-action-btn" onclick="dashboard.deleteWedding(${item.id})">Delete</button>
                 </div>
             </div>
         `).join('');
     }
 
-    /* ════════════════ ANALYTICS ════════════════ */
-
+    /** Render Analytics */
     renderAnalytics() {
         const contactCount = this.contactEnquiries.length;
         const weddingCount = this.weddingEnquiries.length;
         const total = contactCount + weddingCount || 1;
 
-        const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-        set('pieWedding', weddingCount);
-        set('pieContact', contactCount);
+        document.getElementById('pieContact').textContent = contactCount;
+        document.getElementById('pieWedding').textContent = weddingCount;
 
-        const pieWeddingSeg = document.querySelector('.pie-segment.wedding');
-        const pieContactSeg = document.querySelector('.pie-segment.contact');
-        if (pieWeddingSeg) pieWeddingSeg.style.setProperty('--percentage', Math.round((weddingCount / total) * 100));
-        if (pieContactSeg) pieContactSeg.style.setProperty('--percentage', Math.round((contactCount / total) * 100));
+        const weddingPercent = (weddingCount / total) * 360;
+        const pieChart = document.querySelector('.pie-chart');
+        if (pieChart) {
+            pieChart.style.background = `conic-gradient(#e6a817 0deg ${weddingPercent}deg, #3b82f6 ${weddingPercent}deg 360deg)`;
+        }
 
-        this.renderTimelineChart();
+        this.renderTimeline();
         this.renderBudgetDistribution();
     }
 
-    renderTimelineChart() {
+    /** Render Timeline Chart */
+    renderTimeline() {
         const container = document.getElementById('timelineChart');
         if (!container) return;
 
+        const today = new Date();
         const days = [];
         const counts = {};
+
         for (let i = 6; i >= 0; i--) {
-            const date = new Date();
+            const date = new Date(today);
             date.setDate(date.getDate() - i);
             const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
             days.push(dateStr);
@@ -453,6 +389,7 @@ class AdminDashboard {
         }).join('');
     }
 
+    /** Render Budget Distribution */
     renderBudgetDistribution() {
         const ranges = [
             { min: 0, max: 5, id: 'budgetBar1', countId: 'budgetCount1' },
@@ -464,7 +401,7 @@ class AdminDashboard {
         const counts = [0, 0, 0, 0];
 
         this.weddingEnquiries.forEach(wedding => {
-            const budgetInLakhs = (wedding.budgetValue || 0) / 100000;
+            const budgetInLakhs = wedding.budgetValue / 100000;
             for (let i = 0; i < ranges.length; i++) {
                 if (budgetInLakhs >= ranges[i].min && budgetInLakhs < ranges[i].max) {
                     counts[i]++;
@@ -479,14 +416,12 @@ class AdminDashboard {
             const percentage = (count / maxCount) * 100;
             const bar = document.getElementById(ranges[index].id);
             const countElem = document.getElementById(ranges[index].countId);
-
             if (bar) bar.style.width = percentage + '%';
             if (countElem) countElem.textContent = count;
         });
     }
 
-    /* ════════════════ MODALS ════════════════ */
-
+    /** Show Contact Details in Modal */
     showContactDetails(id) {
         const contact = this.contactEnquiries.find(c => c.id === id);
         if (!contact) return;
@@ -494,54 +429,44 @@ class AdminDashboard {
         const modalBody = document.getElementById('modalBody');
         modalBody.innerHTML = `
             <h2>Contact Enquiry Details</h2>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Name</div>
-                <div class="modal-detail-value">${this.escape(contact.firstName)} ${this.escape(contact.lastName)}</div>
+                <div class="modal-detail-value">${contact.firstName} ${contact.lastName}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Email</div>
-                <div class="modal-detail-value">${this.escape(contact.email)}</div>
+                <div class="modal-detail-value">${contact.email}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Phone</div>
-                <div class="modal-detail-value">${this.escape(contact.phone)}</div>
+                <div class="modal-detail-value">${contact.phone}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Service</div>
-                <div class="modal-detail-value">${this.escape(contact.service)}</div>
+                <div class="modal-detail-value">${contact.service}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Event Date</div>
-                <div class="modal-detail-value">${contact.eventDate ? this.formatDate(contact.eventDate) : '—'}</div>
+                <div class="modal-detail-value">${this.formatDate(contact.eventDate)}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Location</div>
-                <div class="modal-detail-value">${this.escape(contact.location) || '—'}</div>
+                <div class="modal-detail-value">${contact.location}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Message</div>
-                <div class="modal-detail-value">${this.escape(contact.message)}</div>
+                <div class="modal-detail-value">${contact.message}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Status</div>
                 <div class="modal-detail-value">
                     <span class="status-badge status-${contact.status}">${contact.status}</span>
                 </div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Received On</div>
                 <div class="modal-detail-value">${new Date(contact.createdAt).toLocaleString()}</div>
             </div>
-
             <div class="modal-actions">
                 <button class="modal-action-btn" onclick="dashboard.updateContactStatus(${id}, 'responded')">Mark Responded</button>
                 <button class="modal-action-btn" onclick="dashboard.updateContactStatus(${id}, 'archived')">Archive</button>
@@ -551,75 +476,60 @@ class AdminDashboard {
         this.openModal();
     }
 
+    /** Show Wedding Details in Modal */
     showWeddingDetails(id) {
         const wedding = this.weddingEnquiries.find(w => w.id === id);
         if (!wedding) return;
 
         const modalBody = document.getElementById('modalBody');
-        const heading = wedding.brideName
-            ? `${this.escape(wedding.brideName)}${wedding.groomName ? ' & ' + this.escape(wedding.groomName) : ''}'s Wedding`
-            : `${this.escape(wedding.name)}'s Wedding Enquiry`;
-
         modalBody.innerHTML = `
-            <h2>${heading}</h2>
-
+            <h2>${wedding.brideName} & ${wedding.groomName}'s Wedding</h2>
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Contact Person</div>
-                <div class="modal-detail-value">${this.escape(wedding.name)}</div>
+                <div class="modal-detail-value">${wedding.name}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Email & Phone</div>
-                <div class="modal-detail-value">${this.escape(wedding.email)} | ${this.escape(wedding.phone)}</div>
+                <div class="modal-detail-value">${wedding.email} | ${wedding.phone}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Bride & Groom</div>
-                <div class="modal-detail-value">${this.escape(wedding.brideName) || '—'} ${wedding.groomName ? '& ' + this.escape(wedding.groomName) : ''}</div>
+                <div class="modal-detail-value">${wedding.brideName} & ${wedding.groomName}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Wedding Date</div>
-                <div class="modal-detail-value">${wedding.weddingDate ? this.formatDate(wedding.weddingDate) : '—'}</div>
+                <div class="modal-detail-value">${this.formatDate(wedding.weddingDate)}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Venue Location & Type</div>
-                <div class="modal-detail-value">${this.escape(wedding.venueLocation || wedding.city) || '—'} | ${this.escape(wedding.venueType) || '—'}</div>
+                <div class="modal-detail-value">${wedding.venueLocation} | ${wedding.venueType}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Guest Count</div>
-                <div class="modal-detail-value">${this.escape(String(wedding.guestCount || '—'))}</div>
+                <div class="modal-detail-value">${wedding.guestCount}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Budget</div>
-                <div class="modal-detail-value" style="color: var(--gold); font-weight: 600;">₹${this.escape(String(wedding.budget))}</div>
+                <div class="modal-detail-value" style="color: var(--gold); font-weight: 600;">₹${wedding.budget}</div>
             </div>
-
             <div class="modal-detail-item">
-                <div class="modal-detail-label">Event Types / Theme</div>
-                <div class="modal-detail-value">${this.escape(wedding.eventTypes) || '—'}</div>
+                <div class="modal-detail-label">Event Types</div>
+                <div class="modal-detail-value">${wedding.eventTypes}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Special Requirements</div>
-                <div class="modal-detail-value">${this.escape(wedding.specialRequirements) || '—'}</div>
+                <div class="modal-detail-value">${wedding.specialRequirements}</div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Status</div>
                 <div class="modal-detail-value">
                     <span class="status-badge status-${wedding.status}">${wedding.status}</span>
                 </div>
             </div>
-
             <div class="modal-detail-item">
                 <div class="modal-detail-label">Enquiry Date</div>
                 <div class="modal-detail-value">${new Date(wedding.createdAt).toLocaleString()}</div>
             </div>
-
             <div class="modal-actions">
                 <button class="modal-action-btn" onclick="dashboard.updateWeddingStatus(${id}, 'responded')">Mark Responded</button>
                 <button class="modal-action-btn" onclick="dashboard.updateWeddingStatus(${id}, 'archived')">Archive</button>
@@ -629,187 +539,115 @@ class AdminDashboard {
         this.openModal();
     }
 
+    /** Show Details (Generic) */
     showDetails(type, id) {
-        if (type === 'contact') {
-            this.showContactDetails(id);
-        } else {
-            this.showWeddingDetails(id);
+        if (type === 'contact') this.showContactDetails(id);
+        else this.showWeddingDetails(id);
+    }
+
+    /** Update Contact Status — persists to Supabase */
+    async updateContactStatus(id, status) {
+        try {
+            await UnicornAPI.updateContactStatus(id, status);
+            const contact = this.contactEnquiries.find(c => c.id === id);
+            if (contact) contact.status = status;
+            this.renderContactTable();
+            this.updateStats();
+            this.renderRecentEnquiries();
+            this.closeModal();
+            this.showNotification(`Contact marked as ${status}!`);
+        } catch (error) {
+            console.error('Error updating contact status:', error);
+            this.showNotification('Failed to update status on server!', true);
         }
     }
 
-    /* ════════════════ STATUS UPDATES (local UI layer) ════════════════ */
-
-    updateContactStatus(id, status) {
-        const contact = this.contactEnquiries.find(c => c.id === id);
-        if (!contact) return;
-        contact.status = status;
-        this.statusMap['contact_' + id] = status;
-        this.saveStatusMap();
-        this.renderContactTable();
-        this.updateStats();
-        this.renderRecentEnquiries();
-        this.closeModal();
-        this.showNotification(`Contact marked as ${status}!`);
+    /** Update Wedding Status — persists to Supabase */
+    async updateWeddingStatus(id, status) {
+        try {
+            await UnicornAPI.updateWeddingStatus(id, status);
+            const wedding = this.weddingEnquiries.find(w => w.id === id);
+            if (wedding) wedding.status = status;
+            this.renderWeddingCards();
+            this.updateStats();
+            this.renderRecentEnquiries();
+            this.closeModal();
+            this.showNotification(`Wedding marked as ${status}!`);
+        } catch (error) {
+            console.error('Error updating wedding status:', error);
+            this.showNotification('Failed to update status on server!', true);
+        }
     }
 
-    updateWeddingStatus(id, status) {
-        const wedding = this.weddingEnquiries.find(w => w.id === id);
-        if (!wedding) return;
-        wedding.status = status;
-        this.statusMap['wedding_' + id] = status;
-        this.saveStatusMap();
-        this.renderWeddingCards();
-        this.updateStats();
-        this.renderRecentEnquiries();
-        this.closeModal();
-        this.showNotification(`Wedding marked as ${status}!`);
-    }
-
-    /* ════════════════ DELETE (real Supabase rows) ════════════════ */
-
+    /** Delete Contact — removes from Supabase, then from local UI */
     async deleteContact(id) {
-        if (!confirm('Are you sure you want to delete this contact enquiry? This removes it from Supabase permanently.')) return;
+        if (!confirm('Are you sure you want to delete this contact enquiry?')) return;
         try {
             await UnicornAPI.deleteContactLead(id);
             this.contactEnquiries = this.contactEnquiries.filter(c => c.id !== id);
-            delete this.statusMap['contact_' + id];
-            this.saveStatusMap();
             this.renderContactTable();
             this.updateStats();
             this.renderRecentEnquiries();
             this.showNotification('Contact enquiry deleted!');
         } catch (error) {
-            console.error(error);
-            this.showNotification('Failed to delete from Supabase: ' + error.message, true);
+            console.error('Error deleting contact lead:', error);
+            this.showNotification('Failed to delete from server!', true);
         }
     }
 
+    /** Delete Wedding — removes from Supabase, then from local UI */
     async deleteWedding(id) {
-        if (!confirm('Are you sure you want to delete this wedding enquiry? This removes it from Supabase permanently.')) return;
+        if (!confirm('Are you sure you want to delete this wedding enquiry?')) return;
         try {
             await UnicornAPI.deleteWeddingLead(id);
             this.weddingEnquiries = this.weddingEnquiries.filter(w => w.id !== id);
-            delete this.statusMap['wedding_' + id];
-            this.saveStatusMap();
             this.renderWeddingCards();
             this.updateStats();
             this.renderRecentEnquiries();
             this.showNotification('Wedding enquiry deleted!');
         } catch (error) {
-            console.error(error);
-            this.showNotification('Failed to delete from Supabase: ' + error.message, true);
+            console.error('Error deleting wedding lead:', error);
+            this.showNotification('Failed to delete from server!', true);
         }
     }
 
-    /* ════════════════ SETTINGS ════════════════ */
-
+    /** Export Data (still useful as a local backup) */
     exportData() {
-        if (typeof XLSX === 'undefined') {
-            this.showNotification('Excel export library failed to load. Check your internet connection.', true);
-            return;
-        }
-
-        const contactRows = this.contactEnquiries.map(c => ({
-            'Name': `${c.firstName} ${c.lastName}`.trim(),
-            'Email': c.email,
-            'Phone': c.phone,
-            'Service': c.service,
-            'Event Date': c.eventDate,
-            'Location': c.location,
-            'Message': c.message,
-            'Status': c.status,
-            'Received On': c.createdAt ? new Date(c.createdAt).toLocaleString() : ''
-        }));
-
-        const weddingRows = this.weddingEnquiries.map(w => ({
-            'Contact Name': w.name,
-            'Email': w.email,
-            'Phone': w.phone,
-            'Bride': w.brideName,
-            'Groom': w.groomName,
-            'Wedding Date': w.weddingDate,
-            'City': w.city,
-            'Venue Location': w.venueLocation,
-            'Venue Type': w.venueType,
-            'Guests': w.guestCount,
-            'Budget': w.budget,
-            'Event Types / Theme': w.eventTypes,
-            'Special Requirements': w.specialRequirements,
-            'Status': w.status,
-            'Enquiry Date': w.createdAt ? new Date(w.createdAt).toLocaleString() : ''
-        }));
-
-        const wb = XLSX.utils.book_new();
-
-        const contactSheet = XLSX.utils.json_to_sheet(
-            contactRows.length ? contactRows : [{ 'No Data': 'No contact enquiries found' }]
-        );
-        XLSX.utils.book_append_sheet(wb, contactSheet, 'Contact Enquiries');
-
-        const weddingSheet = XLSX.utils.json_to_sheet(
-            weddingRows.length ? weddingRows : [{ 'No Data': 'No wedding enquiries found' }]
-        );
-        XLSX.utils.book_append_sheet(wb, weddingSheet, 'Wedding Enquiries');
-
-        const fileName = `unicorn_enquiries_${new Date().toISOString().split('T')[0]}.xlsx`;
-        XLSX.writeFile(wb, fileName);
-
-        this.showNotification('Excel sheet exported successfully!');
-    }
-
-    /**
-     * Import only updates local status labels (new/pending/responded/archived)
-     * for matching IDs — it does NOT write enquiry data back into Supabase,
-     * since the real records live there and shouldn't be overwritten blindly
-     * from a local file.
-     */
-    importData() {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = '.json';
-        input.onchange = (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                try {
-                    const data = JSON.parse(event.target.result);
-                    (data.contactEnquiries || []).forEach(c => {
-                        if (c.id && c.status) this.statusMap['contact_' + c.id] = c.status;
-                    });
-                    (data.weddingEnquiries || []).forEach(w => {
-                        if (w.id && w.status) this.statusMap['wedding_' + w.id] = w.status;
-                    });
-                    this.saveStatusMap();
-                    this.contactEnquiries.forEach(c => c.status = this.statusMap['contact_' + c.id] || c.status);
-                    this.weddingEnquiries.forEach(w => w.status = this.statusMap['wedding_' + w.id] || w.status);
-                    this.renderDashboard();
-                    this.showNotification('Status labels imported successfully!');
-                } catch (error) {
-                    this.showNotification('Error importing data!', true);
-                }
-            };
-            reader.readAsText(file);
+        const data = {
+            contactEnquiries: this.contactEnquiries,
+            weddingEnquiries: this.weddingEnquiries,
+            exportDate: new Date().toISOString()
         };
-        input.click();
+
+        const dataStr = JSON.stringify(data, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `unicorn_enquiries_${new Date().toISOString().split('T')[0]}.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+
+        this.showNotification('Data exported successfully!');
     }
 
-    /**
-     * "Clear All Data" only clears local status labels — it does NOT delete
-     * your real Supabase leads (use the Delete button per-row for that, or
-     * the Supabase dashboard, to avoid an accidental mass-deletion here).
-     */
-    clearData() {
-        if (!confirm('This will reset all local status labels (new/pending/responded/archived) back to "new". Your actual enquiries in Supabase will NOT be deleted. Continue?')) return;
-        this.statusMap = {};
-        this.saveStatusMap();
-        this.contactEnquiries.forEach(c => c.status = 'new');
-        this.weddingEnquiries.forEach(w => w.status = 'new');
-        this.renderDashboard();
-        this.showNotification('Status labels reset!');
+    /** Clear Data — deletes EVERY row from Supabase (use with caution) */
+    async clearData() {
+        if (!confirm('Are you sure you want to delete ALL data from the server? This cannot be undone!')) return;
+        try {
+            await Promise.all([
+                ...this.contactEnquiries.map(c => UnicornAPI.deleteContactLead(c.id)),
+                ...this.weddingEnquiries.map(w => UnicornAPI.deleteWeddingLead(w.id))
+            ]);
+            this.contactEnquiries = [];
+            this.weddingEnquiries = [];
+            this.renderDashboard();
+            this.showNotification('All data cleared from server!');
+        } catch (error) {
+            console.error('Error clearing data:', error);
+            this.showNotification('Failed to clear all data on server!', true);
+        }
     }
-
-    /* ════════════════ MODAL HELPERS ════════════════ */
 
     openModal() {
         document.getElementById('detailsModal').classList.add('active');
@@ -821,22 +659,13 @@ class AdminDashboard {
         document.getElementById('modalOverlay').classList.remove('active');
     }
 
-    /* ════════════════ UTILITIES ════════════════ */
-
     showNotification(message, isError = false) {
         const notification = document.createElement('div');
         notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
+            position: fixed; top: 20px; right: 20px;
             background: ${isError ? '#ef4444' : '#4ade80'};
-            color: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            z-index: 2000;
-            animation: slideIn 0.3s ease;
-            max-width: 360px;
+            color: white; padding: 15px 20px; border-radius: 8px;
+            font-weight: 600; z-index: 2000; animation: slideIn 0.3s ease;
         `;
         notification.textContent = message;
         document.body.appendChild(notification);
@@ -844,55 +673,38 @@ class AdminDashboard {
         setTimeout(() => {
             notification.style.animation = 'slideOut 0.3s ease';
             setTimeout(() => notification.remove(), 300);
-        }, 3500);
+        }, 3000);
     }
 
     formatDate(dateStr) {
         if (!dateStr) return '—';
         const date = new Date(dateStr);
-        if (isNaN(date.getTime())) return String(dateStr);
-        return date.toLocaleDateString('en-IN', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
+        if (isNaN(date.getTime())) return '—';
+        return date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
     }
 
     formatNumber(num) {
-        num = Number(num) || 0;
         if (num >= 10000000) return (num / 10000000).toFixed(1) + ' Cr';
         if (num >= 100000) return (num / 100000).toFixed(1) + ' L';
         return num.toLocaleString('en-IN');
-    }
-
-    /** Basic HTML-escape so enquiry text can't break the layout/markup. */
-    escape(str) {
-        if (str === null || str === undefined) return '';
-        return String(str)
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;');
     }
 }
 
 // Initialize Dashboard
 let dashboard;
 document.addEventListener('DOMContentLoaded', () => {
+    if (typeof UnicornAPI === 'undefined') {
+        console.error('[admin.js] UnicornAPI is not loaded! Make sure <script src="js/api.js"> is included BEFORE admin.js in your HTML.');
+        alert('Error: UnicornAPI is not available.\n\nMake sure js/api.js is loaded before js/admin.js in your HTML <script> tags.');
+        return;
+    }
     dashboard = new AdminDashboard();
 });
 
-// CSS animations for notifications
+// Notification animations
 const style = document.createElement('style');
 style.textContent = `
-    @keyframes slideIn {
-        from { transform: translateX(400px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(400px); opacity: 0; }
-    }
+    @keyframes slideIn { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(400px); opacity: 0; } }
 `;
 document.head.appendChild(style);
