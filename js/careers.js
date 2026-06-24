@@ -100,7 +100,7 @@
                     ${job.salary ? createTag(icon.money, formatSalary(job.salary)) : ''}
                 </div>
                 <div class="job-apply-row">
-                    <p>Apply: <a href="mailto:unicornevents2007@gmail.com?subject=${encodeURIComponent(`Application: ${job.title}`)}">unicornevents2007@gmail.com</a></p>
+                    <p>Apply: <a href="mailto:support@unicornevent.com?subject=${encodeURIComponent(`Application: ${job.title}`)}">support@unicornevent.com</a></p>
                 </div>
             </article>
         `).join('');

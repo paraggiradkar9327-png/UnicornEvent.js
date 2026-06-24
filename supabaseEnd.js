@@ -11,7 +11,7 @@
 
 // @ts-ignore - Deno global is provided by the Supabase Edge runtime
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
-const NOTIFY_EMAIL = Deno.env.get('NOTIFY_EMAIL') || 'unicornevents2007@gmail.com';
+const NOTIFY_EMAIL = Deno.env.get('NOTIFY_EMAIL') || 'support@unicornevent.com';
 const FROM_EMAIL = Deno.env.get('FROM_EMAIL') || 'Unicorn Events <onboarding@resend.dev>';
 
 function row(label, value) {
