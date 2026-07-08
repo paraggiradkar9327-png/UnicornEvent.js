@@ -17,6 +17,30 @@
   const SUPABASE_URL = 'https://qtaoefwicnpupcllkysy.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0YW9lZndpY25wdXBjbGxreXN5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwODYzMjgsImV4cCI6MjA5NzY2MjMyOH0.MWhZueAFMCuTLSasMLLBxNIXY7LQxYDuWScfM_aO_0c';
 
+  // ── WHATSAPP NOTIFICATION (Twilio) ──────────────────────────
+  const TWILIO_SID = 'ACd59009a94390b8e1e3b48a29ba7c6560';   // from your screenshot
+  const TWILIO_AUTH = '789333f229ce623349fe3a460f8c7176';    // from your screenshot
+  const TWILIO_FROM = 'whatsapp:+14155238886';                 // sandbox number, already correct
+  const ADMIN_WHATSAPP = 'whatsapp:+918087627493';              // admin's number, already correct per your screenshot
+
+  async function sendWhatsAppNotification(message) {
+    try {
+      const auth = btoa(`${TWILIO_SID}:${TWILIO_AUTH}`);
+      const res = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${TWILIO_SID}/Messages.json`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Basic ${auth}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({ From: TWILIO_FROM, To: ADMIN_WHATSAPP, Body: message })
+      });
+      const result = await res.json();
+      console.log('WhatsApp notify result:', result);
+    } catch (err) {
+      console.error('WhatsApp notify failed (non-blocking):', err);
+    }
+  }
+
   const REST_URL = `${SUPABASE_URL}/rest/v1`;
   const HEADERS = {
     'apikey': SUPABASE_ANON_KEY,
@@ -187,6 +211,15 @@
         message: data.message
       })
     });
+
+    // Notify admin on WhatsApp (fire-and-forget, never blocks the form)
+    sendWhatsAppNotification(
+      `🔔 New Contact Enquiry!\n` +
+      `Name: ${data.first_name} ${data.last_name || ''}\n` +
+      `Phone: ${data.phone || 'N/A'}\n` +
+      `Service: ${data.service || 'N/A'}`
+    );
+
     return { success: true };
   }
 
@@ -214,6 +247,15 @@
         special: data.special || ''
       })
     });
+
+    // Notify admin on WhatsApp (fire-and-forget, never blocks the form)
+    sendWhatsAppNotification(
+      `💍 New Wedding Enquiry!\n` +
+      `Name: ${data.name}\n` +
+      `Phone: ${data.mobile || 'N/A'}\n` +
+      `Wedding Date: ${data.wedding_date || 'N/A'}`
+    );
+
     return { success: true };
   }
 
