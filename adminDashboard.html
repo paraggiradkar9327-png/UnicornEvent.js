@@ -37,10 +37,6 @@
                             <span class="nav-icon">💍</span>
                             <span class="nav-text">Wedding Enquiries</span>
                         </a></li>
-                    <li><a href="#" class="nav-link" data-section="settings">
-                            <span class="nav-icon">⚙️</span>
-                            <span class="nav-text">Settings</span>
-                        </a></li>
                 </ul>
             </nav>
 
@@ -53,6 +49,11 @@
                 <div class="header-left">
                     <h2 class="page-title" id="pageTitle">Dashboard</h2>
                     <p class="page-subtitle" id="pageSubtitle">Welcome back to your admin panel</p>
+                </div>
+                <div class="header-right">
+                    <button class="settings-btn export-btn" id="exportBtn">
+                        📥 Export Data as Excel
+                    </button>
                 </div>
             </header>
 
@@ -87,7 +88,6 @@
                         <div class="recent-section">
                             <div class="section-header-inline">
                                 <h3>Recent Enquiries</h3>
-                                <a href="#" class="view-all-link" data-goto="contact-enquiries">View All →</a>
                             </div>
                             <div class="recent-list" id="recentEnquiries">
                                 <p class="empty-state">No enquiries yet</p>
@@ -154,30 +154,6 @@
                     </div>
                 </section>
 
-                <!-- Settings Section -->
-                <section id="settings" class="section">
-                    <div class="section-header-main">
-                        <h2>Settings</h2>
-                    </div>
-
-                    <div class="settings-container">
-                        <div class="settings-card">
-                            <h3>Data Management</h3>
-                            <div class="settings-options">
-                                <button class="settings-btn export-btn" id="exportBtn">
-                                    📥 Export Data as Excel
-                                </button>
-                                <button class="settings-btn clear-btn" id="clearBtn">
-                                    🗑️ Clear All Data
-                                </button>
-                                <button class="settings-btn refresh-btn" id="refreshBtn">
-                                    🔄 Refresh from Server
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
             </div>
         </main>
     </div>
@@ -198,8 +174,9 @@
          copies instead of using a stale cached version that's missing
          newer functions like deleteContactLead/updateContactStatus.
          Bump the version number any time you edit api.js or adminDashboard.js. -->
-    <script src="js/api.js"></script>
+    <script src="js/adminDashboardApi.js"></script>
     <script src="js/adminDashboard.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </body>
 
 </html>

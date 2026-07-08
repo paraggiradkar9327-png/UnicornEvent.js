@@ -64,7 +64,6 @@ class AdminDashboard {
             weddingDate: row.wedding_date,
             guestCount: row.guests || '',
             budget: row.budget || '0',
-            budgetValue,
             venueLocation: row.venue_location || '',
             venueType: row.venue_type || '',
             eventTypes: row.theme || '',
@@ -97,8 +96,6 @@ class AdminDashboard {
         });
 
         document.getElementById('exportBtn')?.addEventListener('click', () => this.exportData());
-        document.getElementById('clearBtn')?.addEventListener('click', () => this.clearData());
-
         document.getElementById('modalClose')?.addEventListener('click', () => this.closeModal());
         document.getElementById('modalOverlay')?.addEventListener('click', () => this.closeModal());
 
@@ -125,8 +122,6 @@ class AdminDashboard {
             'dashboard': 'Dashboard',
             'contact-enquiries': 'Contact Enquiries',
             'wedding-enquiries': 'Wedding Enquiries',
-            'analytics': 'Analytics & Insights',
-            'settings': 'Settings'
         };
 
         document.getElementById('pageTitle').textContent = titles[section] || 'Dashboard';
@@ -137,7 +132,6 @@ class AdminDashboard {
 
         if (section === 'contact-enquiries') this.renderContactTable();
         else if (section === 'wedding-enquiries') this.renderWeddingCards();
-        else if (section === 'analytics') this.renderAnalytics();
     }
 
     /** Render Dashboard */
@@ -146,7 +140,6 @@ class AdminDashboard {
         this.renderRecentEnquiries();
         if (this.currentSection === 'contact-enquiries') this.renderContactTable();
         if (this.currentSection === 'wedding-enquiries') this.renderWeddingCards();
-        if (this.currentSection === 'analytics') this.renderAnalytics();
     }
 
     /** Update Statistics */
@@ -334,91 +327,6 @@ class AdminDashboard {
                 </div>
             </div>
         `).join('');
-    }
-
-    /** Render Analytics */
-    renderAnalytics() {
-        const contactCount = this.contactEnquiries.length;
-        const weddingCount = this.weddingEnquiries.length;
-        const total = contactCount + weddingCount || 1;
-
-        document.getElementById('pieContact').textContent = contactCount;
-        document.getElementById('pieWedding').textContent = weddingCount;
-
-        const weddingPercent = (weddingCount / total) * 360;
-        const pieChart = document.querySelector('.pie-chart');
-        if (pieChart) {
-            pieChart.style.background = `conic-gradient(#e6a817 0deg ${weddingPercent}deg, #3b82f6 ${weddingPercent}deg 360deg)`;
-        }
-
-        this.renderTimeline();
-        this.renderBudgetDistribution();
-    }
-
-    /** Render Timeline Chart */
-    renderTimeline() {
-        const container = document.getElementById('timelineChart');
-        if (!container) return;
-
-        const today = new Date();
-        const days = [];
-        const counts = {};
-
-        for (let i = 6; i >= 0; i--) {
-            const date = new Date(today);
-            date.setDate(date.getDate() - i);
-            const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-            days.push(dateStr);
-            counts[dateStr] = 0;
-        }
-
-        [...this.contactEnquiries, ...this.weddingEnquiries].forEach(item => {
-            const itemDate = new Date(item.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-            if (counts.hasOwnProperty(itemDate)) counts[itemDate]++;
-        });
-
-        const maxCount = Math.max(...Object.values(counts)) || 1;
-
-        container.innerHTML = days.map(day => {
-            const height = (counts[day] / maxCount) * 130;
-            return `
-                <div class="timeline-bar" style="height: ${height}px; min-height: 20px;">
-                    <div class="timeline-label">${day}</div>
-                </div>
-            `;
-        }).join('');
-    }
-
-    /** Render Budget Distribution */
-    renderBudgetDistribution() {
-        const ranges = [
-            { min: 0, max: 5, id: 'budgetBar1', countId: 'budgetCount1' },
-            { min: 5, max: 15, id: 'budgetBar2', countId: 'budgetCount2' },
-            { min: 15, max: 30, id: 'budgetBar3', countId: 'budgetCount3' },
-            { min: 30, max: Infinity, id: 'budgetBar4', countId: 'budgetCount4' }
-        ];
-
-        const counts = [0, 0, 0, 0];
-
-        this.weddingEnquiries.forEach(wedding => {
-            const budgetInLakhs = wedding.budgetValue / 100000;
-            for (let i = 0; i < ranges.length; i++) {
-                if (budgetInLakhs >= ranges[i].min && budgetInLakhs < ranges[i].max) {
-                    counts[i]++;
-                    break;
-                }
-            }
-        });
-
-        const maxCount = Math.max(...counts) || 1;
-
-        counts.forEach((count, index) => {
-            const percentage = (count / maxCount) * 100;
-            const bar = document.getElementById(ranges[index].id);
-            const countElem = document.getElementById(ranges[index].countId);
-            if (bar) bar.style.width = percentage + '%';
-            if (countElem) countElem.textContent = count;
-        });
     }
 
     /** Show Contact Details in Modal */
@@ -612,41 +520,55 @@ class AdminDashboard {
     }
 
     /** Export Data (still useful as a local backup) */
-    exportData() {
-        const data = {
-            contactEnquiries: this.contactEnquiries,
-            weddingEnquiries: this.weddingEnquiries,
-            exportDate: new Date().toISOString()
-        };
 
-        const dataStr = JSON.stringify(data, null, 2);
-        const dataBlob = new Blob([dataStr], { type: 'application/json' });
-        const url = URL.createObjectURL(dataBlob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `unicorn_enquiries_${new Date().toISOString().split('T')[0]}.json`;
-        link.click();
-        URL.revokeObjectURL(url);
-
-        this.showNotification('Data exported successfully!');
+    formatWeddingForExport(rows) {
+        return rows.map((row, index) => ({
+            'Sr.No': index + 1,
+            'Name': row.name,
+            'Email': row.email,
+            'Phone': row.phone,
+            'Bride Name': row.brideName,
+            'Groom Name': row.groomName,
+            'Wedding Date': row.weddingDate,
+            'Guest Count': row.guestCount,
+            'Budget': row.budget,
+            'Venue Location': row.venueLocation,
+            'Venue Type': row.venueType,
+            'Event Types': row.eventTypes,
+            'Special Requirements': row.specialRequirements,
+            'Status': row.status,
+        }));
     }
 
-    /** Clear Data — deletes EVERY row from Supabase (use with caution) */
-    async clearData() {
-        if (!confirm('Are you sure you want to delete ALL data from the server? This cannot be undone!')) return;
-        try {
-            await Promise.all([
-                ...this.contactEnquiries.map(c => UnicornAPI.deleteContactLead(c.id)),
-                ...this.weddingEnquiries.map(w => UnicornAPI.deleteWeddingLead(w.id))
-            ]);
-            this.contactEnquiries = [];
-            this.weddingEnquiries = [];
-            this.renderDashboard();
-            this.showNotification('All data cleared from server!');
-        } catch (error) {
-            console.error('Error clearing data:', error);
-            this.showNotification('Failed to clear all data on server!', true);
-        }
+    formatContactForExport(rows) {
+        return rows.map((row, index) => ({
+            'Sr.No': index + 1,
+            'First Name': row.firstName,
+            'Last Name': row.lastName,
+            'Email': row.email,
+            'Phone': row.phone,
+            'Service': row.service,
+            'Event Date': row.eventDate,
+            'Message': row.message,
+            'Status': row.status
+        }));
+    }
+    exportData() {
+        const contactSheet = XLSX.utils.json_to_sheet(
+            this.formatContactForExport(this.contactEnquiries) // if you want the same for contacts
+        );
+        const weddingSheet = XLSX.utils.json_to_sheet(
+            this.formatWeddingForExport(this.weddingEnquiries)
+        );
+
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, contactSheet, 'Contact Enquiries');
+        XLSX.utils.book_append_sheet(workbook, weddingSheet, 'Wedding Enquiries');
+
+        const fileName = `unicorn_enquiries_${new Date().toISOString().split('T')[0]}.xlsx`;
+        XLSX.writeFile(workbook, fileName);
+
+        this.showNotification('Data exported successfully!');
     }
 
     openModal() {
