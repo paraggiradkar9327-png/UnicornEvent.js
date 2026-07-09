@@ -68,10 +68,33 @@ document.getElementById('weddingForm').addEventListener('submit', async function
     const form = this;
     let valid = true;
 
-    /* Validate required fields */
+    /* Validate required fields (presence) */
     form.querySelectorAll('[required]').forEach(field => {
         const parent = field.closest('.field');
         if (!field.value.trim()) {
+            if (parent) parent.classList.add('error');
+            valid = false;
+        } else {
+            if (parent) parent.classList.remove('error');
+        }
+    });
+
+    /* Validate field formats (names, mobile, email, city) */
+    const patternValidators = {
+        name: /^[A-Za-z\s'-]{2,}$/,
+        mobile: /^[0-9]{10}$/,
+        email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        city: /^[A-Za-z\s'-]{2,}$/,
+        bride_name: /^[A-Za-z\s'-]{2,}$/,
+        groom_name: /^[A-Za-z\s'-]{2,}$/
+    };
+    Object.keys(patternValidators).forEach(name => {
+        const field = form.querySelector(`[name="${name}"]`);
+        if (!field) return;
+        const value = field.value.trim();
+        if (!value) return; // empty + required already caught above
+        const parent = field.closest('.field');
+        if (!patternValidators[name].test(value)) {
             if (parent) parent.classList.add('error');
             valid = false;
         } else {
