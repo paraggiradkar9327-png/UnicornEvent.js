@@ -124,21 +124,6 @@
   gap: 32px;
 }
 
-.au-scroll-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--fg2);
-  transition: color 0.3s;
-}
-
-.au-scroll-link:hover {
-  color: var(--gold);
-}
-
 .au-scroll-arrow {
   display: inline-flex;
   width: 32px;
@@ -203,38 +188,6 @@
   50% {
     transform: translateY(-10px);
   }
-}
-
-.au-hero-stat-overlay {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  gap: 40px;
-  margin-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 32px;
-}
-
-.au-hero-stat {
-  text-align: center;
-}
-
-.au-hero-stat span {
-  display: block;
-  font-family: var(--serif);
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--gold);
-  line-height: 1;
-}
-
-.au-hero-stat small {
-  display: block;
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--fg2);
-  margin-top: 6px;
 }
 
 /* ─── MARQUEE TICKER ─── */
@@ -338,240 +291,6 @@
   line-height: 1.5;
 }
 
-/* ─── NUMBERS STRIP ─── */
-.au-numbers {
-  background: #0a0f16;
-  border-top: 1px solid rgba(230, 168, 23, 0.12);
-  border-bottom: 1px solid rgba(230, 168, 23, 0.12);
-  padding: 80px 60px;
-}
-
-.au-numbers-inner {
-  max-width: 1340px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0;
-}
-
-.au-num-item {
-  text-align: center;
-  padding: 24px 16px;
-  border-right: 1px solid rgba(230, 168, 23, 0.1);
-}
-
-.au-num-item:last-child {
-  border-right: none;
-}
-
-.au-num {
-  font-family: var(--serif);
-  font-size: clamp(2.8rem, 5vw, 4.5rem);
-  font-weight: 700;
-  color: var(--gold);
-  line-height: 1;
-  margin-bottom: 12px;
-}
-
-.au-num-line {
-  width: 32px;
-  height: 1px;
-  background: var(--gold);
-  margin: 0 auto 12px;
-  opacity: 0.4;
-}
-
-.au-num-label {
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--fg2);
-}
-
-/* ─── STORY TIMELINE ─── */
-.au-story {
-  background: var(--bg);
-}
-
-.au-story-header {
-  margin-bottom: 80px;
-}
-
-.au-story-track {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.au-story-line {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: linear-gradient(to bottom, rgba(230, 168, 23, 0.5), rgba(230, 168, 23, 0.05));
-  transform: translateX(-50%);
-}
-
-.au-story-item {
-  display: grid;
-  grid-template-columns: 1fr 48px 1fr;
-  gap: 0 32px;
-  align-items: start;
-  margin-bottom: 64px;
-  position: relative;
-}
-
-.au-story-item:last-child {
-  margin-bottom: 0;
-}
-
-.au-story-year {
-  font-family: var(--serif);
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: rgba(230, 168, 23, 0.25);
-  letter-spacing: -0.02em;
-  text-align: right;
-  padding-top: 8px;
-  padding-right: 32px;
-}
-
-.au-story-node {
-  width: 16px;
-  height: 16px;
-  border: 2px solid var(--gold);
-  background: var(--bg);
-  border-radius: 50%;
-  margin: 10px auto 0;
-  position: relative;
-  z-index: 2;
-  flex-shrink: 0;
-}
-
-.au-story-node--active {
-  background: var(--gold);
-  box-shadow: 0 0 20px rgba(230, 168, 23, 0.5);
-}
-
-.au-story-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  padding: 28px 32px;
-  margin-left: 32px;
-  transition: border-color 0.3s;
-}
-
-.au-story-card:hover {
-  border-color: rgba(230, 168, 23, 0.3);
-}
-
-.au-story-card--active {
-  border-color: rgba(230, 168, 23, 0.25);
-}
-
-.au-story-card h4 {
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--fg);
-  margin-bottom: 10px;
-}
-
-.au-story-card p {
-  font-size: 0.875rem;
-  color: var(--fg2);
-  line-height: 1.8;
-}
-
-.au-story-item--alt .au-story-year {
-  order: 3;
-  text-align: left;
-  padding-right: 0;
-  padding-left: 32px;
-}
-
-.au-story-item--alt .au-story-node {
-  order: 2;
-}
-
-.au-story-item--alt .au-story-card {
-  order: 1;
-  margin-left: 0;
-  margin-right: 32px;
-}
-
-/* ─── MISSION & VISION — FULL BLEED HALVES ─── */
-.au-mv {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 560px;
-}
-
-.au-mv-card {
-  padding: 80px 72px;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-start;
-}
-
-.au-mv-mission {
-  background: linear-gradient(135deg, #0d1117 0%, #121b2e 100%);
-  border-right: 1px solid rgba(230, 168, 23, 0.12);
-}
-
-.au-mv-vision {
-  background: linear-gradient(135deg, #12110e 0%, #1c1a0f 100%);
-}
-
-.au-mv-card::before {
-  content: '';
-  position: absolute;
-  top: -60px;
-  right: -60px;
-  width: 240px;
-  height: 240px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(230, 168, 23, 0.06) 0%, transparent 70%);
-}
-
-.au-mv-inner {
-  display: flex;
-  gap: 32px;
-  position: relative;
-  z-index: 1;
-}
-
-.au-mv-number {
-  font-family: var(--serif);
-  font-size: 5rem;
-  font-weight: 700;
-  color: rgba(230, 168, 23, 0.08);
-  line-height: 1;
-  flex-shrink: 0;
-  margin-top: -8px;
-}
-
-.au-mv-content h3 {
-  font-family: var(--serif);
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--fg);
-  margin: 8px 0 24px;
-}
-
-.au-mv-content p {
-  font-size: 0.9rem;
-  color: var(--fg2);
-  line-height: 1.85;
-}
-
-.au-mv-content p+p {
-  margin-top: 16px;
-}
-
 /* ─── VALUES — ROW CARDS ─── */
 .au-values {
   background: var(--bg);
@@ -583,13 +302,6 @@
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   align-items: end;
-}
-
-.au-values-sub {
-  font-size: 1rem;
-  color: var(--fg2);
-  line-height: 1.8;
-  font-weight: 300;
 }
 
 .au-values-row {
@@ -649,186 +361,6 @@
   color: var(--fg2);
   line-height: 1.8;
 }
-
-/* ─── WHY CHOOSE US — NUMBERED ROWS ─── */
-.au-why {}
-
-.au-why-head {
-  margin-bottom: 60px;
-}
-
-.au-why-rows {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.au-why-row {
-  display: grid;
-  grid-template-columns: 80px 1fr auto;
-  gap: 40px;
-  align-items: start;
-  padding: 36px 0;
-  border-bottom: 1px solid var(--border);
-  transition: padding-left 0.3s;
-}
-
-.au-why-row:first-child {
-  border-top: 1px solid var(--border);
-}
-
-.au-why-row:hover {
-  padding-left: 12px;
-}
-
-.au-why-num {
-  font-family: var(--serif);
-  font-size: 2rem;
-  font-weight: 700;
-  color: rgba(230, 168, 23, 0.2);
-  line-height: 1;
-  padding-top: 4px;
-}
-
-.au-why-body h4 {
-  font-family: var(--serif);
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--fg);
-  margin-bottom: 10px;
-}
-
-.au-why-body p {
-  font-size: 0.875rem;
-  color: var(--fg2);
-  line-height: 1.8;
-}
-
-.au-why-tag {
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid rgba(230, 168, 23, 0.3);
-  padding: 6px 14px;
-  height: fit-content;
-  margin-top: 6px;
-  white-space: nowrap;
-}
-
-/* ─── CAPABILITIES — LARGE NUMBERED LIST ─── */
-.au-caps {
-  background: var(--bg);
-}
-
-.au-caps-head {
-  margin-bottom: 60px;
-}
-
-.au-caps-list {
-  list-style: none;
-}
-
-.au-caps-list li {
-  display: grid;
-  grid-template-columns: 56px 1fr auto;
-  align-items: center;
-  gap: 24px;
-  padding: 22px 0;
-  border-bottom: 1px solid var(--border);
-  cursor: default;
-  transition: padding-left 0.3s;
-}
-
-.au-caps-list li:first-child {
-  border-top: 1px solid var(--border);
-}
-
-.au-caps-list li:hover {
-  padding-left: 16px;
-}
-
-.au-caps-list li:hover .au-caps-name {
-  color: var(--fg);
-}
-
-.au-caps-list li:hover .au-caps-arrow {
-  color: var(--gold);
-  opacity: 1;
-}
-
-.au-caps-num {
-  font-family: var(--serif);
-  font-size: 0.75rem;
-  color: rgba(230, 168, 23, 0.3);
-  letter-spacing: 0.1em;
-}
-
-.au-caps-name {
-  font-family: var(--serif);
-  font-size: clamp(1rem, 2vw, 1.5rem);
-  font-weight: 400;
-  color: var(--fg2);
-  transition: color 0.3s;
-}
-
-.au-caps-arrow {
-  font-size: 1.2rem;
-  color: var(--fg2);
-  opacity: 0.3;
-  transition: color 0.3s, opacity 0.3s;
-}
-
-/* ─── GLOBAL OFFICES — CLEAN TABLE STYLE ─── */
-.au-offices {}
-
-.au-offices-head {
-  margin-bottom: 60px;
-}
-
-.au-offices-list {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid var(--border);
-}
-
-.au-office-row {
-  display: grid;
-  grid-template-columns: 220px 200px 1fr;
-  gap: 40px;
-  align-items: start;
-  padding: 36px 0;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.3s, padding-left 0.3s;
-}
-
-.au-office-row:hover {
-  background: rgba(230, 168, 23, 0.03);
-  padding-left: 16px;
-}
-
-.au-office-city {
-  font-family: var(--serif);
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--fg);
-}
-
-.au-office-role {
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--gold);
-  padding-top: 8px;
-}
-
-.au-office-desc {
-  font-size: 0.875rem;
-  color: var(--fg2);
-  line-height: 1.75;
-  padding-top: 4px;
-}
-
 
 
 /* ─── CTA — DRAMATIC FULL BLEED ─── */
@@ -902,142 +434,6 @@
   flex-wrap: wrap;
 }
 
-#why-choose-us {
-  padding: 80px 40px;
-  background: var(--bg);
-}
-
-.wcu-top {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.wcu-label {
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold);
-  display: block;
-  margin-bottom: 12px;
-}
-
-.wcu-title {
-  font-family: var(--serif);
-  font-size: 2.2rem;
-  color: var(--fg);
-  line-height: 1.2;
-  margin-bottom: 16px;
-}
-
-.wcu-title em {
-  color: var(--gold);
-  font-style: italic;
-}
-
-.wcu-divider {
-  width: 48px;
-  height: 2px;
-  background: var(--gold);
-  margin: 0 auto;
-}
-
-.wcu-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.wcu-card {
-  background: var(--bg2);
-  padding: 40px 32px;
-  position: relative;
-  overflow: hidden;
-  transition: background 0.3s;
-}
-
-.wcu-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 3px;
-  height: 0;
-  background: var(--gold);
-  transition: height 0.4s ease;
-}
-
-.wcu-card:hover::before {
-  height: 100%;
-}
-
-.wcu-card:hover {
-  background: var(--bg3);
-}
-
-.wcu-num {
-  font-family: var(--serif);
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: rgba(230, 168, 23, 0.08);
-  line-height: 1;
-  margin-bottom: 20px;
-  transition: color 0.3s;
-}
-
-.wcu-card:hover .wcu-num {
-  color: rgba(230, 168, 23, 0.18);
-}
-
-.wcu-icon {
-  width: 42px;
-  height: 42px;
-  border: 1px solid rgba(230, 168, 23, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  transition: border-color 0.3s, background 0.3s;
-}
-
-.wcu-card:hover .wcu-icon {
-  border-color: var(--gold);
-  background: rgba(230, 168, 23, 0.08);
-}
-
-.wcu-icon svg {
-  width: 20px;
-  height: 20px;
-  stroke: var(--gold);
-  fill: none;
-  stroke-width: 1.5;
-}
-
-.wcu-h {
-  font-family: var(--serif);
-  font-size: 1.05rem;
-  color: var(--fg);
-  margin-bottom: 12px;
-  font-weight: 600;
-}
-
-.wcu-p {
-  font-size: 0.82rem;
-  color: var(--fg2);
-  line-height: 1.8;
-}
-
-.wcu-tag {
-  display: inline-block;
-  margin-top: 18px;
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid rgba(230, 168, 23, 0.25);
-  padding: 4px 10px;
-}
 
 /* ═══════════════════════════════════════════════════════
    HOW WE WORK — HORIZONTAL CARDS STRIP
@@ -1738,10 +1134,6 @@
     padding: 0 40px;
   }
 
-  .au-numbers {
-    padding: 64px 40px;
-  }
-
   .au-identity-grid {
     gap: 60px;
   }
@@ -1781,33 +1173,12 @@
     position: static;
   }
 
-  .au-mv {
-    grid-template-columns: 1fr;
-  }
-
-  .au-mv-card {
-    padding: 60px 40px;
-  }
-
-  .au-mv-card:first-child {
-    border-right: none;
-    border-bottom: 1px solid rgba(230, 168, 23, 0.12);
-  }
-
   .au-values-head {
     grid-template-columns: 1fr;
   }
 
   .au-values-row {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .au-story-track {
-    padding: 0 20px;
-  }
-
-  .au-numbers-inner {
-    grid-template-columns: repeat(3, 1fr);
   }
 
   .au-num-item:nth-child(3) {
@@ -1844,51 +1215,12 @@
     gap: 20px;
   }
 
-  .au-numbers {
-    padding: 48px 24px;
-  }
-
-  .au-numbers-inner {
-    grid-template-columns: 1fr 1fr;
-  }
-
   .au-num-item:nth-child(2n) {
     border-right: none;
   }
 
   .au-num-item:nth-child(3) {
     border-right: 1px solid rgba(230, 168, 23, 0.1);
-  }
-
-  .au-story-line {
-    display: none;
-  }
-
-  .au-story-item {
-    grid-template-columns: 1fr;
-  }
-
-  .au-story-year {
-    text-align: left;
-    padding-right: 0;
-    font-size: 1.2rem;
-  }
-
-  .au-story-node {
-    display: none;
-  }
-
-  .au-story-card {
-    margin-left: 0;
-    margin-right: 0 !important;
-  }
-
-  .au-story-item--alt .au-story-year {
-    order: 0;
-  }
-
-  .au-story-item--alt .au-story-card {
-    order: 1;
   }
 
   .au-values-row {
@@ -1917,14 +1249,6 @@
     font-size: 1rem;
   }
 
-  .au-mv-card {
-    padding: 48px 24px;
-  }
-
-  .au-mv-number {
-    font-size: 3.5rem;
-  }
-
   .au-offices-head {
     padding: 0 24px;
   }
@@ -1935,9 +1259,6 @@
 }
 
 @media (max-width: 480px) {
-  .au-numbers-inner {
-    grid-template-columns: 1fr 1fr;
-  }
 
   .au-num-item:nth-child(5) {
     border-right: none;
@@ -1946,11 +1267,6 @@
 
   .au-hero-logo {
     width: 370px;
-  }
-
-  .au-mv-inner {
-    flex-direction: column;
-    gap: 12px;
   }
 
   .au-caps-list li {

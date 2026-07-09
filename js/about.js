@@ -64,8 +64,6 @@
     ];
 
     var STATS = [
-
-
     ];
 
     var active = 0;
