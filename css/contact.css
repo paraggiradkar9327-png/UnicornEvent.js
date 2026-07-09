@@ -272,8 +272,21 @@ a.ct-quick-val:hover {
   border-color: rgba(220, 80, 80, 0.6) !important;
 }
 
+.ct-error-msg {
+  display: none;
+  color: rgba(220, 80, 80, 0.9);
+  font-size: 0.75rem;
+  margin-top: 6px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ct-field-error+.ct-error-msg {
+  display: block;
+}
+
 /* Checkbox */
-.ct-field--checkbox {}
+
 
 .ct-checkbox-label {
   display: flex;

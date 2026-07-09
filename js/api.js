@@ -181,6 +181,7 @@
         last_name: data.last_name || '',
         email: data.email,
         phone: data.phone || '',
+        zip_code: data.zip_code || '',
         service: data.service || '',
         event_date: data.event_date || '',
         event_location: data.event_location || '',

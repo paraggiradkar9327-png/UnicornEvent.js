@@ -4,12 +4,24 @@ document.addEventListener('components:loaded', function () {
     const submitBtn = form ? form.querySelector('.ct-submit-btn') : null;
     if (!form || !success) return;
 
+    // ── Field-level format rules ──
+    // Only enforced when the field has a value, so optional fields
+    // (phone, zip_code) stay optional but must be well-formed if filled in.
+    const validators = {
+        first_name: { pattern: /^[A-Za-z\s'-]{2,}$/, message: 'Letters only, at least 2 characters.' },
+        last_name: { pattern: /^[A-Za-z\s'-]{2,}$/, message: 'Letters only, at least 2 characters.' },
+        email: { pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Enter a valid email address.' },
+        phone: { pattern: /^[0-9]{10}$/, message: 'Phone number must be exactly 10 digits.' },
+        zip_code: { pattern: /^[0-9]{6}$/, message: 'Zip code must be 6 digits.' }
+    };
+
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        // ── Validate required fields ──
-        const required = form.querySelectorAll('[required]');
         let valid = true;
+
+        // ── Validate required fields (presence) ──
+        const required = form.querySelectorAll('[required]');
         required.forEach(field => {
             field.classList.remove('ct-field-error');
             if (!field.value.trim() || (field.type === 'checkbox' && !field.checked)) {
@@ -17,6 +29,21 @@ document.addEventListener('components:loaded', function () {
                 valid = false;
             }
         });
+
+        // ── Validate field formats (names, email, phone, zip) ──
+        Object.keys(validators).forEach(name => {
+            const field = form.querySelector(`[name="${name}"]`);
+            if (!field) return;
+            const value = field.value.trim();
+            if (!value) return; // empty + optional: required check above already caught empty-but-required cases
+
+            field.classList.remove('ct-field-error');
+            if (!validators[name].pattern.test(value)) {
+                field.classList.add('ct-field-error');
+                valid = false;
+            }
+        });
+
         if (!valid) return;
 
         // ── Disable button & show sending state ──
@@ -29,6 +56,7 @@ document.addEventListener('components:loaded', function () {
             last_name: form.querySelector('[name="last_name"]').value.trim(),
             email: form.querySelector('[name="email"]').value.trim(),
             phone: form.querySelector('[name="phone"]') ? form.querySelector('[name="phone"]').value.trim() : '',
+            zip_code: form.querySelector('[name="zip_code"]') ? form.querySelector('[name="zip_code"]').value.trim() : '',
             service: form.querySelector('[name="service"]') ? form.querySelector('[name="service"]').value : '',
             event_date: form.querySelector('[name="event_date"]') ? form.querySelector('[name="event_date"]').value.trim() : '',
             event_location: form.querySelector('[name="event_location"]') ? form.querySelector('[name="event_location"]').value.trim() : '',

@@ -87,22 +87,30 @@
           <div class="ct-form-row">
             <div class="ct-field">
               <label for="ct-first-name">First Name *</label>
-              <input type="text" id="ct-first-name" name="first_name" placeholder="Your first name" required />
+              <input type="text" id="ct-first-name" name="first_name" placeholder="Your first name"
+                pattern="^[A-Za-z\s'-]{2,}$" title="Letters only" required />
+              <span class="ct-error-msg">Please enter a valid name (letters only).</span>
             </div>
             <div class="ct-field">
               <label for="ct-last-name">Last Name *</label>
-              <input type="text" id="ct-last-name" name="last_name" placeholder="Your last name" required />
+              <input type="text" id="ct-last-name" name="last_name" placeholder="Your last name"
+                pattern="^[A-Za-z\s'-]{2,}$" title="Letters only" required />
+              <span class="ct-error-msg">Please enter a valid name (letters only).</span>
             </div>
           </div>
 
           <div class="ct-form-row">
             <div class="ct-field">
               <label for="ct-email">Email Address *</label>
-              <input type="email" id="ct-email" name="email" placeholder="your@company.com" required />
+              <input type="email" id="ct-email" name="email" placeholder="your@company.com"
+                pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" required />
+              <span class="ct-error-msg">Please enter a valid email address.</span>
             </div>
             <div class="ct-field">
               <label for="ct-phone">Phone Number</label>
-              <input type="tel" id="ct-phone" name="phone" placeholder="+1 (000) 000 0000" />
+              <input type="tel" id="ct-phone" name="phone" placeholder="10-digit mobile number" inputmode="numeric"
+                maxlength="10" pattern="^[0-9]{10}$" />
+              <span class="ct-error-msg">Phone number must be exactly 10 digits.</span>
             </div>
           </div>
 
@@ -110,8 +118,10 @@
 
           <div class="ct-form-row">
             <div class="ct-field">
-              <label for="ct-phone">Zip Code</label>
-              <input type="tel" id="ct-phone" name="phone" placeholder="440011" />
+              <label for="ct-zip">Zip Code</label>
+              <input type="text" id="ct-zip" name="zip_code" placeholder="440011" inputmode="numeric" maxlength="6"
+                pattern="^[0-9]{6}$" />
+              <span class="ct-error-msg">Zip code must be 6 digits.</span>
             </div>
 
             <div class="ct-field">
