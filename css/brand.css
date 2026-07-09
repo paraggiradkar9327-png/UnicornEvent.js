@@ -32,8 +32,8 @@
     display: flex;
     align-items: center;
     width: max-content;
-    animation: marqueeMove 30s linear infinite;
-    padding: 20px;
+    animation: marqueeMove 50s linear infinite;
+    margin-top: 52px;
 }
 
 .marquee-wrapper:hover .marquee-track {

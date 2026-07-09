@@ -371,6 +371,17 @@
     stroke-linejoin: round;
 }
 
+.touch-line {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 14px;
+    color: #d4a017;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
 /* ════════════════════════════════════════
        BOTTOM EMAIL BANNER
     ════════════════════════════════════════ */
