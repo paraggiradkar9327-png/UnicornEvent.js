@@ -7,266 +7,404 @@
   },
   {
     "category": "Events",
+    "src": "assets/portfolio/Events/event-port-4.webp",
+    "alt": "event-port-4",
+    "srNo": 2
+  },
+  {
+    "category": "Events",
     "src": "assets/portfolio/Events/event-port-19.webp",
     "alt": "event-port-19.webp",
-    "srNo": 12
+    "srNo": 3
+  },
+  {
+    "category": "Events",
+    "src": "assets/portfolio/Events/event-port-5.webp",
+    "alt": "event-port-5.webp",
+    "srNo": 4
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-2.webp",
     "alt": "event-port-2.webp",
-    "srNo": 13
+    "srNo": 5
+  },
+  {
+    "category": "Events",
+    "src": "assets/portfolio/Events/event-port-7.webp",
+    "alt": "event-port-7.webp",
+    "srNo": 6
+  },
+  {
+    "category": "Events",
+    "src": "assets/portfolio/Events/event-port-6.webp",
+    "alt": "event-port-6.webp",
+    "srNo": 7
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-20.webp",
     "alt": "event-port-20.webp",
-    "srNo": 14
+    "srNo": 8
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-21.webp",
     "alt": "event-port-21.webp",
-    "srNo": 15
+    "srNo": 9
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-22.webp",
     "alt": "event-port-22.webp",
-    "srNo": 16
+    "srNo": 10
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-25.webp",
     "alt": "event-port-25.webp",
-    "srNo": 19
+    "srNo": 11
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-27.webp",
     "alt": "event-port-27.webp",
-    "srNo": 21
+    "srNo": 12
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-28.webp",
     "alt": "event-port-28.webp",
-    "srNo": 22
+    "srNo": 13
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-3.webp",
     "alt": "event-port-3.webp",
-    "srNo": 24
+    "srNo": 14
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-31.webp",
     "alt": "event-port-31.webp",
-    "srNo": 26
+    "srNo": 15
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-33.webp",
     "alt": "event-port-33.webp",
-    "srNo": 27
+    "srNo": 16
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-9.webp",
     "alt": "event-port-9.webp",
-    "srNo": 28
+    "srNo": 17
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-img-1.webp",
     "alt": "event-port-img-1.webp",
-    "srNo": 29
+    "srNo": 18
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-img-14.webp",
     "alt": "event-port-img-14.webp",
-    "srNo": 32
+    "srNo": 19
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-img-19.webp",
     "alt": "event-port-img-19.webp",
-    "srNo": 33
+    "srNo": 20
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-img-2.webp",
     "alt": "event-port-img-2.webp",
-    "srNo": 34
+    "srNo": 21
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-img-20.webp",
     "alt": "event-port-img-20.webp",
-    "srNo": 35
+    "srNo": 22
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-img-3.webp",
     "alt": "event-port-img-3.webp",
-    "srNo": 37
+    "srNo": 23
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-img-5.webp",
     "alt": "event-port-img-5.webp",
-    "srNo": 39
+    "srNo": 24
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/event-port-img-8.webp",
     "alt": "event-port-img-8.webp",
-    "srNo": 41
+    "srNo": 25
   },
   {
     "category": "Events",
     "src": "assets/portfolio/Events/sports-port-6.webp",
     "alt": "sports-port-6.webp",
-    "srNo": 46
+    "srNo": 26
   },
   {
     "category": "Branding",
     "src": "assets/portfolio/branding/branding-port-3.webp",
     "alt": "branding-port-3.webp",
-    "srNo": 60
+    "srNo": 27
+  },
+  {
+    "category": "Branding",
+    "src": "assets/portfolio/branding/branding-port-1.webp",
+    "alt": "branding-port-1.webp",
+    "srNo": 28
+  },
+  {
+    "category": "Branding",
+    "src": "assets/portfolio/branding/branding-port-2.webp",
+    "alt": "branding-port-2.webp",
+    "srNo": 29
+  },
+  {
+    "category": "Branding",
+    "src": "assets/portfolio/branding/branding-port-4.webp",
+    "alt": "branding-port-4.webp",
+    "srNo": 30
+  },
+  {
+    "category": "Branding",
+    "src": "assets/portfolio/branding/branding-port-5.webp",
+    "alt": "branding-port-5.webp",
+    "srNo": 31
+  },
+  {
+    "category": "Branding",
+    "src": "assets/portfolio/branding/branding-port-6.webp",
+    "alt": "branding-port-6.webp",
+    "srNo": 32
+  },
+  {
+    "category": "Branding",
+    "src": "assets/portfolio/branding/branding-port-7.webp",
+    "alt": "branding-port-7.webp",
+    "srNo": 33
   },
   {
     "category": "Activation",
     "src": "assets/portfolio/activation/activation-port-12.webp",
     "alt": "activation-port-12.webp",
-    "srNo": 72
+    "srNo": 34
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-1.webp",
     "alt": "wedding-port-1.webp",
-    "srNo": 85
+    "srNo": 35
+  },
+  {
+    "category": "Wedding",
+    "src": "assets/portfolio/Wedding/wedding-port-3.webp",
+    "alt": "wedding-port-1.webp",
+    "srNo": 36
+  },
+  {
+    "category": "Wedding",
+    "src": "assets/portfolio/Wedding/wedding-port-37.webp",
+    "alt": "wedding-port-37.webp",
+    "srNo": 37
+  },
+  {
+    "category": "Wedding",
+    "src": "assets/portfolio/Wedding/wedding-port-12.webp",
+    "alt": "wedding-port-12.webp",
+    "srNo": 38
+  },
+  {
+    "category": "Wedding",
+    "src": "assets/portfolio/Wedding/wedding-port-14.webp",
+    "alt": "wedding-port-14.webp",
+    "srNo": 39
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-11.webp",
     "alt": "wedding-port-11.webp",
-    "srNo": 86
+    "srNo": 40
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-13.webp",
     "alt": "wedding-port-13.webp",
-    "srNo": 87
+    "srNo": 41
+  },
+  {
+    "category": "Wedding",
+    "src": "assets/portfolio/Wedding/wedding-port-15.webp",
+    "alt": "wedding-port-15.webp",
+    "srNo": 42
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-16.webp",
     "alt": "wedding-port-16.webp",
-    "srNo": 88
+    "srNo": 43
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-17.webp",
     "alt": "wedding-port-17.webp",
-    "srNo": 89
+    "srNo": 44
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-18.webp",
     "alt": "wedding-port-18.webp",
-    "srNo": 90
+    "srNo": 45
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-19.webp",
     "alt": "wedding-port-19.webp",
-    "srNo": 91
+    "srNo": 46
+  },
+  {
+    "category": "Wedding",
+    "src": "assets/portfolio/Wedding/wedding-port-21.webp",
+    "alt": "wedding-port-21.webp",
+    "srNo": 47
+  },
+  {
+    "category": "Wedding",
+    "src": "assets/portfolio/Wedding/wedding-port-22.webp",
+    "alt": "wedding-port-22.webp",
+    "srNo": 48
+  },
+  {
+    "category": "Wedding",
+    "src": "assets/portfolio/Wedding/wedding-port-23.webp",
+    "alt": "wedding-port-23.webp",
+    "srNo": 49
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-2.webp",
     "alt": "wedding-port-2.webp",
-    "srNo": 92
+    "srNo": 50
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-20.webp",
     "alt": "wedding-port-20.webp",
-    "srNo": 93
+    "srNo": 51
+  },
+  {
+    "category": "Wedding",
+    "src": "assets/portfolio/Wedding/wedding-port-24.webp",
+    "alt": "wedding-port-24.webp",
+    "srNo": 52
+  },
+  {
+    "category": "Wedding",
+    "src": "assets/portfolio/Wedding/wedding-port-26.webp",
+    "alt": "wedding-port-26.webp",
+    "srNo": 53
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-25.webp",
     "alt": "wedding-port-25.webp",
-    "srNo": 94
+    "srNo": 54
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-27.webp",
     "alt": "wedding-port-27.webp",
-    "srNo": 95
+    "srNo": 55
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-28.webp",
     "alt": "wedding-port-28.webp",
-    "srNo": 96
-  },
-  {
-    "category": "Wedding",
-    "src": "assets/portfolio/Wedding/wedding-port-29.webp",
-    "alt": "wedding-port-29.webp",
-    "srNo": 97
+    "srNo": 56
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-31.webp",
     "alt": "wedding-port-31.webp",
-    "srNo": 98
+    "srNo": 57
+  },
+  {
+    "category": "Wedding",
+    "src": "assets/portfolio/Wedding/wedding-port-30.webp",
+    "alt": "wedding-port-30.webp",
+    "srNo": 58
+  },
+  {
+    "category": "Wedding",
+    "src": "assets/portfolio/Wedding/wedding-port-38.webp",
+    "alt": "wedding-port-38.webp",
+    "srNo": 59
+  },
+  {
+    "category": "Wedding",
+    "src": "assets/portfolio/Wedding/wedding-port-35.webp",
+    "alt": "wedding-port-35.webp",
+    "srNo": 60
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-32.webp",
     "alt": "wedding-port-32.webp",
-    "srNo": 99
+    "srNo": 61
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-4.webp",
     "alt": "wedding-port-4.webp",
-    "srNo": 100
+    "srNo": 62
+  },
+  {
+    "category": "Wedding",
+    "src": "assets/portfolio/Wedding/wedding-port-36.webp",
+    "alt": "wedding-port-36.webp",
+    "srNo": 63
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-5.webp",
     "alt": "wedding-port-5.webp",
-    "srNo": 101
+    "srNo": 64
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-6.webp",
     "alt": "wedding-port-6.webp",
-    "srNo": 102
+    "srNo": 65
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-7.webp",
     "alt": "wedding-port-7.webp",
-    "srNo": 103
+    "srNo": 66
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-8.webp",
     "alt": "wedding-port-8.webp",
-    "srNo": 104
+    "srNo": 67
   },
   {
     "category": "Wedding",
     "src": "assets/portfolio/Wedding/wedding-port-9.webp",
     "alt": "wedding-port-9.webp",
-    "srNo": 105
+    "srNo": 68
   }
 ]
