@@ -90,6 +90,26 @@ img {
   display: flex;
   flex-direction: column;
   line-height: 1;
+  animation: hide-logo linear both;
+  animation-timeline: scroll(root block);
+  animation-range: 0px 150px;
+  /* fully hidden by 150px of scroll */
+  ;
+}
+
+@keyframes hide-logo {
+  from {
+    opacity: 1;
+    max-width: 200px;
+    /* adjust to your logo's width */
+  }
+
+  to {
+    opacity: 0;
+    max-width: 0;
+    margin: 0;
+    pointer-events: none;
+  }
 }
 
 .nav-logo .logo-main {
