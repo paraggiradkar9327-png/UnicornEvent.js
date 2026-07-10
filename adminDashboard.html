@@ -4,7 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Admin Dashboard - Unicorn Events</title>
+    <script>
+        // ─── AUTH GUARD ───────────────────────────────────────────
+        // Runs before anything renders. Anyone without a valid session
+        // flag is bounced to the login page immediately (no flash of
+        // dashboard content, and this page is skipped over in history).
+        (function () {
+            if (sessionStorage.getItem('ue_admin_auth') !== '1') {
+                window.location.replace('login.html');
+            }
+        })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -40,6 +54,12 @@
                 </ul>
             </nav>
 
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="logoutBtn">
+                    <span class="logout-icon">🚪</span>
+                    <span class="logout-text">Logout</span>
+                </button>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -176,6 +196,7 @@
          Bump the version number any time you edit api.js or adminDashboard.js. -->
     <script src="js/adminDashboardApi.js"></script>
     <script src="js/adminDashboard.js"></script>
+    <script src="js/authGuard.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </body>
 

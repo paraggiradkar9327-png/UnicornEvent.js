@@ -2,7 +2,7 @@ const brands = [
     { name: 'Adani', logo: './assets/brandIcon/adani-1.png' },
     { name: 'Audi', logo: './assets/brandIcon/audi-1.png' },
     { name: 'CEAT', logo: './assets/brandIcon/ceat-logo.png' },
-    { name: 'Eicher', short: 'EICHER', color: '#cc1418', industry: 'Commercial Vehicles', logo: './assets/brandIcon/eicher-logo.png' },
+    { name: 'Eicher', logo: './assets/brandIcon/eicher-logo.png' },
     { name: 'Mahindra', logo: './assets/brandIcon/mahindra-logo.png' },
     { name: 'Morarjee', logo: './assets/brandIcon/morariee-logo1.png' },
     { name: 'Tata', logo: './assets/brandIcon/tata-logo.png' },

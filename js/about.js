@@ -12,7 +12,7 @@
         deliverablesLabel: 'Key Deliverables'
     };
 
-    var STEPS = [
+    var steps = [
         {
             trackLabel: 'Brief', cardNum: '01', cardTag: 'Discovery', cardTitle: 'The Brief',
             cardDesc: 'We immerse ourselves in your world — your brand, audience, ambitions, and budget. We ask the questions others skip.',
@@ -79,15 +79,15 @@
 
     function buildTrack() {
         var html = '';
-        for (var i = 0; i < STEPS.length; i++) {
+        for (var i = 0; i < steps.length; i++) {
             html += '<div class="hwa-track-item">';
             /* button — always receives clicks regardless of siblings */
             html += '<button class="hwa-dot-wrap' + (i === 0 ? ' active' : '') + '" data-step="' + i + '" type="button">';
             html += '<div class="hwa-dot"></div>';
-            html += '<span class="hwa-dot-label">' + STEPS[i].trackLabel + '</span>';
+            html += '<span class="hwa-dot-label">' + steps[i].trackLabel + '</span>';
             html += '</button>';
             /* connector is a visual-only sibling, not inside the button */
-            if (i < STEPS.length - 1) {
+            if (i < steps.length - 1) {
                 html += '<div class="hwa-connector"><div class="hwa-connector-fill" id="hwa-fill-' + i + '"></div></div>';
             }
             html += '</div>';
@@ -97,8 +97,8 @@
 
     function buildCards() {
         var html = '';
-        for (var i = 0; i < STEPS.length; i++) {
-            var s = STEPS[i];
+        for (var i = 0; i < steps.length; i++) {
+            var s = steps[i];
             html += '<div class="hwa-card' + (i === 0 ? ' active' : '') + '" data-card="' + i + '">';
             html += '<div class="hwa-card-num">' + s.cardNum + '</div>';
             html += '<div class="hwa-card-tag">' + s.cardTag + '</div>';
@@ -143,7 +143,7 @@
             - parseFloat(style.paddingLeft)
             - parseFloat(style.paddingRight);
         var cw = isMobile ? w : (w - gap * (vis - 1)) / vis;
-        var max = STEPS.length - vis;
+        var max = steps.length - vis;
 
         // On mobile: slide by exact card width (no gap)
         // On desktop: centre the active card in the visible window
@@ -181,7 +181,7 @@
         slideToStep(i);
 
         /* detail panel */
-        var s = STEPS[i];
+        var s = steps[i];
         document.getElementById('hwa-detail-label').textContent = s.detailLabel;
         document.getElementById('hwa-detail-text').textContent = s.detailText;
         var listHTML = '';
@@ -220,7 +220,7 @@
             if (active > 0) setActive(active - 1);
         });
         document.getElementById('hwa-btn-next').addEventListener('click', function () {
-            if (active < STEPS.length - 1) setActive(active + 1);
+            if (active < steps.length - 1) setActive(active + 1);
         });
 
         /* resize */

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Admin Login - Unicorn Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/login.css">
+    <script>
+        // If already authenticated, skip the login screen entirely so the
+        // back button can never land the user on a stale login form.
+        if (sessionStorage.getItem('ue_admin_auth') === '1') {
+            window.location.replace('adminDashboard.html');
+        }
+    </script>
+</head>
+
+<body>
+    <div class="login-page">
+        <div class="login-card">
+            <div class="login-brand">
+                <img src="assets/logo.png" alt="Unicorn Events" class="login-logo" onerror="this.style.display='none'">
+                <h1 class="login-title">Unicorn Events</h1>
+                <p class="login-subtitle">Admin Dashboard Access</p>
+            </div>
+
+            <form id="loginForm" class="login-form" autocomplete="off">
+                <div class="form-group">
+                    <label class="admin-label" for="username">Username</label>
+                    <input type="text" id="username" class="admin-input" placeholder="Enter username" autocomplete="off"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label class="admin-label" for="password">Password</label>
+                    <div class="password-wrap">
+                        <input type="password" id="password" class="admin-input" placeholder="Enter password"
+                            autocomplete="off" required>
+                        <button type="button" id="togglePassword" class="toggle-password" tabindex="-1"
+                            aria-label="Show password">👁</button>
+                    </div>
+                </div>
+
+                <span class="admin-error" id="loginError"></span>
+
+                <button type="submit" class="admin-btn" id="loginBtn">Sign In</button>
+            </form>
+
+            <p class="login-hint">Authorized personnel only</p>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+
+</html>
