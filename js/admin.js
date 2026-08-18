@@ -169,7 +169,13 @@
   function resetToPasswordStep() {
     document.getElementById('admin-step-password').style.display = 'block';
     document.getElementById('admin-step-upload').style.display = 'none';
-    document.getElementById('admin-password-input').value = '';
+    const pwInput = document.getElementById('admin-password-input');
+    const toggleBtn = document.getElementById('admin-password-toggle');
+    pwInput.value = '';
+    pwInput.type = 'password';
+    toggleBtn.classList.remove('is-visible');
+    toggleBtn.setAttribute('aria-label', 'Show password');
+    toggleBtn.setAttribute('aria-pressed', 'false');
     document.getElementById('admin-password-error').textContent = '';
   }
 
@@ -289,13 +295,19 @@
   function initEvents() {
     document.getElementById('admin-trigger-btn').addEventListener('click', openModal);
     document.getElementById('admin-close').addEventListener('click', closeModal);
-    document.getElementById('admin-overlay').addEventListener('click', (e) => {
-      if (e.target === document.getElementById('admin-overlay')) closeModal();
-    });
     document.getElementById('admin-password-input').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') handlePasswordSubmit();
     });
     document.getElementById('admin-password-btn').addEventListener('click', handlePasswordSubmit);
+    document.getElementById('admin-password-toggle').addEventListener('click', () => {
+      const pwInput = document.getElementById('admin-password-input');
+      const toggleBtn = document.getElementById('admin-password-toggle');
+      const isHidden = pwInput.type === 'password';
+      pwInput.type = isHidden ? 'text' : 'password';
+      toggleBtn.classList.toggle('is-visible', isHidden);
+      toggleBtn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+      toggleBtn.setAttribute('aria-pressed', isHidden ? 'true' : 'false');
+    });
     document.getElementById('video-file-input').addEventListener('change', (e) => handleFileSelected(e.target.files[0]));
     document.getElementById('upload-submit-btn').addEventListener('click', handleUploadSubmit);
     document.getElementById('yt-submit-btn').addEventListener('click', handleYtSubmit);

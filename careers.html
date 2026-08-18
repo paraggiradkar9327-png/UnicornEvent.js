@@ -179,8 +179,27 @@
             <!-- STEP 1: Password (shown by default) -->
             <div id="admin-step-password">
                 <label class="admin-label" for="admin-password-input">Enter Admin Password</label>
-                <input class="admin-input" type="password" id="admin-password-input" placeholder="Password"
-                    autocomplete="current-password" />
+                <div class="admin-password-wrap">
+                    <input class="admin-input" type="password" id="admin-password-input" placeholder="Password"
+                        autocomplete="current-password" />
+                    <button type="button" id="admin-password-toggle" class="admin-toggle-password" tabindex="-1"
+                        aria-label="Show password" aria-pressed="false">
+                        <svg class="admin-eye-icon admin-eye-open" width="20" height="20" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" aria-hidden="true">
+                            <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z" />
+                            <circle cx="12" cy="12" r="3.2" />
+                        </svg>
+                        <svg class="admin-eye-icon admin-eye-closed" width="20" height="20" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3 3l18 18" />
+                            <path
+                                d="M10.6 5.2A10.9 10.9 0 0 1 12 5c7 0 10.5 7 10.5 7a13.4 13.4 0 0 1-3.1 3.9M6.6 6.6C3.4 8.6 1.5 12 1.5 12S5 19 12 19a10.6 10.6 0 0 0 5.4-1.5" />
+                            <path d="M9.9 9.9a3.2 3.2 0 0 0 4.2 4.2" />
+                        </svg>
+                    </button>
+                </div>
                 <span class="admin-error" id="admin-password-error"></span>
                 <button class="admin-btn" id="admin-password-btn">Verify Access</button>
                 <p class="admin-hint">Press the backtick key (`) three times rapidly to reveal this panel.</p>

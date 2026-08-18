@@ -93,6 +93,10 @@
                     </span>
                 </div>
                 <p class="job-desc">${job.desc}</p>
+                ${job.skills && job.skills.length ? `
+                <div class="job-skills">
+                    ${job.skills.map(skill => `<span class="skill-pill">${skill}</span>`).join('')}
+                </div>` : ''}
                 <div class="job-meta">
                     ${createTag(icon.location, job.location)}
                     ${createTag(icon.clock, typeLabel(job.type))}
@@ -255,10 +259,16 @@
             const jobsStep = $('#admin-step-jobs');
             const passwordInput = $('#admin-password-input');
             const passwordError = $('#admin-password-error');
+            const toggleBtn = $('#admin-password-toggle');
             if (passwordStep) passwordStep.style.display = 'block';
             if (jobsStep) jobsStep.style.display = 'none';
-            if (passwordInput) passwordInput.value = '';
+            if (passwordInput) { passwordInput.value = ''; passwordInput.type = 'password'; }
             if (passwordError) passwordError.textContent = '';
+            if (toggleBtn) {
+                toggleBtn.classList.remove('is-visible');
+                toggleBtn.setAttribute('aria-label', 'Show password');
+                toggleBtn.setAttribute('aria-pressed', 'false');
+            }
         }
 
         function openModal() {
@@ -286,12 +296,19 @@
 
         $('#admin-trigger-btn')?.addEventListener('click', openModal);
         $('#admin-close')?.addEventListener('click', closeModal);
-        $('#admin-overlay')?.addEventListener('click', (e) => {
-            if (e.target.id === 'admin-overlay') closeModal();
-        });
         $('#admin-password-btn')?.addEventListener('click', verifyPassword);
         $('#admin-password-input')?.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') verifyPassword();
+        });
+        $('#admin-password-toggle')?.addEventListener('click', () => {
+            const pwInput = $('#admin-password-input');
+            const toggleBtn = $('#admin-password-toggle');
+            if (!pwInput || !toggleBtn) return;
+            const isHidden = pwInput.type === 'password';
+            pwInput.type = isHidden ? 'text' : 'password';
+            toggleBtn.classList.toggle('is-visible', isHidden);
+            toggleBtn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+            toggleBtn.setAttribute('aria-pressed', isHidden ? 'true' : 'false');
         });
 
         // ── Intersection Observer ──

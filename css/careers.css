@@ -286,6 +286,24 @@
     margin-bottom: 18px;
 }
 
+.job-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.skill-pill {
+    font-size: .72rem;
+    letter-spacing: .02em;
+    color: var(--fg2);
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid var(--border);
+    padding: 4px 11px;
+    border-radius: var(--btn-radius);
+    white-space: nowrap;
+}
+
 .job-meta {
     display: flex;
     flex-wrap: wrap;
@@ -580,6 +598,61 @@
 
 .admin-input:focus {
     border-color: #e6a817;
+}
+
+.admin-password-wrap {
+    position: relative;
+}
+
+.admin-password-wrap .admin-input {
+    padding-right: 44px;
+}
+
+.admin-toggle-password {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    border-radius: 6px;
+    color: #6b6358;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color .2s, background .2s;
+}
+
+.admin-toggle-password:hover,
+.admin-toggle-password:focus-visible {
+    color: #e6a817;
+    background: rgba(230, 168, 23, .1);
+}
+
+.admin-toggle-password:focus-visible {
+    outline: 1px solid #e6a817;
+    outline-offset: 1px;
+}
+
+.admin-eye-icon {
+    display: none;
+}
+
+.admin-toggle-password .admin-eye-open {
+    display: block;
+}
+
+.admin-toggle-password.is-visible .admin-eye-open {
+    display: none;
+}
+
+.admin-toggle-password.is-visible .admin-eye-closed {
+    display: block;
 }
 
 .admin-textarea {
