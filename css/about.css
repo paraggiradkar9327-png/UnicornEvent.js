@@ -148,7 +148,6 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-  /* padding: 60px 40px; */
   margin-top: 20px;
 }
 
@@ -165,7 +164,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding: 48px; */
+  width: 120%;
 }
 
 .au-hero-logo {

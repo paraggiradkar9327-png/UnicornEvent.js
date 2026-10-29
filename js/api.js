@@ -11,29 +11,34 @@
  * JS in the browser talks to Supabase over the internet.
  */
 (function (global) {
-  'use strict';
+  "use strict";
 
   // ── YOUR SUPABASE PROJECT ──────────────────────────────────
-  const SUPABASE_URL = 'https://qtaoefwicnpupcllkysy.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0YW9lZndpY25wdXBjbGxreXN5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwODYzMjgsImV4cCI6MjA5NzY2MjMyOH0.MWhZueAFMCuTLSasMLLBxNIXY7LQxYDuWScfM_aO_0c';
+  const SUPABASE_URL = "https://qtaoefwicnpupcllkysy.supabase.co";
+  const SUPABASE_ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0YW9lZndpY25wdXBjbGxreXN5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwODYzMjgsImV4cCI6MjA5NzY2MjMyOH0.MWhZueAFMCuTLSasMLLBxNIXY7LQxYDuWScfM_aO_0c";
 
   const REST_URL = `${SUPABASE_URL}/rest/v1`;
   const HEADERS = {
-    'apikey': SUPABASE_ANON_KEY,
-    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-    'Content-Type': 'application/json'
+    apikey: SUPABASE_ANON_KEY,
+    Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+    "Content-Type": "application/json",
   };
 
   /** Generic helper for calling the Supabase REST (PostgREST) API. */
   async function sbFetch(path, options = {}) {
     const res = await fetch(`${REST_URL}${path}`, {
       ...options,
-      headers: { ...HEADERS, ...(options.headers || {}) }
+      headers: { ...HEADERS, ...(options.headers || {}) },
     });
     if (!res.ok) {
-      let detail = '';
-      try { detail = JSON.stringify(await res.json()); } catch (_) { }
-      const err = new Error(`Supabase error (${res.status}): ${detail || res.statusText}`);
+      let detail = "";
+      try {
+        detail = JSON.stringify(await res.json());
+      } catch (_) {}
+      const err = new Error(
+        `Supabase error (${res.status}): ${detail || res.statusText}`,
+      );
       err.status = res.status;
       throw err;
     }
@@ -44,7 +49,7 @@
   /* ── JOBS API ─────────────────────────────────────────────── */
 
   async function getJobs() {
-    const rows = await sbFetch('/jobs?select=*&order=posted_at.desc,id.desc');
+    const rows = await sbFetch("/jobs?select=*&order=posted_at.desc,id.desc");
     return (rows || []).map(rowToJob);
   }
 
@@ -60,15 +65,17 @@
       desc: row.description,
       skills: row.skills || [],
       urgent: row.urgent,
-      postedAt: row.posted_at
+      postedAt: row.posted_at,
     };
   }
 
   async function createJob(data) {
-    const required = ['title', 'dept', 'type', 'location', 'desc'];
-    const missing = required.filter(k => !data || !String(data[k] || '').trim());
+    const required = ["title", "dept", "type", "location", "desc"];
+    const missing = required.filter(
+      (k) => !data || !String(data[k] || "").trim(),
+    );
     if (missing.length) {
-      const err = new Error('Missing required fields: ' + missing.join(', '));
+      const err = new Error("Missing required fields: " + missing.join(", "));
       err.status = 400;
       throw err;
     }
@@ -78,17 +85,17 @@
       dept: data.dept,
       type: data.type,
       location: data.location,
-      experience: data.experience || '',
-      salary: data.salary || '',
+      experience: data.experience || "",
+      salary: data.salary || "",
       description: data.desc,
       skills: Array.isArray(data.skills) ? data.skills : [],
       urgent: !!data.urgent,
-      posted_at: new Date().toISOString().slice(0, 10)
+      posted_at: new Date().toISOString().slice(0, 10),
     };
-    const rows = await sbFetch('/jobs', {
-      method: 'POST',
-      headers: { Prefer: 'return=representation' },
-      body: JSON.stringify(newRow)
+    const rows = await sbFetch("/jobs", {
+      method: "POST",
+      headers: { Prefer: "return=representation" },
+      body: JSON.stringify(newRow),
     });
     return { success: true, job: rowToJob(rows[0]) };
   }
@@ -96,11 +103,11 @@
   async function deleteJob(id) {
     const numId = Number(id);
     if (!numId) {
-      const err = new Error('Missing id');
+      const err = new Error("Missing id");
       err.status = 400;
       throw err;
     }
-    await sbFetch(`/jobs?id=eq.${numId}`, { method: 'DELETE' });
+    await sbFetch(`/jobs?id=eq.${numId}`, { method: "DELETE" });
     return { success: true };
   }
 
@@ -108,23 +115,24 @@
      Stored as a single shared row (id = 1) in `video_config`.    */
 
   async function getVideoConfig() {
-    const rows = await sbFetch('/video_config?id=eq.1&select=*');
+    const rows = await sbFetch("/video_config?id=eq.1&select=*");
     const row = rows && rows[0];
     if (!row) return {};
-    if (row.type === 'youtube') return { type: 'youtube', videoId: row.video_id };
-    if (row.type === 'file') return { type: 'file', src: row.src };
+    if (row.type === "youtube")
+      return { type: "youtube", videoId: row.video_id };
+    if (row.type === "file") return { type: "file", src: row.src };
     return {};
   }
 
   async function setYoutubeVideo(videoId) {
     if (!videoId) {
-      const err = new Error('Missing videoId');
+      const err = new Error("Missing videoId");
       err.status = 400;
       throw err;
     }
-    await sbFetch('/video_config?id=eq.1', {
-      method: 'PATCH',
-      body: JSON.stringify({ type: 'youtube', video_id: videoId, src: null })
+    await sbFetch("/video_config?id=eq.1", {
+      method: "PATCH",
+      body: JSON.stringify({ type: "youtube", video_id: videoId, src: null }),
     });
     return { success: true };
   }
@@ -140,26 +148,28 @@
    */
   async function uploadVideoFile(file) {
     if (!file) {
-      const err = new Error('No file uploaded');
+      const err = new Error("No file uploaded");
       err.status = 400;
       throw err;
     }
     const MAX_BYTES = 15 * 1024 * 1024; // keep DB rows reasonable
     if (file.size > MAX_BYTES) {
-      const err = new Error('File too large (max 15MB for database storage). Use a smaller clip or ask about Supabase Storage for larger files.');
+      const err = new Error(
+        "File too large (max 15MB for database storage). Use a smaller clip or ask about Supabase Storage for larger files.",
+      );
       err.status = 413;
       throw err;
     }
     const dataUrl = await new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(reader.result);
-      reader.onerror = () => reject(new Error('Could not read file'));
+      reader.onerror = () => reject(new Error("Could not read file"));
       reader.readAsDataURL(file);
     });
 
-    await sbFetch('/video_config?id=eq.1', {
-      method: 'PATCH',
-      body: JSON.stringify({ type: 'file', src: dataUrl, video_id: null })
+    await sbFetch("/video_config?id=eq.1", {
+      method: "PATCH",
+      body: JSON.stringify({ type: "file", src: dataUrl, video_id: null }),
     });
     return { success: true, src: dataUrl };
   }
@@ -169,51 +179,61 @@
      in the Supabase dashboard (Table Editor) from any device.       */
 
   async function sendContact(data) {
-    if (!data || !String(data.first_name || '').trim() || !String(data.email || '').trim() || !String(data.message || '').trim()) {
-      const err = new Error('Missing required fields');
+    if (
+      !data ||
+      !String(data.first_name || "").trim() ||
+      !String(data.email || "").trim() ||
+      !String(data.message || "").trim()
+    ) {
+      const err = new Error("Missing required fields");
       err.status = 400;
       throw err;
     }
-    await sbFetch('/contact_leads', {
-      method: 'POST',
+    await sbFetch("/contact_leads", {
+      method: "POST",
       body: JSON.stringify({
         first_name: data.first_name,
-        last_name: data.last_name || '',
+        last_name: data.last_name || "",
         email: data.email,
-        phone: data.phone || '',
-        zip_code: data.zip_code || '',
-        service: data.service || '',
-        event_date: data.event_date || '',
-        event_location: data.event_location || '',
-        message: data.message
-      })
+        phone: data.phone || "",
+        zip_code: data.zip_code || "",
+        service: data.service || "",
+        event_date: data.event_date || "",
+        event_location: data.event_location || "",
+        message: data.message,
+      }),
     });
     return { success: true };
   }
 
   async function sendWedding(data) {
-    if (!data || !String(data.name || '').trim() || !String(data.email || '').trim() || !String(data.wedding_date || '').trim()) {
-      const err = new Error('Missing required fields');
+    if (
+      !data ||
+      !String(data.name || "").trim() ||
+      !String(data.email || "").trim() ||
+      !String(data.wedding_date || "").trim()
+    ) {
+      const err = new Error("Missing required fields");
       err.status = 400;
       throw err;
     }
-    await sbFetch('/wedding_leads', {
-      method: 'POST',
+    await sbFetch("/wedding_leads", {
+      method: "POST",
       body: JSON.stringify({
         name: data.name,
-        mobile: data.mobile || '',
+        mobile: data.mobile || "",
         email: data.email,
-        city: data.city || '',
-        bride_name: data.bride_name || '',
-        groom_name: data.groom_name || '',
+        city: data.city || "",
+        bride_name: data.bride_name || "",
+        groom_name: data.groom_name || "",
         wedding_date: data.wedding_date,
-        venue_location: data.venue_location || '',
-        guests: data.guests || '',
-        budget: data.budget || '',
-        venue_type: data.venue_type || '',
-        theme: data.theme || '',
-        special: data.special || ''
-      })
+        venue_location: data.venue_location || "",
+        guests: data.guests || "",
+        budget: data.budget || "",
+        venue_type: data.venue_type || "",
+        theme: data.theme || "",
+        special: data.special || "",
+      }),
     });
     return { success: true };
   }
@@ -221,8 +241,8 @@
   /** Lets an admin page (if you ever build one) pull all leads. */
   async function getLeads() {
     const [contact, wedding] = await Promise.all([
-      sbFetch('/contact_leads?select=*&order=submitted_at.desc'),
-      sbFetch('/wedding_leads?select=*&order=submitted_at.desc')
+      sbFetch("/contact_leads?select=*&order=submitted_at.desc"),
+      sbFetch("/wedding_leads?select=*&order=submitted_at.desc"),
     ]);
     return { contact: contact || [], wedding: wedding || [] };
   }
@@ -233,14 +253,93 @@
 
   async function getPortfolio() {
     try {
-      const base = (document.querySelector('meta[name="base-path"]')?.content) || './';
+      const base =
+        document.querySelector('meta[name="base-path"]')?.content || "./";
       const res = await fetch(`${base}assets/portfolio-manifest.json`);
-      if (!res.ok) throw new Error('Manifest not found');
+      if (!res.ok) throw new Error("Manifest not found");
       return await res.json();
     } catch (err) {
-      console.warn('[UnicornAPI] Could not load portfolio manifest:', err);
+      console.warn("[UnicornAPI] Could not load portfolio manifest:", err);
       return [];
     }
+  }
+
+  /* ── CONSENT API ───────────────────────────────────────────── */
+
+  async function recordConsents({
+    email,
+    phone,
+    source,
+    policyVersion,
+    userAgent,
+    entries,
+  }) {
+    await sbFetch("/rpc/submit_consents", {
+      method: "POST",
+      body: JSON.stringify({
+        p_email: email,
+        p_phone: phone || "",
+        p_source: source,
+        p_policy_version: policyVersion,
+        p_user_agent: userAgent || "",
+        p_entries: entries,
+      }),
+    });
+  }
+
+  async function getConsentStatus(token) {
+    return sbFetch("/rpc/get_consent_status", {
+      method: "POST",
+      body: JSON.stringify({ p_token: token }),
+    });
+  }
+
+  async function updateConsent({
+    token,
+    purpose,
+    grant,
+    source,
+    policyVersion,
+    text,
+    userAgent,
+  }) {
+    await sbFetch("/rpc/update_consent", {
+      method: "POST",
+      body: JSON.stringify({
+        p_token: token,
+        p_purpose: purpose,
+        p_grant: grant,
+        p_source: source,
+        p_policy_version: policyVersion,
+        p_text: text || "",
+        p_user_agent: userAgent || "",
+      }),
+    });
+  }
+
+  /* ── GRIEVANCE API ───────────────────────────────────────── */
+  async function submitGrievance(data) {
+    if (
+      !data ||
+      !String(data.name || "").trim() ||
+      !String(data.email || "").trim() ||
+      !String(data.details || "").trim()
+    ) {
+      const err = new Error("Missing required fields");
+      err.status = 400;
+      throw err;
+    }
+    return await sbFetch("/rpc/submit_grievance", {
+      method: "POST",
+      body: JSON.stringify({
+        p_category: data.category,
+        p_name: data.name,
+        p_email: data.email,
+        p_phone: data.phone || "",
+        p_reference: data.reference || "",
+        p_details: data.details,
+      }),
+    });
   }
 
   /* ── PUBLIC API ───────────────────────────────────────────── */
@@ -254,7 +353,9 @@
     sendContact,
     sendWedding,
     getLeads,
-    getPortfolio
+    getPortfolio,
+    recordConsents,
+    getConsentStatus,
+    updateConsent,
   };
-
 })(window);

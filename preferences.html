@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Communication Preferences — Unicorn Events</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/consent.css" />
+    <style>
+        .pref-wrap {
+            max-width: 640px;
+            margin: 120px auto 80px;
+            padding: 0 20px;
+        }
+
+        .pref-wrap h1 {
+            margin-bottom: 8px;
+        }
+
+        .pref-status {
+            min-height: 1.4em;
+            font-size: .9rem;
+            margin-top: 14px;
+        }
+
+        .pref-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(128, 128, 128, .25);
+        }
+
+        .pref-row small {
+            display: block;
+            opacity: .75;
+        }
+
+        .switch {
+            position: relative;
+            width: 48px;
+            height: 26px;
+            flex: 0 0 auto;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            margin: 0;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .switch span {
+            position: absolute;
+            inset: 0;
+            background: #999;
+            border-radius: 26px;
+            transition: .2s;
+        }
+
+        .switch span::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: 3px;
+            top: 3px;
+            background: #fff;
+            border-radius: 50%;
+            transition: .2s;
+        }
+
+        .switch input:checked+span {
+            background: #6a0dad;
+        }
+
+        .switch input:checked+span::before {
+            transform: translateX(22px);
+        }
+
+        .switch input:focus-visible+span {
+            outline: 2px solid #6a0dad;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="pref-wrap">
+        <h1>Your communication preferences</h1>
+        <p id="pref-who">Loading…</p>
+
+        <div id="pref-list" hidden>
+            <div class="pref-row">
+                <div><strong>Contact about my enquiry</strong>
+                    <small>Calls and emails about an enquiry or booking you made with us.</small>
+                </div>
+                <label class="switch"><input type="checkbox" data-purpose="service_contact"
+                        data-text="Contact me about my enquiry"
+                        aria-label="Contact about my enquiry" /><span></span></label>
+            </div>
+            <div class="pref-row">
+                <div><strong>Marketing emails</strong>
+                    <small>Offers, event ideas and news.</small>
+                </div>
+                <label class="switch"><input type="checkbox" data-purpose="marketing_email"
+                        data-text="Email me offers, event ideas and news from Unicorn Events."
+                        aria-label="Marketing emails" /><span></span></label>
+            </div>
+            <div class="pref-row">
+                <div><strong>WhatsApp updates</strong>
+                    <small>Updates and offers on the number you gave us.</small>
+                </div>
+                <label class="switch"><input type="checkbox" data-purpose="marketing_whatsapp"
+                        data-text="Send me updates and offers on WhatsApp."
+                        aria-label="WhatsApp updates" /><span></span></label>
+            </div>
+        </div>
+
+        <p class="pref-status" id="pref-status" role="status" aria-live="polite"></p>
+        <p><small>Changes save instantly. To ask us to delete your data, see the Privacy Policy.</small></p>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/consent.js"></script>
+    <script src="js/preferences.js"></script>
+</body>
+
+</html>

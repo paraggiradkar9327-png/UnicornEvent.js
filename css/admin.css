@@ -309,13 +309,11 @@
 }
 
 
-
-
-
 /* LEFT-ALIGNED PROCESS TIMELINE */
 #process {
   background: var(--bg);
   padding: 80px 40px;
+  padding-top: 50px;
 }
 
 .process-header {

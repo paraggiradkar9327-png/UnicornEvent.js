@@ -1,0 +1,67 @@
+.gr-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.gr-sla {
+  font-size: 0.78rem;
+  color: var(--gold);
+  min-height: 1em;
+}
+
+.gr-officer-name {
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+  color: var(--fg);
+  margin: 12px 0 4px;
+}
+.gr-officer-role {
+  color: var(--fg2);
+  font-size: 0.85rem;
+  margin-bottom: 18px;
+}
+.gr-hours {
+  color: var(--fg2);
+  font-size: 0.8rem;
+  margin-top: 12px;
+}
+
+.gr-ticket {
+  font-family: "Playfair Display", serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  margin: 6px 0 14px;
+  user-select: all;
+}
+
+.gr-timelines {
+  margin-top: 28px;
+}
+.gr-timelines table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 0.8rem;
+}
+.gr-timelines th,
+.gr-timelines td {
+  text-align: left;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  color: var(--fg2);
+  vertical-align: top;
+}
+.gr-timelines th {
+  color: var(--gold);
+  font-weight: 600;
+  background: var(--bg2);
+}
+.gr-small {
+  margin-top: 12px;
+  font-size: 0.75rem;
+  color: var(--fg2);
+}

@@ -12,6 +12,7 @@
         rel="stylesheet" />
     <link rel="stylesheet" href="./css/weddingForm.css" />
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/consent.css" />
 </head>
 
 <body>
@@ -215,10 +216,56 @@
                                 placeholder="Any special requests, dietary needs, cultural traditions, accessibility requirements…"></textarea>
                         </div>
 
+                        <div class="consent-group">
+                            <p class="consent-title">Your permissions</p>
+
+                            <label class="consent-row">
+                                <input type="checkbox" id="consentService" data-consent="service_contact"
+                                    autocomplete="off" />
+                                <span data-consent-text>
+                                    I agree that Unicorn Events may contact me by phone or email about this wedding
+                                    enquiry and use
+                                    the details I have submitted for that purpose, as described in the
+                                    <a href="#privacy-policy" class="pp-inline-link" data-privacy-open>Privacy
+                                        Policy</a>.
+                                    <em>(Required to handle your enquiry.)</em>
+                                </span>
+                            </label>
+                            <span class="consent-error" id="consentServiceError">Please tick this box so we can respond
+                                to your enquiry.</span>
+
+                            <p class="consent-optional">Optional. You can say no to these and still send your enquiry.
+                            </p>
+
+                            <label class="consent-row">
+                                <input type="checkbox" id="consentEmail" data-consent="marketing_email"
+                                    autocomplete="off" />
+                                <span data-consent-text>Email me offers, event ideas and news from Unicorn
+                                    Events.</span>
+                            </label>
+
+                            <label class="consent-row">
+                                <input type="checkbox" id="consentWa" data-consent="marketing_whatsapp"
+                                    autocomplete="off" />
+                                <span data-consent-text>Send me updates and offers on WhatsApp at the mobile number I
+                                    entered above.</span>
+                            </label>
+
+                            <p class="consent-withdraw">
+                                You can change or withdraw any of these at any time from the link in our messages, or on
+                                our
+                                <a href="preferences.html">preferences page</a>.
+                            </p>
+                        </div>
+
                         <div class="submit-row">
                             <p class="submit-note">
                                 <strong>Your data is safe.</strong><br>
-                                Details will be sent directly to our wedding team.
+                                Details will be sent directly to our wedding team. By submitting, you agree to our
+                                <a href="terms.html" target="_blank" rel="noopener" class="pp-inline-link">Terms &amp;
+                                    Conditions</a>
+                                and
+                                <a href="#privacy-policy" class="pp-inline-link" data-privacy-open>Privacy Policy</a>.
                             </p>
                             <button type="submit" class="submit-btn">
                                 <span class="submit-btn-text">Submit Enquiry</span>
@@ -228,7 +275,7 @@
                         <p id="sendError"
                             style="display:none;color:rgba(220,80,80,0.85);font-size:0.8rem;margin-top:12px;">
                             ⚠ Failed to send. Please check your EmailJS configuration or contact us directly at
-                            support@unicornevent.com
+                            narendra@unicornevent.com
                         </p>
                     </div>
                 </div>
@@ -255,6 +302,7 @@
     <script src="./js/weddingForm.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/api.js"></script>
+    <script src="./js/consent.js"></script>
     <script src="./js//components.js"></script>
 
 </body>

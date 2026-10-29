@@ -1,0 +1,171 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.tc-hero {
+  background: linear-gradient(135deg, #0d1117 0%, #121b2e 50%, #0d1117 100%);
+  padding: 160px 24px 56px;
+  text-align: center;
+}
+.tc-crumb {
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--fg2);
+  margin-bottom: 20px;
+}
+.tc-crumb a {
+  color: var(--gold);
+}
+.tc-hero h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0 0 12px;
+}
+.tc-hero h1 em {
+  color: var(--gold);
+  font-style: italic;
+}
+.tc-hero p {
+  color: var(--fg2);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.tc-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 24px 96px;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+.tc-toc {
+  position: sticky;
+  top: 110px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-right: 16px;
+  border-right: 1px solid var(--border);
+}
+.tc-toc-title {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.tc-toc a {
+  font-size: 0.8rem;
+  color: var(--fg2);
+  padding: 6px 0;
+  transition: color 0.2s;
+}
+.tc-toc a:hover {
+  color: var(--gold);
+}
+
+.tc-body {
+  max-width: 760px;
+}
+.tc-sec {
+  scroll-margin-top: 110px;
+  margin-bottom: 44px;
+}
+.tc-sec h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.tc-sec h3 {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 22px 0 8px;
+}
+.tc-sec p,
+.tc-sec li {
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: rgba(237, 232, 223, 0.82);
+}
+.tc-sec p {
+  margin: 0 0 12px;
+}
+.tc-sec ul,
+.tc-sec ol {
+  margin: 0 0 12px;
+  padding-left: 22px;
+}
+.tc-sec li {
+  margin-bottom: 8px;
+}
+.tc-sec a {
+  color: var(--gold);
+  text-decoration: underline;
+}
+.tc-sec strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+.tc-small {
+  font-size: 0.8rem !important;
+  color: var(--fg2) !important;
+}
+
+.tc-table-wrap {
+  overflow-x: auto;
+  margin: 14px 0;
+}
+.tc-table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.tc-table-wrap th,
+.tc-table-wrap td {
+  text-align: left;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  color: var(--fg2);
+}
+.tc-table-wrap th {
+  background: var(--bg2);
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Values you still need to confirm: remove the <mark> tags once final */
+.tc-fill {
+  background: rgba(230, 168, 23, 0.18);
+  color: var(--gold);
+  padding: 0 4px;
+  border-radius: 2px;
+}
+
+@media (max-width: 900px) {
+  .tc-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 40px 20px 72px;
+  }
+  .tc-toc {
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 0 0 20px;
+  }
+  .tc-hero {
+    padding: 130px 20px 40px;
+  }
+}

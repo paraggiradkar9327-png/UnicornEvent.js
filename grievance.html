@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grievance Officer &amp; Complaints — Unicorn Events</title>
+    <meta name="description"
+        content="Contact our Grievance Officer or raise a complaint with Unicorn Events and receive a ticket number." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/contact.css" />
+    <link rel="stylesheet" href="css/grievance.css" />
+</head>
+
+<body>
+    <div data-component="navbar"></div>
+
+    <section class="ct-hero">
+        <div class="ct-hero-bg"></div>
+        <div class="ct-hero-content">
+            <div class="ct-breadcrumb">
+                <a href="index.html">Home</a>&nbsp;/&nbsp;<span>Grievance Redressal</span>
+            </div>
+            <span class="ct-hero-label">We're Listening</span>
+            <h1 class="ct-hero-title">Grievance Officer<br>&amp; <em>Complaints</em></h1>
+            <p class="ct-hero-sub">Have a concern about your data, a booking or a payment? Raise it here and you will
+                get a
+                ticket number to track it.</p>
+        </div>
+    </section>
+
+    <section class="ct-main">
+        <div class="ct-main-container">
+
+            <!-- ── COMPLAINT FORM ── -->
+            <div class="ct-form-col">
+                <div class="ct-form-head">
+                    <div class="section-title-line"><span class="ct-label">Raise a Complaint</span></div>
+                    <h2 class="ct-section-title">Tell Us<br><em>What Went Wrong</em></h2>
+                    <div class="ct-title-line"></div>
+                </div>
+
+                <form class="ct-form" id="grievance-form" novalidate>
+                    <div class="ct-field">
+                        <label for="gr-category">Complaint Type *</label>
+                        <select id="gr-category" name="category" required>
+                            <option value="" disabled selected>Select a type</option>
+                            <option value="data_privacy">My personal data / privacy</option>
+                            <option value="online_order">Online booking, order or payment</option>
+                            <option value="service">Event service quality</option>
+                            <option value="other">Something else</option>
+                        </select>
+                        <span class="gr-sla" id="gr-sla" aria-live="polite"></span>
+                    </div>
+
+                    <div class="ct-form-row">
+                        <div class="ct-field">
+                            <label for="gr-name">Full Name *</label>
+                            <input type="text" id="gr-name" name="name" placeholder="Your full name" required />
+                            <span class="ct-error-msg">Please enter your name (letters only).</span>
+                        </div>
+                        <div class="ct-field">
+                            <label for="gr-email">Email Address *</label>
+                            <input type="email" id="gr-email" name="email" placeholder="your@email.com" required />
+                            <span class="ct-error-msg">Please enter a valid email address.</span>
+                        </div>
+                    </div>
+
+                    <div class="ct-form-row">
+                        <div class="ct-field">
+                            <label for="gr-phone">Phone Number</label>
+                            <input type="tel" id="gr-phone" name="phone" placeholder="10-digit mobile number"
+                                inputmode="numeric" maxlength="10" />
+                            <span class="ct-error-msg">Phone number must be exactly 10 digits.</span>
+                        </div>
+                        <div class="ct-field">
+                            <label for="gr-ref">Booking / Payment Reference</label>
+                            <input type="text" id="gr-ref" name="reference" placeholder="If you have one"
+                                maxlength="100" />
+                        </div>
+                    </div>
+
+                    <div class="ct-field">
+                        <label for="gr-details">Describe Your Complaint *</label>
+                        <textarea id="gr-details" name="details" rows="6" maxlength="4000"
+                            placeholder="What happened, when, and what outcome you are looking for..."
+                            required></textarea>
+                        <span class="ct-error-msg">Please describe your complaint.</span>
+                    </div>
+
+                    <!-- honeypot: real users never see this -->
+                    <input type="text" name="website" tabindex="-1" autocomplete="off" class="gr-hp"
+                        aria-hidden="true" />
+
+                    <div class="ct-field ct-field--checkbox">
+                        <label class="ct-checkbox-label">
+                            <input type="checkbox" id="gr-consent" name="consent" required />
+                            <span class="ct-checkmark"></span>
+                            I agree that Unicorn Events may use these details to investigate and reply to my complaint,
+                            as described
+                            in the <a href="#privacy-policy" class="pp-inline-link" data-privacy-open>Privacy
+                                Policy</a>.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="ct-submit-btn">
+                        <span class="ct-submit-text">Submit Complaint</span>
+                        <span class="ct-submit-arrow">→</span>
+                    </button>
+
+                    <div class="ct-form-success" id="gr-success" role="status">
+                        <div class="ct-success-icon">✓</div>
+                        <h4>Complaint Registered</h4>
+                        <p>Your ticket number is</p>
+                        <p class="gr-ticket" id="gr-ticket"></p>
+                        <p>Please quote it in any follow-up. We will acknowledge by <strong id="gr-ack"></strong> and
+                            aim to resolve
+                            it by <strong id="gr-due"></strong>.</p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ── GRIEVANCE OFFICER ── -->
+            <div class="ct-info-col">
+                <div class="ct-info-block gr-officer">
+                    <span class="ct-label">Grievance Officer</span>
+                    <h3 class="gr-officer-name">Narendra Atkare</h3>
+                    <p class="gr-officer-role"> Director</p>
+                    <div class="ct-info-details">
+                        <div class="ct-info-line">
+                            <a href="mailto:narendra@unicornevent.com">narendra@unicornevent.com</a>
+                        </div>
+                        <div class="ct-info-line">
+                            <a href="tel:+919921224567">+91-9921224567</a>
+                        </div>
+                    </div>
+                    <p class="ct-info-address">
+                        Unicorn Event Management &amp; Marketing Pvt. Ltd.<br>
+                        382, Near Trikoni Garden, Shankar Nagar,<br>
+                        Nagpur, Maharashtra – 440010
+                    </p>
+                    <p class="gr-hours">Monday to Saturday, 10:00 AM – 6:00 PM IST</p>
+                </div>
+
+                <div class="ct-info-note">
+                    <div class="ct-note-icon">◈</div>
+                    <p>Prefer email? Write to the address above and mention your complaint type. We will reply with a
+                        ticket
+                        number.</p>
+                </div>
+
+                <div class="gr-timelines">
+                    <span class="ct-label">Our Response Times</span>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Complaint</th>
+                                <th>Acknowledged</th>
+                                <th>Resolved</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Data / privacy (DPDP Act, 2023)</td>
+                                <td>Within 48 hours</td>
+                                <td>Within 90 days at the latest</td>
+                            </tr>
+                            <tr>
+                                <td>Online booking, order or payment</td>
+                                <td>Within 48 hours</td>
+                                <td>Within 1 month</td>
+                            </tr>
+                            <tr>
+                                <td>Other</td>
+                                <td>Within 48 hours</td>
+                                <td>Within 1 month</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="gr-small">If we have not resolved a data complaint, you may approach the Data Protection
+                        Board of
+                        India.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div data-component="footer"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/grievance.js"></script>
+</body>
+
+</html>

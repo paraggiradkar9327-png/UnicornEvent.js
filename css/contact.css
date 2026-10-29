@@ -18,15 +18,24 @@
 .ct-hero-bg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 60% 0%, rgba(230, 168, 23, 0.08) 0%, transparent 60%);
+  background: radial-gradient(
+    ellipse at 60% 0%,
+    rgba(230, 168, 23, 0.08) 0%,
+    transparent 60%
+  );
 }
 
 .ct-hero-bg::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background-image: repeating-linear-gradient(90deg, transparent, transparent 79px,
-      rgba(255, 255, 255, 0.015) 79px, rgba(255, 255, 255, 0.015) 80px);
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 79px,
+    rgba(255, 255, 255, 0.015) 79px,
+    rgba(255, 255, 255, 0.015) 80px
+  );
 }
 
 .ct-hero-content {
@@ -229,7 +238,9 @@ a.ct-quick-val:hover {
   font-weight: 300;
   padding: 13px 16px;
   outline: none;
-  transition: border-color 0.3s, background 0.3s;
+  transition:
+    border-color 0.3s,
+    background 0.3s;
   width: 100%;
   appearance: none;
   -webkit-appearance: none;
@@ -281,12 +292,11 @@ a.ct-quick-val:hover {
   text-transform: none;
 }
 
-.ct-field-error+.ct-error-msg {
+.ct-field-error + .ct-error-msg {
   display: block;
 }
 
 /* Checkbox */
-
 
 .ct-checkbox-label {
   display: flex;
@@ -318,17 +328,19 @@ a.ct-quick-val:hover {
   align-items: center;
   justify-content: center;
   margin-top: 2px;
-  transition: border-color 0.3s, background 0.3s;
+  transition:
+    border-color 0.3s,
+    background 0.3s;
   flex-shrink: 0;
 }
 
-.ct-checkbox-label input:checked+.ct-checkmark {
+.ct-checkbox-label input:checked + .ct-checkmark {
   background: var(--gold);
   border-color: var(--gold);
 }
 
-.ct-checkbox-label input:checked+.ct-checkmark::after {
-  content: '';
+.ct-checkbox-label input:checked + .ct-checkmark::after {
+  content: "";
   display: block;
   width: 5px;
   height: 9px;
@@ -521,7 +533,9 @@ a.ct-quick-val:hover {
   font-size: 0.78rem;
   color: var(--fg2);
   border: 1px solid var(--border);
-  transition: color 0.3s, border-color 0.3s;
+  transition:
+    color 0.3s,
+    border-color 0.3s;
   letter-spacing: 0.05em;
   border-radius: var(--btn-radius);
 }
@@ -587,10 +601,14 @@ a.ct-quick-val:hover {
 }
 
 .ct-office-map-placeholder::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(230, 168, 23, 0.07) 0%, transparent 65%);
+  background: radial-gradient(
+    circle at center,
+    rgba(230, 168, 23, 0.07) 0%,
+    transparent 65%
+  );
 }
 
 .ct-map-pin {
@@ -832,4 +850,15 @@ a.ct-quick-val:hover {
   .ct-submit-btn {
     max-width: 100%;
   }
+}
+
+.ct-terms-note {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--fg2);
+  margin: 0;
+}
+.ct-terms-note a {
+  color: var(--gold);
+  text-decoration: underline;
 }

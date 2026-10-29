@@ -1,0 +1,42 @@
+.consent-group {
+  margin: 22px 0;
+  padding: 18px 20px;
+  border: 1px solid rgba(128, 128, 128, 0.35);
+  border-radius: 10px;
+}
+.consent-title {
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+.consent-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 10px 0;
+  cursor: pointer;
+  line-height: 1.5;
+  font-size: 0.92rem;
+}
+.consent-row input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  accent-color: #6a0dad;
+}
+.consent-optional,
+.consent-withdraw {
+  font-size: 0.82rem;
+  opacity: 0.8;
+  margin: 12px 0 4px;
+}
+.consent-withdraw a,
+.consent-row a {
+  text-decoration: underline;
+}
+.consent-error {
+  display: none;
+  color: #d9534f;
+  font-size: 0.82rem;
+  margin: 2px 0 8px 32px;
+}
