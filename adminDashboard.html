@@ -51,6 +51,16 @@
                             <span class="nav-icon">💍</span>
                             <span class="nav-text">Wedding Enquiries</span>
                         </a></li>
+
+                    <li><a href="#" class="nav-link" data-section="hero-video">
+                            <span class="nav-icon">🎬</span>
+                            <span class="nav-text">Hero Video</span>
+                        </a></li>
+
+                    <li><a href="#" class="nav-link" data-section="careers">
+                            <span class="nav-icon">💼</span>
+                            <span class="nav-text">Careers</span>
+                        </a></li>
                 </ul>
             </nav>
 
@@ -173,7 +183,126 @@
                         </div>
                     </div>
                 </section>
+                <!-- Hero Video Section -->
+                <section id="hero-video" class="section">
+                    <div class="section-header-main">
+                        <h2>Homepage Hero Video</h2>
+                    </div>
 
+                    <div class="hero-video-card">
+                        <label class="hv-label" for="ytUrlInput">YouTube Video URL</label>
+                        <input class="search-input hv-input" id="ytUrlInput" type="url"
+                            placeholder="https://www.youtube.com/watch?v=..." autocomplete="off">
+                        <span class="hv-error" id="ytUrlError"></span>
+                        <button class="settings-btn hv-btn" id="ytSaveBtn">Set YouTube Video</button>
+
+                        <div class="hv-current" id="ytCurrent">
+                            <p class="hv-label">Currently on homepage</p>
+                            <div class="hv-preview" id="ytPreview">
+                                <p class="empty-state">Loading...</p>
+                            </div>
+                        </div>
+                        <p class="hv-hint">The link is saved on the server and updates the homepage background for all
+                            visitors.</p>
+                    </div>
+                </section>
+
+                <!-- Careers Section -->
+                <section id="careers" class="section">
+                    <div class="section-header-main">
+                        <h2>Career Opportunities</h2>
+                    </div>
+
+                    <div class="career-grid">
+                        <!-- Post a job -->
+                        <div class="career-card">
+                            <h3 class="cj-heading">Post a Job</h3>
+
+                            <label class="hv-label" for="cj-title">Job Title *</label>
+                            <input class="search-input hv-input" id="cj-title" type="text"
+                                placeholder="e.g. Senior Event Producer">
+
+                            <div class="cj-row">
+                                <div>
+                                    <label class="hv-label" for="cj-dept">Department *</label>
+                                    <select class="filter-select cj-full" id="cj-dept">
+                                        <option value="">Select…</option>
+                                        <option>Event Production</option>
+                                        <option>Creative &amp; Design</option>
+                                        <option>Marketing &amp; Branding</option>
+                                        <option>Operations &amp; Logistics</option>
+                                        <option>Client Relations</option>
+                                        <option>Technology &amp; AV</option>
+                                        <option>Finance &amp; Admin</option>
+                                        <option>Human Resources</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="hv-label" for="cj-type">Type *</label>
+                                    <select class="filter-select cj-full" id="cj-type">
+                                        <option value="">Select…</option>
+                                        <option value="full-time">Full-Time</option>
+                                        <option value="part-time">Part-Time</option>
+                                        <option value="freelance">Freelance</option>
+                                        <option value="internship">Internship</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="cj-row">
+                                <div>
+                                    <label class="hv-label" for="cj-location">Location *</label>
+                                    <input class="search-input hv-input" id="cj-location" type="text"
+                                        placeholder="e.g. Mumbai, Hybrid">
+                                </div>
+                                <div>
+                                    <label class="hv-label" for="cj-experience">Experience</label>
+                                    <input class="search-input hv-input" id="cj-experience" type="text"
+                                        placeholder="e.g. 3–5 years">
+                                </div>
+                            </div>
+
+                            <div class="cj-row">
+                                <div>
+                                    <label class="hv-label" for="cj-salary">Salary / Stipend</label>
+                                    <input class="search-input hv-input" id="cj-salary" type="text"
+                                        placeholder="e.g. ₹6–9 LPA">
+                                </div>
+                                <div>
+                                    <label class="hv-label" for="cj-urgent">Mark Urgent?</label>
+                                    <select class="filter-select cj-full" id="cj-urgent">
+                                        <option value="false">No</option>
+                                        <option value="true">Yes — Hiring Urgently</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <label class="hv-label" for="cj-desc">Job Description *</label>
+                            <textarea class="search-input hv-input cj-textarea" id="cj-desc" rows="4"
+                                placeholder="Describe the role, key responsibilities, and what success looks like…"></textarea>
+
+                            <label class="hv-label" for="cj-skills">Key Skills (comma-separated)</label>
+                            <input class="search-input hv-input" id="cj-skills" type="text"
+                                placeholder="e.g. Event planning, Vendor management, MS Office">
+
+                            <span class="hv-error" id="cj-error"></span>
+
+                            <div class="cj-actions">
+                                <button class="settings-btn hv-btn" id="cj-post-btn">Publish Job Listing</button>
+                                <button class="settings-btn" id="cj-clear-btn">Clear Form</button>
+                            </div>
+                        </div>
+
+                        <!-- Live listings -->
+                        <div class="career-card">
+                            <h3 class="cj-heading">Live Listings</h3>
+                            <div id="cj-list">
+                                <p class="empty-state">Loading...</p>
+                            </div>
+                            <p class="hv-hint">Deleting a listing removes it from the careers page immediately.</p>
+                        </div>
+                    </div>
+                </section>
             </div>
         </main>
     </div>

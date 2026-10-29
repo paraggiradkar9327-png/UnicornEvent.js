@@ -1,14 +1,6 @@
 (() => {
   "use strict";
 
-  /* ───────────────── CONFIG ───────────────── */
-  const CONFIG = {
-    ADMIN_PASSWORD: "unicorn2026",
-    SECRET_KEY: "u",
-    SECRET_PRESSES: 3,
-    SECRET_WINDOW_MS: 1500,
-  };
-
   /* ───────────────── HELPERS ───────────────── */
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -24,7 +16,6 @@
   /* ───────────────── STATE ───────────────── */
   let jobs = [];
   let activeFilter = "all";
-  let secretKeys = [];
 
   /* ───────────────── SERVER API ───────────────── */
   async function fetchJobs() {
@@ -34,14 +25,6 @@
     } catch (err) {
       console.warn("[Careers] Could not load jobs:", err);
     }
-  }
-
-  async function postJobToServer(data) {
-    return await window.UnicornAPI.createJob(data);
-  }
-
-  async function deleteJobFromServer(id) {
-    await window.UnicornAPI.deleteJob(id);
   }
 
   /* ───────────────── TEMPLATE HELPERS ───────────────── */
@@ -121,31 +104,6 @@
     animateCards();
   }
 
-  /* ───────────────── RENDER ADMIN LIST ───────────────── */
-  function renderAdminList() {
-    const adminList = $("#admin-jobs-list");
-    if (!adminList) return;
-
-    if (!jobs.length) {
-      adminList.innerHTML = '<p class="admin-empty">No listings available.</p>';
-      return;
-    }
-
-    adminList.innerHTML = jobs
-      .map(
-        (job) => `
-            <div class="admin-job-row">
-                <div class="admin-job-row-info">
-                    <div class="title">${job.title}</div>
-                    <div class="meta">${typeLabel(job.type)} · ${job.location}</div>
-                </div>
-                <button class="admin-del-btn" data-id="${job.id}">&times;</button>
-            </div>
-        `,
-      )
-      .join("");
-  }
-
   /* ───────────────── ANIMATIONS ───────────────── */
   function animateCards() {
     requestAnimationFrame(() => {
@@ -172,193 +130,6 @@
         activeFilter = btn.dataset.filter;
         renderJobs();
       });
-    });
-
-    // ── Admin Tabs ──
-    $$(".admin-tab").forEach((tab) => {
-      tab.addEventListener("click", () => {
-        $$(".admin-tab").forEach((t) => t.classList.remove("active"));
-        $$(".admin-tab-panel").forEach((panel) =>
-          panel.classList.remove("active"),
-        );
-        tab.classList.add("active");
-        $(`#tab-${tab.dataset.tab}`)?.classList.add("active");
-        if (tab.dataset.tab === "manage") renderAdminList();
-      });
-    });
-
-    // ── Delete Job ──
-    $("#admin-jobs-list")?.addEventListener("click", async (e) => {
-      const btn = e.target.closest(".admin-del-btn");
-      if (!btn) return;
-      const id = Number(btn.dataset.id);
-      try {
-        await deleteJobFromServer(id);
-        jobs = jobs.filter((job) => job.id !== id);
-        renderJobs();
-        renderAdminList();
-      } catch (err) {
-        alert("Failed to delete job. Please try again.");
-      }
-    });
-
-    // ── Post Job ──
-    const formFields = [
-      "job-title",
-      "job-location",
-      "job-experience",
-      "job-salary",
-      "job-desc",
-      "job-skills",
-    ];
-
-    function clearForm() {
-      formFields.forEach((id) => {
-        const el = $(`#${id}`);
-        if (el) el.value = "";
-      });
-      const dept = $("#job-dept");
-      if (dept) dept.value = "";
-      const type = $("#job-type");
-      if (type) type.value = "";
-      const urgent = $("#job-urgent");
-      if (urgent) urgent.value = "false";
-      const err = $("#post-error");
-      if (err) err.textContent = "";
-    }
-
-    $("#post-job-btn")?.addEventListener("click", async () => {
-      const data = {
-        title: $("#job-title")?.value.trim(),
-        dept: $("#job-dept")?.value,
-        type: $("#job-type")?.value,
-        location: $("#job-location")?.value.trim(),
-        experience: $("#job-experience")?.value.trim(),
-        salary: $("#job-salary")?.value.trim(),
-        desc: $("#job-desc")?.value.trim(),
-        skills: $("#job-skills")
-          ?.value.split(",")
-          .map((s) => s.trim())
-          .filter(Boolean),
-        urgent: $("#job-urgent")?.value === "true",
-      };
-
-      const postError = $("#post-error");
-
-      if (
-        !data.title ||
-        !data.dept ||
-        !data.type ||
-        !data.location ||
-        !data.desc
-      ) {
-        if (postError)
-          postError.textContent = "Please fill all required fields.";
-        return;
-      }
-
-      try {
-        const result = await postJobToServer(data);
-        jobs.unshift(result.job);
-        renderJobs();
-        clearForm();
-
-        const postSuccess = $("#post-success");
-        if (postSuccess) {
-          postSuccess.classList.add("active");
-          setTimeout(() => postSuccess.classList.remove("active"), 3000);
-        }
-      } catch (err) {
-        if (postError)
-          postError.textContent = "Failed to save job. Please try again.";
-      }
-    });
-
-    $("#clear-form-btn")?.addEventListener("click", clearForm);
-
-    // ── Secret Admin Access ──
-    document.addEventListener("keydown", (e) => {
-      if (e.key !== CONFIG.SECRET_KEY) return;
-      const now = Date.now();
-      secretKeys = secretKeys.filter((t) => now - t < CONFIG.SECRET_WINDOW_MS);
-      secretKeys.push(now);
-      if (secretKeys.length >= CONFIG.SECRET_PRESSES) {
-        secretKeys = [];
-        const triggerBtn = $("#admin-trigger-btn");
-        if (triggerBtn) {
-          triggerBtn.style.display = "block";
-          setTimeout(() => {
-            triggerBtn.style.display = "none";
-          }, 8000);
-        }
-      }
-    });
-
-    // ── Modal ──
-    function resetModal() {
-      const passwordStep = $("#admin-step-password");
-      const jobsStep = $("#admin-step-jobs");
-      const passwordInput = $("#admin-password-input");
-      const passwordError = $("#admin-password-error");
-      const toggleBtn = $("#admin-password-toggle");
-      if (passwordStep) passwordStep.style.display = "block";
-      if (jobsStep) jobsStep.style.display = "none";
-      if (passwordInput) {
-        passwordInput.value = "";
-        passwordInput.type = "password";
-      }
-      if (passwordError) passwordError.textContent = "";
-      if (toggleBtn) {
-        toggleBtn.classList.remove("is-visible");
-        toggleBtn.setAttribute("aria-label", "Show password");
-        toggleBtn.setAttribute("aria-pressed", "false");
-      }
-    }
-
-    function openModal() {
-      $("#admin-overlay")?.classList.add("active");
-      resetModal();
-      setTimeout(() => $("#admin-password-input")?.focus(), 100);
-    }
-
-    function closeModal() {
-      $("#admin-overlay")?.classList.remove("active");
-      resetModal();
-    }
-
-    function verifyPassword() {
-      const input = $("#admin-password-input");
-      const error = $("#admin-password-error");
-      if (input?.value.trim() === CONFIG.ADMIN_PASSWORD) {
-        $("#admin-step-password").style.display = "none";
-        $("#admin-step-jobs").style.display = "block";
-      } else {
-        if (error) error.textContent = "Incorrect password";
-        if (input) {
-          input.value = "";
-          input.focus();
-        }
-      }
-    }
-
-    $("#admin-trigger-btn")?.addEventListener("click", openModal);
-    $("#admin-close")?.addEventListener("click", closeModal);
-    $("#admin-password-btn")?.addEventListener("click", verifyPassword);
-    $("#admin-password-input")?.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") verifyPassword();
-    });
-    $("#admin-password-toggle")?.addEventListener("click", () => {
-      const pwInput = $("#admin-password-input");
-      const toggleBtn = $("#admin-password-toggle");
-      if (!pwInput || !toggleBtn) return;
-      const isHidden = pwInput.type === "password";
-      pwInput.type = isHidden ? "text" : "password";
-      toggleBtn.classList.toggle("is-visible", isHidden);
-      toggleBtn.setAttribute(
-        "aria-label",
-        isHidden ? "Hide password" : "Show password",
-      );
-      toggleBtn.setAttribute("aria-pressed", isHidden ? "true" : "false");
     });
 
     // ── Intersection Observer ──
