@@ -341,6 +341,13 @@
     }
   }
 
+  /* The footer (with the map iframe) is injected by components.js AFTER this
+     script may already have run, so re-apply embed consent once it is in the DOM. */
+  document.addEventListener("components:loaded", function () {
+    var c = read();
+    applyEmbeds(c ? !!c.functional : false);
+  });
+
   window.UnicornConsent = {
     get: read,
     open: function () {

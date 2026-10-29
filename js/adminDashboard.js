@@ -91,13 +91,6 @@ class AdminDashboard {
       .getElementById("weddingSearch")
       ?.addEventListener("input", () => this.renderWeddingCards());
 
-    document.querySelectorAll(".view-all-link").forEach((link) => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        this.navigateToSection(e.target.dataset.goto);
-      });
-    });
-
     document
       .getElementById("exportBtn")
       ?.addEventListener("click", () => this.exportData());
@@ -123,15 +116,6 @@ class AdminDashboard {
     document
       .getElementById("modalOverlay")
       ?.addEventListener("click", () => this.closeModal());
-
-    // Manual refresh button (optional — add a button with id="refreshBtn" in your HTML if desired)
-    document
-      .getElementById("refreshBtn")
-      ?.addEventListener("click", async () => {
-        await this.loadData();
-        this.renderDashboard();
-        this.showNotification("Data refreshed from server!");
-      });
   }
 
   /** Navigate to Section */
@@ -887,12 +871,6 @@ class AdminDashboard {
       month: "short",
       day: "numeric",
     });
-  }
-
-  formatNumber(num) {
-    if (num >= 10000000) return (num / 10000000).toFixed(1) + " Cr";
-    if (num >= 100000) return (num / 100000).toFixed(1) + " L";
-    return num.toLocaleString("en-IN");
   }
 }
 

@@ -1,15 +1,3 @@
-/**
- * UNICORN EVENTS — Shared Backend API (js/api.js)
- * ──────────────────────────────────────────────────────────────
- * Talks directly to Supabase's REST API using plain fetch() calls —
- * no SDK, no Node, no build step. Data is now shared across every
- * device/browser, since it lives in your Supabase project instead
- * of localStorage.
- *
- * Your site stays 100% static HTML/CSS/JS and can be hosted on
- * cPanel exactly as before — cPanel just serves the files, and the
- * JS in the browser talks to Supabase over the internet.
- */
 (function (global) {
   "use strict";
 
@@ -69,48 +57,6 @@
     };
   }
 
-  async function createJob(data) {
-    const required = ["title", "dept", "type", "location", "desc"];
-    const missing = required.filter(
-      (k) => !data || !String(data[k] || "").trim(),
-    );
-    if (missing.length) {
-      const err = new Error("Missing required fields: " + missing.join(", "));
-      err.status = 400;
-      throw err;
-    }
-    const newRow = {
-      id: Date.now(),
-      title: data.title,
-      dept: data.dept,
-      type: data.type,
-      location: data.location,
-      experience: data.experience || "",
-      salary: data.salary || "",
-      description: data.desc,
-      skills: Array.isArray(data.skills) ? data.skills : [],
-      urgent: !!data.urgent,
-      posted_at: new Date().toISOString().slice(0, 10),
-    };
-    const rows = await sbFetch("/jobs", {
-      method: "POST",
-      headers: { Prefer: "return=representation" },
-      body: JSON.stringify(newRow),
-    });
-    return { success: true, job: rowToJob(rows[0]) };
-  }
-
-  async function deleteJob(id) {
-    const numId = Number(id);
-    if (!numId) {
-      const err = new Error("Missing id");
-      err.status = 400;
-      throw err;
-    }
-    await sbFetch(`/jobs?id=eq.${numId}`, { method: "DELETE" });
-    return { success: true };
-  }
-
   /* ── HERO VIDEO CONFIG API ───────────────────────────────────
      Stored as a single shared row (id = 1) in `video_config`.    */
 
@@ -122,56 +68,6 @@
       return { type: "youtube", videoId: row.video_id };
     if (row.type === "file") return { type: "file", src: row.src };
     return {};
-  }
-
-  async function setYoutubeVideo(videoId) {
-    if (!videoId) {
-      const err = new Error("Missing videoId");
-      err.status = 400;
-      throw err;
-    }
-    await sbFetch("/video_config?id=eq.1", {
-      method: "PATCH",
-      body: JSON.stringify({ type: "youtube", video_id: videoId, src: null }),
-    });
-    return { success: true };
-  }
-
-  /**
-   * NOTE on video uploads: Supabase's free Storage tier could host real
-   * video files, but that requires a Storage bucket + extra setup beyond
-   * this REST-only integration. For now, "Upload Video" reads the file
-   * into a base64 data URL and saves the STRING into `video_config.src`.
-   * This works for short clips but is not ideal for large videos
-   * (the database row will get big). If you need real video file
-   * hosting, ask and we can wire up a Supabase Storage bucket next.
-   */
-  async function uploadVideoFile(file) {
-    if (!file) {
-      const err = new Error("No file uploaded");
-      err.status = 400;
-      throw err;
-    }
-    const MAX_BYTES = 15 * 1024 * 1024; // keep DB rows reasonable
-    if (file.size > MAX_BYTES) {
-      const err = new Error(
-        "File too large (max 15MB for database storage). Use a smaller clip or ask about Supabase Storage for larger files.",
-      );
-      err.status = 413;
-      throw err;
-    }
-    const dataUrl = await new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = () => reject(new Error("Could not read file"));
-      reader.readAsDataURL(file);
-    });
-
-    await sbFetch("/video_config?id=eq.1", {
-      method: "PATCH",
-      body: JSON.stringify({ type: "file", src: dataUrl, video_id: null }),
-    });
-    return { success: true, src: dataUrl };
   }
 
   /* ── CONTACT / WEDDING FORM API ──────────────────────────────
@@ -236,15 +132,6 @@
       }),
     });
     return { success: true };
-  }
-
-  /** Lets an admin page (if you ever build one) pull all leads. */
-  async function getLeads() {
-    const [contact, wedding] = await Promise.all([
-      sbFetch("/contact_leads?select=*&order=submitted_at.desc"),
-      sbFetch("/wedding_leads?select=*&order=submitted_at.desc"),
-    ]);
-    return { contact: contact || [], wedding: wedding || [] };
   }
 
   /* ── PORTFOLIO API ────────────────────────────────────────────
@@ -345,14 +232,9 @@
   /* ── PUBLIC API ───────────────────────────────────────────── */
   global.UnicornAPI = {
     getJobs,
-    createJob,
-    deleteJob,
     getVideoConfig,
-    setYoutubeVideo,
-    uploadVideoFile,
     sendContact,
     sendWedding,
-    getLeads,
     getPortfolio,
     recordConsents,
     getConsentStatus,

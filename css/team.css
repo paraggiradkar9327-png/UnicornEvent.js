@@ -62,21 +62,27 @@
 }
 
 .tp-hero::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center top, rgba(230, 168, 23, 0.07) 0%, transparent 65%);
+  background: radial-gradient(
+    ellipse at center top,
+    rgba(230, 168, 23, 0.07) 0%,
+    transparent 65%
+  );
 }
 
 .tp-hero::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background-image: repeating-linear-gradient(90deg,
-      transparent,
-      transparent 79px,
-      rgba(255, 255, 255, 0.015) 79px,
-      rgba(255, 255, 255, 0.015) 80px);
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 79px,
+    rgba(255, 255, 255, 0.015) 79px,
+    rgba(255, 255, 255, 0.015) 80px
+  );
 }
 
 .tp-hero-overlay {
@@ -181,10 +187,14 @@
 }
 
 .tp-cta::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, rgba(230, 168, 23, 0.09) 0%, transparent 65%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(230, 168, 23, 0.09) 0%,
+    transparent 65%
+  );
 }
 
 .tp-cta-inner {
@@ -260,10 +270,14 @@
 }
 
 .dir-portrait-img::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, rgba(230, 168, 23, 0.06) 0%, transparent 70%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(230, 168, 23, 0.06) 0%,
+    transparent 70%
+  );
 }
 
 .dir-portrait-placeholder {
@@ -279,14 +293,6 @@
   width: 100px;
   height: 100px;
   opacity: 0.7;
-}
-
-.dir-portrait-initials {
-  font-family: var(--serif);
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: rgba(230, 168, 23, 0.4);
-  letter-spacing: 0.1em;
 }
 
 .dir-portrait-badge {
@@ -359,46 +365,6 @@
   flex-shrink: 0;
 }
 
-/* Awards */
-.dir-awards {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-top: none;
-  padding: 24px;
-}
-
-.dir-award-item {
-  display: flex;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  align-items: flex-start;
-}
-
-.dir-award-item:last-child {
-  border-bottom: none;
-}
-
-.dir-award-star {
-  color: var(--gold);
-  font-size: 0.75rem;
-  margin-top: 2px;
-  flex-shrink: 0;
-}
-
-.dir-award-item strong {
-  display: block;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--fg);
-  margin-bottom: 2px;
-}
-
-.dir-award-item span {
-  font-size: 0.68rem;
-  color: var(--fg2);
-}
-
 /* Bio column */
 .dir-bio-col {
   padding-top: 8px;
@@ -427,7 +393,7 @@
   font-weight: 300;
 }
 
-.dir-bio-text p+p {
+.dir-bio-text p + p {
   margin-top: 20px;
 }
 
@@ -462,128 +428,6 @@
   text-transform: uppercase;
   color: var(--gold);
   font-style: normal;
-}
-
-/* Expertise strip */
-.dir-expertise {
-  background: #0a0f16;
-  border-top: 1px solid rgba(230, 168, 23, 0.12);
-  border-bottom: 1px solid rgba(230, 168, 23, 0.12);
-  padding: 60px 0;
-}
-
-.dir-exp-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  text-align: center;
-  gap: 0;
-}
-
-.dir-exp-item {
-  padding: 24px 20px;
-  border-right: 1px solid rgba(230, 168, 23, 0.1);
-}
-
-.dir-exp-item:last-child {
-  border-right: none;
-}
-
-.dir-exp-num {
-  font-family: var(--serif);
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--gold);
-  line-height: 1;
-  margin-bottom: 10px;
-}
-
-.dir-exp-label {
-  font-size: 0.62rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--fg2);
-}
-
-/* Career Timeline */
-.dir-timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.dir-tl-item {
-  display: grid;
-  grid-template-columns: 140px 24px 1fr;
-  gap: 0 28px;
-  padding-bottom: 0;
-  position: relative;
-}
-
-.dir-tl-item::before {
-  content: '';
-  position: absolute;
-  left: 153px;
-  top: 14px;
-  bottom: -1px;
-  width: 1px;
-  background: linear-gradient(to bottom, rgba(230, 168, 23, 0.3), rgba(230, 168, 23, 0.05));
-}
-
-.dir-tl-item:last-child::before {
-  display: none;
-}
-
-.dir-tl-period {
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  color: var(--gold);
-  font-weight: 500;
-  padding-top: 10px;
-  text-align: right;
-}
-
-.dir-tl-node {
-  width: 14px;
-  height: 14px;
-  border: 2px solid rgba(230, 168, 23, 0.4);
-  background: var(--bg2);
-  border-radius: 50%;
-  margin-top: 8px;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 2;
-}
-
-.dir-tl-node--gold {
-  border-color: var(--gold);
-  background: var(--gold);
-  box-shadow: 0 0 12px rgba(230, 168, 23, 0.4);
-}
-
-.dir-tl-content {
-  padding: 0 0 44px 0;
-}
-
-.dir-tl-content h4 {
-  font-family: var(--serif);
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--fg);
-  margin-bottom: 4px;
-}
-
-.dir-tl-org {
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 10px;
-}
-
-.dir-tl-content p {
-  font-size: 0.875rem;
-  color: var(--fg2);
-  line-height: 1.8;
 }
 
 /* Leadership pillars */
@@ -666,25 +510,27 @@
   gap: 28px;
   align-items: flex-start;
   transition: border-color 0.3s;
-  border-radius: var(--btn-radius)
+  border-radius: var(--btn-radius);
 }
 
 .tm-leader-card:hover {
   border-color: rgba(230, 168, 23, 0.3);
 }
 
-
 .tm-leader-portrait {
   width: 225px;
   height: 225px;
-  background: linear-gradient(135deg, rgba(230, 168, 23, 0.15), rgba(230, 168, 23, 0.05));
+  background: linear-gradient(
+    135deg,
+    rgba(230, 168, 23, 0.15),
+    rgba(230, 168, 23, 0.05)
+  );
   border: 1px solid rgba(230, 168, 23, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
-
 
 .tm-leader-initials {
   font-family: var(--serif);
@@ -693,7 +539,6 @@
   color: var(--gold);
   letter-spacing: 0.05em;
 }
-
 
 .tm-leader-name {
   font-family: var(--serif);
@@ -719,83 +564,6 @@
   margin-bottom: 16px;
 }
 
-
-/* Departments */
-.tm-dept {
-  margin-bottom: 64px;
-  padding-bottom: 64px;
-  border-bottom: 1px solid var(--border);
-}
-
-.tm-dept:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.tm-dept-head {
-  display: flex;
-  gap: 24px;
-  align-items: flex-start;
-  margin-bottom: 36px;
-}
-
-.tm-dept-icon {
-  font-size: 1.2rem;
-  color: var(--gold);
-  flex-shrink: 0;
-  margin-top: 4px;
-  opacity: 0.7;
-}
-
-.tm-dept-title {
-  font-family: var(--serif);
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--fg);
-  margin-bottom: 6px;
-}
-
-.tm-dept-desc {
-  font-size: 0.875rem;
-  color: var(--fg2);
-  line-height: 1.75;
-}
-
-.tm-member-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
-}
-
-.tm-member-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  padding: 24px 20px;
-  text-align: center;
-  transition: border-color 0.3s, transform 0.3s;
-}
-
-.tm-member-card:hover {
-  border-color: rgba(230, 168, 23, 0.3);
-  transform: translateY(-3px);
-}
-
-.tm-member-card h5 {
-  font-family: var(--serif);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--fg);
-  margin-bottom: 4px;
-}
-
-.tm-member-card span {
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--fg2);
-}
-
 /* Join section */
 .tm-join-grid {
   display: grid;
@@ -817,7 +585,7 @@
   background: var(--bg);
   border: 1px solid var(--border);
   transition: border-color 0.3s;
-  border-radius: var(--btn-radius)
+  border-radius: var(--btn-radius);
 }
 
 .tm-join-value:hover {
@@ -856,10 +624,6 @@
     gap: 48px;
   }
 
-  .tm-member-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
   .dir-pillars-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -889,7 +653,6 @@
     grid-template-columns: 1fr;
   }
 
-
   .tm-intro-grid {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -898,22 +661,6 @@
   .tm-join-grid {
     grid-template-columns: 1fr;
     gap: 48px;
-  }
-
-  .dir-exp-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .dir-exp-item:nth-child(2) {
-    border-right: none;
-  }
-
-  .dir-tl-item {
-    grid-template-columns: 100px 20px 1fr;
-  }
-
-  .dir-tl-item::before {
-    left: 109px;
   }
 }
 
@@ -946,35 +693,6 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  .dir-exp-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .tm-member-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .dir-tl-item {
-    grid-template-columns: 1fr;
-  }
-
-  .dir-tl-item::before {
-    display: none;
-  }
-
-  .dir-tl-period {
-    text-align: left;
-    font-size: 0.75rem;
-  }
-
-  .dir-tl-node {
-    display: none;
-  }
-
-  .dir-tl-content {
-    padding-bottom: 32px;
-  }
-
   .dir-philosophy {
     padding: 24px;
   }
@@ -987,14 +705,6 @@
 
   .dir-pillars-grid {
     grid-template-columns: 1fr;
-  }
-
-  .tm-member-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .dir-exp-grid {
-    grid-template-columns: 1fr 1fr;
   }
 
   .tm-leader-card {

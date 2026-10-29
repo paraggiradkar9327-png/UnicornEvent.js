@@ -89,7 +89,7 @@
 }
 
 .au-hero-eyebrow::before {
-  content: '';
+  content: "";
   display: block;
   width: 40px;
   height: 1px;
@@ -124,22 +124,6 @@
   gap: 32px;
 }
 
-.au-scroll-arrow {
-  display: inline-flex;
-  width: 32px;
-  height: 32px;
-  border: 1px solid var(--border);
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  transition: border-color 0.3s, transform 0.3s;
-}
-
-.au-scroll-link:hover .au-scroll-arrow {
-  border-color: var(--gold);
-  transform: translateY(3px);
-}
-
 .au-hero-right {
   background: linear-gradient(135deg, #0d1420 0%, #12203a 60%, #0d1117 100%);
   display: flex;
@@ -152,10 +136,14 @@
 }
 
 .au-hero-right::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, rgba(230, 168, 23, 0.07) 0%, transparent 65%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(230, 168, 23, 0.07) 0%,
+    transparent 65%
+  );
 }
 
 .au-hero-logo-wrap {
@@ -178,7 +166,6 @@
 }
 
 @keyframes auLogoFloat {
-
   0%,
   100% {
     transform: translateY(0);
@@ -361,7 +348,6 @@
   line-height: 1.8;
 }
 
-
 /* ─── CTA — DRAMATIC FULL BLEED ─── */
 .au-cta {
   position: relative;
@@ -379,21 +365,27 @@
 }
 
 .au-cta-bg::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, rgba(230, 168, 23, 0.1) 0%, transparent 60%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(230, 168, 23, 0.1) 0%,
+    transparent 60%
+  );
 }
 
 .au-cta-bg::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background-image: repeating-linear-gradient(0deg,
-      transparent,
-      transparent 79px,
-      rgba(230, 168, 23, 0.03) 79px,
-      rgba(230, 168, 23, 0.03) 80px);
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 79px,
+    rgba(230, 168, 23, 0.03) 79px,
+    rgba(230, 168, 23, 0.03) 80px
+  );
 }
 
 .au-cta-content {
@@ -433,7 +425,6 @@
   flex-wrap: wrap;
 }
 
-
 /* ═══════════════════════════════════════════════════════
    HOW WE WORK — HORIZONTAL CARDS STRIP
    Unicorn Events · how-we-work.css
@@ -471,7 +462,7 @@
 }
 
 .hwa-eyebrow::before {
-  content: '';
+  content: "";
   width: 34px;
   height: 1px;
   background: var(--gold);
@@ -525,7 +516,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.3s, color 0.3s, background 0.3s;
+  transition:
+    border-color 0.3s,
+    color 0.3s,
+    background 0.3s;
   font-family: var(--sans);
 }
 
@@ -583,7 +577,6 @@
   border: none !important;
   box-shadow: none !important;
   padding: 0;
-
 }
 
 .hwa-dot {
@@ -592,7 +585,10 @@
   border-radius: 50%;
   border: 2px solid rgba(230, 168, 23, 0.2);
 
-  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+  transition:
+    border-color 0.3s,
+    background 0.3s,
+    transform 0.3s;
 }
 
 .hwa-dot-wrap.active .hwa-dot {
@@ -666,17 +662,19 @@
   background: var(--bg2);
   padding: 28px 24px 24px;
   cursor: pointer;
-  transition: border-color 0.35s, background 0.35s;
+  transition:
+    border-color 0.35s,
+    background 0.35s;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   min-height: 288px;
-  border-radius: var(--btn-radius)
+  border-radius: var(--btn-radius);
 }
 
 .hwa-card::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -752,7 +750,9 @@
   height: 1px;
   background: var(--border);
   margin-bottom: 14px;
-  transition: width 0.4s, background 0.4s;
+  transition:
+    width 0.4s,
+    background 0.4s;
 }
 
 .hwa-card.active .hwa-card-rule {
@@ -783,7 +783,9 @@
   padding: 3px 9px;
   border: 1px solid var(--border);
   color: rgba(160, 152, 136, 0.6);
-  transition: border-color 0.3s, color 0.3s;
+  transition:
+    border-color 0.3s,
+    color 0.3s;
 }
 
 .hwa-card.active .hwa-cpill {
@@ -799,9 +801,11 @@
   max-height: 0;
   overflow: hidden;
   padding: 0;
-  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s;
+  transition:
+    max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.4s;
   margin-top: 32px;
-  border-radius: var(--btn-radius)
+  border-radius: var(--btn-radius);
 }
 
 .hwa-detail.open {
@@ -947,7 +951,7 @@
   transition: width 0.4s ease;
 }
 
-.hwa-dot-wrap.active+.hwa-connector .hwa-connector-fill {
+.hwa-dot-wrap.active + .hwa-connector .hwa-connector-fill {
   width: 100%;
 }
 
@@ -983,7 +987,6 @@
 .hwa-card.active .hwa-card-title {
   color: var(--fg);
 }
-
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1024px) {
@@ -1125,8 +1128,6 @@
   }
 }
 
-
-
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1200px) {
   .container-wide {
@@ -1135,11 +1136,6 @@
 
   .au-identity-grid {
     gap: 60px;
-  }
-
-  .au-offices .au-office-row {
-    grid-template-columns: 180px 160px 1fr;
-    gap: 24px;
   }
 }
 
@@ -1179,21 +1175,6 @@
   .au-values-row {
     grid-template-columns: 1fr 1fr;
   }
-
-  .au-num-item:nth-child(3) {
-    border-right: none;
-  }
-
-  .au-offices .au-office-row {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 28px 0;
-  }
-
-  .au-why-row {
-    grid-template-columns: 56px 1fr auto;
-    gap: 24px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -1212,83 +1193,5 @@
   .au-hero-cta {
     flex-wrap: wrap;
     gap: 20px;
-  }
-
-  .au-num-item:nth-child(2n) {
-    border-right: none;
-  }
-
-  .au-num-item:nth-child(3) {
-    border-right: 1px solid rgba(230, 168, 23, 0.1);
-  }
-
-  .au-values-row {
-    grid-template-columns: 1fr;
-  }
-
-  .au-why-row {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .au-why-num {
-    font-size: 1.4rem;
-  }
-
-  .au-why-tag {
-    display: none;
-  }
-
-  .au-caps-list li {
-    grid-template-columns: 40px 1fr auto;
-    gap: 16px;
-  }
-
-  .au-caps-name {
-    font-size: 1rem;
-  }
-
-  .au-offices-head {
-    padding: 0 24px;
-  }
-
-  .au-offices-list {
-    padding: 0 24px;
-  }
-}
-
-@media (max-width: 480px) {
-
-  .au-num-item:nth-child(5) {
-    border-right: none;
-    grid-column: span 2;
-  }
-
-  .au-hero-logo {
-    width: 370px;
-  }
-
-  .au-caps-list li {
-    gap: 12px;
-  }
-
-  .au-caps-name {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .wcu-grid {
-    grid-template-columns: 1fr;
-  }
-
-  #why-choose-us {
-    padding: 60px 20px;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .wcu-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
 }

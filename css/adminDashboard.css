@@ -21,8 +21,6 @@
   --border-light: rgba(255, 255, 255, 0.12);
 
   /* Accent Colors */
-  --success: #4ade80;
-  --warning: #facc15;
   --danger: #ef4444;
   --info: #3b82f6;
 
@@ -31,9 +29,7 @@
   --sans: "Inter", sans-serif;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -97,13 +93,13 @@ body {
   margin-bottom: 5px;
 }
 
-.logo-text {
+/* .logo-text {
   font-size: 0.8rem;
   color: var(--fg2);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   font-weight: 600;
-}
+} */
 
 .sidebar-nav {
   flex: 1;
@@ -244,7 +240,7 @@ body {
   gap: 20px;
 }
 
-.header-actions {
+/* .header-actions {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -307,7 +303,7 @@ body {
 .user-avatar:hover {
   transform: scale(1.1);
   box-shadow: 0 0 15px rgba(230, 168, 23, 0.3);
-}
+} */
 
 /* ============================================
    CONTENT AREA & SECTIONS
@@ -403,7 +399,7 @@ body {
   );
 }
 
-.pending-icon {
+/* .pending-icon {
   background: linear-gradient(
     135deg,
     rgba(250, 204, 21, 0.2),
@@ -417,7 +413,7 @@ body {
     rgba(74, 222, 128, 0.2),
     rgba(74, 222, 128, 0.1)
   );
-}
+} */
 
 .stat-content {
   flex: 1;
@@ -798,7 +794,7 @@ body {
    ANALYTICS
    ============================================ */
 
-.analytics-grid {
+/* .analytics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 25px;
@@ -946,13 +942,13 @@ body {
   color: var(--gold);
   font-weight: 600;
   font-size: 0.9rem;
-}
+} */
 
 /* ============================================
    SETTINGS
    ============================================ */
 
-.settings-container {
+/* .settings-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 25px;
@@ -1034,7 +1030,7 @@ body {
 .toggle-label {
   color: var(--fg);
   font-weight: 500;
-}
+} */
 
 /* ============================================
    MODAL
@@ -1187,9 +1183,9 @@ body {
    ============================================ */
 
 @media (max-width: 1200px) {
-  .analytics-grid {
+  /* .analytics-grid {
     grid-template-columns: 1fr;
-  }
+  } */
 
   .stat-card {
     flex-direction: column;

@@ -1,6 +1,3 @@
-/* ── Services Dropdown (kept for compatibility if referenced elsewhere) ── */
-/* Services section removed from form — no services dropdown logic needed */
-
 /* ── Types of Events Dropdown ── */
 const eventsTrigger = document.getElementById("eventsTrigger");
 const eventsDropdown = document.getElementById("eventsDropdown");
@@ -165,7 +162,6 @@ document
       wedding_date: document.getElementById("wdate").value,
       venue_location: document.getElementById("venue").value.trim(),
       guests: document.getElementById("guests").value.trim(),
-      services: "N/A",
       budget: document.getElementById("budget").value.trim(),
       venue_type: venueType ? venueType.value : "",
       theme: eventTypesValue,
@@ -187,8 +183,6 @@ document
         "wedding_form",
         entries,
       );
-
-      await window.UnicornAPI.sendWedding(data);
 
       form.style.display = "none";
       const success = document.getElementById("formSuccess");

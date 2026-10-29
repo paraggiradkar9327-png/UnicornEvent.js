@@ -5,58 +5,60 @@
  */
 
 (function () {
-  'use strict';
+  "use strict";
 
   // ─── NAVBAR SCROLL EFFECT ─────────────────────────────────
   function initNavbar() {
-    const navbar = document.getElementById('navbar');
+    const navbar = document.getElementById("navbar");
     if (!navbar) return;
 
     // Use classList.toggle with a boolean to replace the if/else
     function onScroll() {
-      navbar.classList.toggle('scrolled', window.scrollY > 50);
+      navbar.classList.toggle("scrolled", window.scrollY > 50);
     }
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
   }
 
   // ─── MOBILE MENU ─────────────────────────────────────────
   function initMobileMenu() {
-    document.addEventListener('click', function (e) {
-      const hamburger = e.target.closest('#hamburger');
+    document.addEventListener("click", function (e) {
+      const hamburger = e.target.closest("#hamburger");
 
       if (hamburger) {
-        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenu = document.getElementById("mobile-menu");
 
-        hamburger.classList.toggle('open');
-        mobileMenu.classList.toggle('open');
+        hamburger.classList.toggle("open");
+        mobileMenu.classList.toggle("open");
         return;
       }
 
-      if (e.target.closest('#mobile-menu a')) {
-        document.getElementById('hamburger')?.classList.remove('open');
-        document.getElementById('mobile-menu')?.classList.remove('open');
+      if (e.target.closest("#mobile-menu a")) {
+        document.getElementById("hamburger")?.classList.remove("open");
+        document.getElementById("mobile-menu")?.classList.remove("open");
       }
     });
   }
 
-
   // ─── SCROLL-TRIGGERED FADE-IN ANIMATIONS ─────────────────
   function initScrollAnimations() {
-    const elements = document.querySelectorAll('.fade-in');
+    const elements = document.querySelectorAll(".fade-in");
     if (!elements.length) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        // Read the delay that was set below, defaulting to 0
-        const delay = entry.target.dataset.delay | 0;
-        setTimeout(() => entry.target.classList.add('visible'), delay);
-        // Unobserve once animated — no reason to keep watching
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.12 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          // Read the delay that was set below, defaulting to 0
+          const delay = entry.target.dataset.delay | 0;
+          setTimeout(() => entry.target.classList.add("visible"), delay);
+          // Unobserve once animated — no reason to keep watching
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12 },
+    );
 
     elements.forEach((el, i) => {
       el.dataset.delay = (i % 6) * 90;
@@ -81,54 +83,24 @@
   }
 
   function initCounters() {
-    const statsSection = document.querySelector('.about-stats');
+    const statsSection = document.querySelector(".about-stats");
     if (!statsSection) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.querySelectorAll('[data-count]').forEach(el => {
-          animateCounter(el, +el.dataset.count, el.dataset.suffix || '');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.querySelectorAll("[data-count]").forEach((el) => {
+            animateCounter(el, +el.dataset.count, el.dataset.suffix || "");
+          });
+          observer.unobserve(entry.target);
         });
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.3 });
+      },
+      { threshold: 0.3 },
+    );
 
     observer.observe(statsSection);
   }
-
-  // ─── ACTIVE NAV LINK ON SCROLL ───────────────────────────
-  function initActiveNav() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a, .mobile-menu a');
-    if (!sections.length || !navLinks.length) return;
-
-    // Cache section offsets and only recalculate on resize
-    let sectionOffsets = [];
-    function cacheOffsets() {
-      sectionOffsets = Array.from(sections).map(sec => ({
-        id: sec.id,
-        top: sec.offsetTop,
-      }));
-    }
-
-    function highlightNav() {
-      let current = '';
-      const scrollY = window.scrollY;
-      for (const sec of sectionOffsets) {
-        if (scrollY >= sec.top - 140) current = sec.id;
-      }
-      navLinks.forEach(a => {
-        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
-      });
-    }
-
-    cacheOffsets();
-    window.addEventListener('scroll', highlightNav, { passive: true });
-    window.addEventListener('resize', cacheOffsets, { passive: true });
-    highlightNav();
-  }
-
 
   // ─── INIT ALL ────────────────────────────────────────────
   function initAll() {
@@ -136,7 +108,6 @@
     initMobileMenu();
     initScrollAnimations();
     initCounters();
-    initActiveNav();
   }
 
   // 'components:loaded' is fired by components.js after all shared HTML
@@ -148,10 +119,11 @@
     initAll();
   }
 
-  document.addEventListener('components:loaded', safeInit);
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("components:loaded", safeInit);
+  document.addEventListener("DOMContentLoaded", () => {
     // Fallback: if components.js didn't fire within one frame, run anyway.
-    setTimeout(() => { if (!initialised) safeInit(); }, 50);
+    setTimeout(() => {
+      if (!initialised) safeInit();
+    }, 50);
   });
-
 })();

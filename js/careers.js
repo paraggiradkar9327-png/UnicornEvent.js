@@ -115,10 +115,6 @@
 
   /* ───────────────── INIT (runs after DOM ready) ───────────────── */
   document.addEventListener("DOMContentLoaded", () => {
-    // Set footer year
-    const footerYear = $("#footer-year");
-    if (footerYear) footerYear.textContent = new Date().getFullYear();
-
     // Load jobs from server
     fetchJobs();
 
@@ -131,19 +127,6 @@
         renderJobs();
       });
     });
-
-    // ── Intersection Observer ──
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.1 },
-    );
-
     $$(".fade-in").forEach((el) => observer.observe(el));
   });
 })();

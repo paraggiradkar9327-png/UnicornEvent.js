@@ -18,7 +18,7 @@
 
 /* Subtle grid pattern */
 .page-hero-bg::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background-image:
@@ -28,10 +28,14 @@
 }
 
 .page-hero-bg::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 60% 50%, rgba(230, 168, 23, 0.06) 0%, transparent 70%);
+  background: radial-gradient(
+    ellipse 80% 60% at 60% 50%,
+    rgba(230, 168, 23, 0.06) 0%,
+    transparent 70%
+  );
 }
 
 .page-hero-content {
@@ -55,7 +59,7 @@
 }
 
 .page-hero-label::before {
-  content: '';
+  content: "";
   width: 35px;
   height: 1px;
   background: var(--gold);
@@ -94,7 +98,7 @@
 }
 
 .page-hero-corner::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 20px;
   left: 20px;
@@ -198,7 +202,11 @@
 .panel-visual-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(13, 17, 23, 0.92) 35%, rgba(13, 17, 23, 0.3) 100%);
+  background: linear-gradient(
+    to right,
+    rgba(13, 17, 23, 0.92) 35%,
+    rgba(13, 17, 23, 0.3) 100%
+  );
   z-index: 1;
 }
 
@@ -263,7 +271,9 @@
   color: var(--gold);
   border-bottom: 1px solid rgba(230, 168, 23, 0.3);
   padding-bottom: 6px;
-  transition: gap 0.3s, border-color 0.3s;
+  transition:
+    gap 0.3s,
+    border-color 0.3s;
   text-decoration: none;
   width: 30rem;
 }
@@ -276,45 +286,6 @@
 .panel-cta svg {
   width: 14px;
   height: 14px;
-}
-
-/* Stats row inside panel visual */
-.panel-stats {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  display: flex;
-  background: rgba(13, 17, 23, 0.85);
-  border-top: 1px solid var(--border);
-  backdrop-filter: blur(8px);
-}
-
-.panel-stat {
-  flex: 1;
-  padding: 22px 32px;
-  border-right: 1px solid var(--border);
-}
-
-.panel-stat:last-child {
-  border-right: none;
-}
-
-.panel-stat-num {
-  font-family: var(--serif);
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--gold);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.panel-stat-label {
-  font-size: 0.62rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--fg2);
 }
 
 /* ── PANEL BODY — layout blocks ── */
@@ -463,7 +434,7 @@
 
 /* Connecting line */
 .process-steps::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 28px;
   left: calc(10% + 20px);
@@ -510,95 +481,6 @@
   line-height: 1.7;
 }
 
-/* ── GALLERY MOSAIC ── */
-.mosaic-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 200px 200px;
-  gap: 8px;
-  margin-top: 52px;
-}
-
-.mosaic-item {
-  overflow: hidden;
-  position: relative;
-}
-
-.mosaic-item:nth-child(1) {
-  grid-column: span 5;
-  grid-row: span 2;
-}
-
-.mosaic-item:nth-child(2) {
-  grid-column: span 4;
-}
-
-.mosaic-item:nth-child(3) {
-  grid-column: span 3;
-}
-
-.mosaic-item:nth-child(4) {
-  grid-column: span 3;
-}
-
-.mosaic-item:nth-child(5) {
-  grid-column: span 4;
-}
-
-.mosaic-placeholder {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.mosaic-placeholder::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, transparent 40%, rgba(230, 168, 23, 0.05) 100%);
-}
-
-/* Color variants per service */
-.color-events {
-  background: linear-gradient(135deg, #111f30 0%, #0d1117 100%);
-}
-
-.color-activation {
-  background: linear-gradient(135deg, #1a1a0d 0%, #0d1117 100%);
-}
-
-.color-wedding {
-  background: linear-gradient(135deg, #1f1117 0%, #0d1117 100%);
-}
-
-.color-branding {
-  background: linear-gradient(135deg, #111830 0%, #0d1117 100%);
-}
-
-/* Mosaic label overlay */
-.mosaic-label {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  padding: 16px;
-  background: linear-gradient(to top, rgba(13, 17, 23, 0.7) 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.mosaic-item:hover .mosaic-label {
-  opacity: 1;
-}
-
-.mosaic-label span {
-  font-size: 0.62rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
 /* ── TESTIMONIAL PULL-QUOTE ── */
 .pull-quote {
   text-align: center;
@@ -611,7 +493,6 @@
 }
 
 .pull-quote::before {
-
   font-family: var(--serif);
   font-size: 18rem;
   color: var(--gold);
@@ -678,47 +559,30 @@
   flex-wrap: wrap;
 }
 
-.cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  color: #f4b400;
-  font-size: 14px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  position: relative;
-  padding-bottom: 12px;
-}
-
-.cta-btn::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 255px;
-  /* Increase this value for longer line */
-  height: 1px;
-  background: #f4b400;
-}
-
 /* ── PANEL VISUAL BACKGROUNDS (CSS-drawn) ── */
 /* Events */
 .bg-events {
   background: #0a0f18;
   background-image:
     radial-gradient(ellipse 70% 80% at 80% 50%, #1a2540 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 85% 20%, rgba(230, 168, 23, 0.06) 0%, transparent 60%);
+    radial-gradient(
+      ellipse 40% 40% at 85% 20%,
+      rgba(230, 168, 23, 0.06) 0%,
+      transparent 60%
+    );
 }
 
 .bg-events::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background-image: repeating-linear-gradient(-45deg,
-      transparent,
-      transparent 40px,
-      rgba(230, 168, 23, 0.015) 40px,
-      rgba(230, 168, 23, 0.015) 41px);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 40px,
+    rgba(230, 168, 23, 0.015) 40px,
+    rgba(230, 168, 23, 0.015) 41px
+  );
 }
 
 /* Activation */
@@ -726,15 +590,22 @@
   background: #0a100a;
   background-image:
     radial-gradient(ellipse 70% 80% at 80% 50%, #1a2e18 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 80% 20%, rgba(230, 168, 23, 0.06) 0%, transparent 60%);
+    radial-gradient(
+      ellipse 40% 40% at 80% 20%,
+      rgba(230, 168, 23, 0.06) 0%,
+      transparent 60%
+    );
 }
 
 .bg-activation::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background-image:
-    radial-gradient(circle 1px at center, rgba(230, 168, 23, 0.2) 0%, transparent 100%);
+  background-image: radial-gradient(
+    circle 1px at center,
+    rgba(230, 168, 23, 0.2) 0%,
+    transparent 100%
+  );
   background-size: 60px 60px;
 }
 
@@ -743,7 +614,11 @@
   background: #110a0f;
   background-image:
     radial-gradient(ellipse 70% 80% at 80% 50%, #2a1520 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 80% 20%, rgba(230, 168, 23, 0.06) 0%, transparent 60%);
+    radial-gradient(
+      ellipse 40% 40% at 80% 20%,
+      rgba(230, 168, 23, 0.06) 0%,
+      transparent 60%
+    );
 }
 
 /* Branding */
@@ -751,11 +626,15 @@
   background: #090a14;
   background-image:
     radial-gradient(ellipse 70% 80% at 80% 50%, #101828 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 80% 20%, rgba(230, 168, 23, 0.06) 0%, transparent 60%);
+    radial-gradient(
+      ellipse 40% 40% at 80% 20%,
+      rgba(230, 168, 23, 0.06) 0%,
+      transparent 60%
+    );
 }
 
 .bg-branding::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background-image:
@@ -787,13 +666,6 @@
   border-radius: 14px;
 }
 
-.panel-visual-accent-2 {
-  width: 160px;
-  height: 160px;
-  top: 100px;
-  right: 100px;
-}
-
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   .pillars-grid {
@@ -816,7 +688,6 @@
 
 /* ── MOBILE PANEL VISUAL FIX ── */
 @media (max-width: 768px) {
-
   /* Stack layout vertically: text on top, image below */
   .panel-visual {
     height: auto;
@@ -836,7 +707,7 @@
 
   /* Dark overlay only behind the text block */
   .panel-visual::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -917,14 +788,6 @@
     padding: 100px 24px 80x;
   }
 
-  .panel-stats {
-    flex-wrap: wrap;
-  }
-
-  .panel-stat {
-    min-width: 50%;
-  }
-
   .panel-intro-grid {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -937,17 +800,6 @@
   .process-steps {
     grid-template-columns: 1fr 1fr;
     gap: 32px;
-  }
-
-  .mosaic-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-  }
-
-  .mosaic-item {
-    grid-column: span 1 !important;
-    grid-row: span 1 !important;
-    aspect-ratio: 16/9;
   }
 
   .panel-section {
@@ -974,14 +826,5 @@
 @media (max-width: 480px) {
   .process-steps {
     grid-template-columns: 1fr;
-  }
-
-  .panel-stats {
-    flex-direction: column;
-  }
-
-  .panel-stat {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
   }
 }
